@@ -183,7 +183,7 @@ export default function EditProduct() {
         })
       },
     )
-  }, [fetch, setValue])
+  }, [])
   const handleCategoryChange = async (event) => {
     setCategory(event.target.value)
     const data = await AxiosClient.get(`/category/${event.target.value}`)
