@@ -1,7 +1,7 @@
 version: "3.1"
 
 services:
-  backend:
+  api:
     container_name: order-bot-backend
     image: nodirshox/order_bot_backend:latest
     restart: always
@@ -24,10 +24,10 @@ services:
       - "5000:3000"
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.backend.rule=Host(`${BACKEND_DOMAIN}`)"
-      - "traefik.http.routers.backend.entrypoints=websecure"
-      - "traefik.http.routers.backend.tls.certresolver=letsencrypt"
-      - "traefik.http.services.backend.loadbalancer.server.port=3000"
+      - "traefik.http.routers.api.rule=Host(`${BACKEND_DOMAIN}`)"
+      - "traefik.http.routers.api.entrypoints=websecure"
+      - "traefik.http.routers.api.tls.certresolver=letsencrypt"
+      - "traefik.http.services.api.loadbalancer.server.port=3000"
       - "traefik.docker.network=ta_default"
     networks:
      - common_network
