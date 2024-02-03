@@ -49,7 +49,7 @@ bot.use(async (ctx, next) => {
 commands(bot);
 listeners(bot);
 bot.catch((err, ctx) => {
-  console.log(JSON.stringify(err, null, 2));
+  logger.error(JSON.stringify(err, null, 2));
   const userId = ctx.from?.id;
   const chatId = ctx.chat?.id;
   const updateType = ctx.updateType;
