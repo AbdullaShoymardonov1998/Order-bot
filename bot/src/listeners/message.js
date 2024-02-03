@@ -1,7 +1,7 @@
 const { WORD, STATIC, KEYBOARD_STATE } = require("../messages/dictionary");
 const { config } =require("../config");
 const axios = require("axios");
-
+const { logger } = require("../config/logger");
 const category = require("../keyboards/category");
 const language = require("../keyboards/language");
 const cart = require("../keyboards/cart");
