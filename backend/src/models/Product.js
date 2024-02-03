@@ -63,8 +63,8 @@ const ProductSchema = new mongoose.Schema(
 );
 
 ProductSchema.virtual("picture.url").get(function () {
-  // return this.picture.uuid ? config.cdnURL + this.picture.uuid : null;
-  return "https://storage.kun.uz/source/10/clGSFA_B8zWBPnaEAT7b_8KehNs3N5mc.jpg";
+  return this.picture.uuid ? config.cdnURL + this.picture.uuid : null;
+  // return "https://storage.kun.uz/source/10/clGSFA_B8zWBPnaEAT7b_8KehNs3N5mc.jpg";
 });
 
 exports.Product = mongoose.model("Product", ProductSchema);
