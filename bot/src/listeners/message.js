@@ -18,8 +18,6 @@ exports.message = async (ctx) => {
         return cart(ctx, STATIC.SEND_MESSAGE);
     } else if (msg == WORD.UZ.MENU_KEYBOARD.SETTINGS || msg == WORD.RU.MENU_KEYBOARD.SETTINGS) {
         return language(ctx);
-    } else if (msg[0] == "/" && msg[1] == "x" && msg[2] == "_") {
-        console.log("dude");
     } else if (msg == WORD.UZ.CANCEL_ADD_LOCATION || msg == WORD.RU.CANCEL_ADD_LOCATION) {
         return cancelAddLocation(ctx);
     } else {
