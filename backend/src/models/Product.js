@@ -7,14 +7,12 @@ const ProductSchema = new mongoose.Schema(
   {
     title: LanguageRequired,
     description: LanguageDefault,
-    pictures: [
-      {
-        uuid: {
-          type: String,
-          default: null,
-        },
+    picture: {
+      uuid: {
+        type: String,
+        default: null,
       },
-    ],
+    },
     parent: {
       type: String,
       ref: "Category",
