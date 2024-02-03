@@ -10,8 +10,13 @@ const saveLocation = require("../keyboards/save_location");
 const confirmOrder = require("../keyboards/confirm_order");
 
 exports.message = async (ctx) => {
-    logger.error(JSON.stringify(ctx, null, 2));
+    //logger.error(JSON.stringify(ctx, null, 2));
+    if (ctx.update.message?.left_chat_participant || ctx.update.message?.new_chat_participant) {
+      return
+    }
+
     const msg = ctx.message.text;
+
 
     if (msg == WORD.UZ.MENU_KEYBOARD.ORDER || msg == WORD.RU.MENU_KEYBOARD.ORDER) {
         return category(ctx, STATIC.SEND_MESSAGE, 1, null);
