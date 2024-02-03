@@ -1,5 +1,6 @@
 const axios = require("axios");
 const menuKeyboard = require("../keyboards/menu");
+const { logger } = require("../config/logger");
 const { WORD, STATIC } = require("../messages/dictionary");
 const { config } = require("../config");
 
