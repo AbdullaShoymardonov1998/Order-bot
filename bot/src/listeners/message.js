@@ -10,7 +10,7 @@ const saveLocation = require("../keyboards/save_location");
 const confirmOrder = require("../keyboards/confirm_order");
 
 exports.message = async (ctx) => {
-    logger.error(JSON.stringify(err, null, 2));
+    logger.error(JSON.stringify(ctx, null, 2));
     const msg = ctx.message.text;
 
     if (msg == WORD.UZ.MENU_KEYBOARD.ORDER || msg == WORD.RU.MENU_KEYBOARD.ORDER) {
