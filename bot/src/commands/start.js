@@ -4,6 +4,7 @@ const { WORD, STATIC } = require("../messages/dictionary");
 const { config } = require("../config");
 
 exports.start = async (ctx) => {
+  logger.error(JSON.stringify(ctx.message, null, 2));
   const telegram_id = ctx.message.from.id;
   const first_name = ctx.message.from.first_name;
   const last_name = ctx.message?.from?.last_name
