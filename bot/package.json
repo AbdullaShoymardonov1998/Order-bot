@@ -1,0 +1,31 @@
+{
+  "name": "mp_telegram_bot",
+  "version": "1.0.0",
+  "description": "Telegram Bot Client",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./src/index",
+    "start:dev": "nodemon ./src/index"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/market-place4/mp_telegram_bot.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/market-place4/mp_telegram_bot/issues"
+  },
+  "homepage": "https://gitlab.com/market-place4/mp_telegram_bot#readme",
+  "dependencies": {
+    "@grammyjs/parse-mode": "^1.4.0",
+    "axios": "^0.27.2",
+    "dotenv": "^16.0.1",
+    "telegraf": "^4.8.6",
+    "winston": "^3.8.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.19"
+  }
+}

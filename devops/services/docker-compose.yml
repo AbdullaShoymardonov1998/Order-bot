@@ -1,0 +1,41 @@
+version: '3.7'
+
+services:
+  mp_order_service:
+    container_name: mp_order_service
+    image: nodirshox/mp_order_service:v_1
+    restart: always
+    environment: 
+      - HTTP_PORT=3000
+      - MONGO_PORT=${ORDER_SERVICE_MONGO_PORT}
+      - MONGO_HOST=${ORDER_SERVICE_MONGO_HOST}
+      - MONGO_USER=${ORDER_SERVICE_MONGO_USER}
+      - MONGO_PASSWORD=${ORDER_SERVICE_MONGO_PASSWORD}
+      - MONGO_DATABASE=${ORDER_SERVICE_MONGO_DATABASE}
+      - CDN_URL=${ORDER_SERVICE_CDN_URL}
+      - MINIO_BUCKET=${ORDER_SERVICE_MINIO_BUCKET}
+      - MINIO_HOST=${ORDER_SERVICE_MINIO_HOST}
+      - MINIO_PORT=${ORDER_SERVICE_MINIO_PORT}
+      - MINIO_ACCESS_KEY=${ORDER_SERVICE_MINIO_ACCESS_KEY}
+      - MINIO_SECRET_KEY=${ORDER_SERVICE_MINIO_SECRET_KEY}
+      - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN}
+      - TELEGRAM_CHANNEL_ID=${ORDER_SERVICE_TELEGRAM_CHANNEL_ID}
+    ports:
+      - 8002:3000
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.mp_order_service.rule=Host(`${API_DOMAIN}`)"
+      - "traefik.http.routers.mp_order_service.entrypoints=websecure"
+      - "traefik.http.routers.mp_order_service.tls.certresolver=letsencrypt"
+      - "traefik.http.services.mp_order_service.loadbalancer.server.port=3000"
+      - "traefik.docker.network=mp_default"
+  mp_telegram_bot:
+    container_name: mp_telegram_bot
+    image: nodirshox/mp_telegram_bot:v_1
+    restart: always
+    environment: 
+      - HTTP_PORT=3000
+      - BOT_TOKEN=${TELEGRAM_BOT_TOKEN}
+      - API_URL=${TELEGRAM_BOT_API_URL}
+    ports:
+      - 8003:3000
