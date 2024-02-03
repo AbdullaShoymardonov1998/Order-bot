@@ -27,6 +27,14 @@ jobs:
           push: true
           tags: ${{ secrets.BACKEND_REPOSITORY }}
 
+      - name: Build and Push Docker Image
+        uses: docker/build-push-action@v2
+        with:
+          context: ./bot
+          file: ./bot/Dockerfile
+          push: true
+          tags: ${{ secrets.BOT_REPOSITORY }}
+
       - name: Deploy via SSH
         uses: appleboy/ssh-action@master
         with:
@@ -38,5 +46,7 @@ jobs:
             git pull
             docker compose down
             docker rmi ${{ secrets.BACKEND_REPOSITORY }}
+            docker rmi ${{ secrets.BOT_REPOSITORY }}
             docker pull ${{ secrets.BACKEND_REPOSITORY }}
+            docker pull ${{ secrets.BOT_REPOSITORY }}
             docker compose up -d

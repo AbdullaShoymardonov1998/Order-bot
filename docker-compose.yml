@@ -31,6 +31,16 @@ services:
       - "traefik.docker.network=ta_default"
     networks:
      - common_network
+  bot:
+    container_name: order-bot-telegram
+    image: nodirshox/order_bot_telegram:latest
+    restart: always
+    environment:
+      - BOT_TOKEN=${BOT_TOKEN}
+      - API_URL=${API_URL}
+      - GROUP_ID=${GROUP_ID}
+    ports:
+      - "5001:3000"
 networks:
  common_network:
   external: true
