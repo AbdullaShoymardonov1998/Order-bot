@@ -26,15 +26,14 @@ exports.start = async (ctx) => {
       language: STATIC.DEFAULT_LANGUAGE,
     },
   });
-  const message = `Assalomu Alaykum, ${data.data.first_name} \n\nIjodimizga qiziqish bildirganingiz uchun tashakkur!\nHozircha siz uchun futbolka, xudi, svitshot, kepka va stikerlar mavjud. \n
-  Yaqin orada tanlovni kengaytiramiz. \n\n
-Agar bu shartlar sizni qoniqtirsa, “🔥 Mahsulotlar” bo'limiga o'tish orqali buyurtma berishni boshlashingiz mumkin.\n`;
+  const message = `Assalomu Alaykum, ${data.data.first_name} \n\nHaoomas tovarlariga qiziqish bildirganingiz uchun tashakkur!\n\n
+Buyurtmalar berish va tovarlar bilan yaqindan tanishib chiqish uchun, “➡️ Buyurtma berish” bo'limiga o'ting.\n`;
   switch (status) {
     case 409:
-      ctx.reply(message, menuKeyboard(data.data.language));
+      ctx.reply(message, menuKeyboard(STATIC.DEFAULT_LANGUAGE));
       break;
     case 200:
-      ctx.reply(message, menuKeyboard(STATIC.DEFAULT_LANGUAGE));
+      ctx.reply(message, menuKeyboard(data.data.language));
       break;
     default:
       throw {
