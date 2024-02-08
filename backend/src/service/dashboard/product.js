@@ -6,8 +6,7 @@ const fileUpload = require("../../util/minio");
 exports.productService = {
   create: async (product, file) => {
     const parent = await categoryStorage.get(product.parent);
-    const subParent = await categoryStorage.get(parent.parent);
-    if (subParent.parent == null) {
+    if (parent.parent == null) {
       throw {
         statusCode: 400,
         message: `Category id=${product.parent} is not subcategory`,
