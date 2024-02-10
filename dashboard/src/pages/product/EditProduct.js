@@ -1,48 +1,45 @@
-import * as React from 'react'
+import { yupResolver } from '@hookform/resolvers/yup'
+import AttachFileIcon from '@mui/icons-material/AttachFile'
+import ContentCopyIcon from '@mui/icons-material/ContentCopy'
+import HomeIcon from '@mui/icons-material/Home'
 import {
-  Paper,
-  Grid,
-  TextField,
-  Button,
-  Typography,
-  Select,
-  MenuItem,
-  InputLabel,
-  IconButton,
-  FormControl,
   Breadcrumbs,
+  Button,
   CardMedia,
   Checkbox,
-  FormGroup,
+  FormControl,
   FormControlLabel,
+  FormGroup,
+  Grid,
+  IconButton,
+  InputLabel,
   Link,
+  MenuItem,
+  Paper,
+  Select,
+  TextField,
+  Typography,
 } from '@mui/material'
-import PageTitle from '../../components/title/PageTitle'
+import * as React from 'react'
+import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { yupResolver } from '@hookform/resolvers/yup'
-import * as Yup from 'yup'
-import { useState, useEffect } from 'react'
-import AxiosClient from '../../utils/axios'
 import {
+  Link as ReactRouterLink,
   useNavigate,
   useParams,
-  Link as ReactRouterLink,
 } from 'react-router-dom'
+import * as Yup from 'yup'
 import LoadingBar from '../../components/loading/LoadingBar'
-import ErrorMessage from '../../utils/errorMessage'
 import HttpErrorNotification from '../../components/notifications/HttpErrorNotification'
-import AttachFileIcon from '@mui/icons-material/AttachFile'
-import HomeIcon from '@mui/icons-material/Home'
-import ContentCopyIcon from '@mui/icons-material/ContentCopy'
-import { UNITS, ORDER_DIFFERENCE } from '../../utils/const'
+import PageTitle from '../../components/title/PageTitle'
+import AxiosClient from '../../utils/axios'
+import ErrorMessage from '../../utils/errorMessage'
 
 export default function EditProduct() {
   const navigate = useNavigate()
   const params = useParams()
   const [sendRequest, setSendRequest] = useState(false)
   const [alert, setAlert] = useState({ state: false, message: '' })
-  const [unit, setUnit] = useState('QUANTITY')
-  const [orderDifference, setOrderDifference] = useState(1)
   const [categories, setCategories] = useState([])
   const [category, setCategory] = useState('')
   const [subCategories, setSubCategories] = useState([])
@@ -51,9 +48,6 @@ export default function EditProduct() {
   const [fileName, setFileName] = useState('')
   const [oldPictureUrl, setOldPictureUrl] = useState(null)
   const [isActive, setIsActive] = useState(false)
-  const handleUnitChange = (event) => setUnit(event.target.value)
-  const handleDifferenceChange = (event) =>
-    setOrderDifference(event.target.value)
   const handleIsActive = (event) => setIsActive(event.target.checked)
 
   const validationSchema = Yup.object().shape({
@@ -97,10 +91,8 @@ export default function EditProduct() {
       formData.append('description[RU]', body.descriptionRU || '')
       formData.append('price', body.price)
       formData.append('parent', subCategory)
-      formData.append('unit', unit)
       formData.append('min_order', body.minimumOrder)
       formData.append('max_order', body.maximumOrder)
-      formData.append('order_difference', orderDifference)
       formData.append('is_active', isActive)
       formData.append('image', file || null)
 
@@ -164,8 +156,6 @@ export default function EditProduct() {
         setValue('price', data.product.price)
         setValue('minimumOrder', data.product.min_order)
         setValue('maximumOrder', data.product.max_order)
-        setOrderDifference(data.product.order_difference)
-        setUnit(data.product.unit)
         setCategory(data.product.parent.parent)
         setSubCategory(data.product.parent._id)
         setOldPictureUrl(data.product.picture.url)
@@ -322,7 +312,7 @@ export default function EditProduct() {
           </Typography>
         </Grid>
 
-        <Grid item xs={4}>
+        <Grid item xs={3}>
           <TextField
             required
             id="minimumOrder"
@@ -340,7 +330,7 @@ export default function EditProduct() {
           </Typography>
         </Grid>
 
-        <Grid item xs={4}>
+        <Grid item xs={3}>
           <TextField
             required
             id="maximumOrder"
@@ -358,7 +348,7 @@ export default function EditProduct() {
           </Typography>
         </Grid>
 
-        <Grid item xs={4}>
+        <Grid item xs={3}>
           <TextField
             required
             id="price"
@@ -376,47 +366,7 @@ export default function EditProduct() {
           </Typography>
         </Grid>
 
-        <Grid item xs={4}>
-          <InputLabel id="unit-label">O'lchov birligi</InputLabel>
-          <Select
-            labelId="unit-label"
-            id="unit"
-            value={unit}
-            label="O'lchov birligi"
-            onChange={handleUnitChange}
-          >
-            {UNITS.map((category, index) => {
-              return (
-                <MenuItem key={index} value={category.value}>
-                  {category.name}
-                </MenuItem>
-              )
-            })}
-          </Select>
-        </Grid>
-
-        <Grid item xs={4}>
-          <InputLabel id="orderDifference-label">
-            Buyurtmalar qilish farqi
-          </InputLabel>
-          <Select
-            labelId="unit-label"
-            id="orderDifference"
-            value={orderDifference}
-            label="Buyurtmalar qilish farqi"
-            onChange={handleDifferenceChange}
-          >
-            {ORDER_DIFFERENCE.map((value, index) => {
-              return (
-                <MenuItem key={index} value={value.value}>
-                  {value.name}
-                </MenuItem>
-              )
-            })}
-          </Select>
-        </Grid>
-
-        <Grid item xs={4}>
+        <Grid item xs={3}>
           <InputLabel>Rasm</InputLabel>
           <IconButton color="primary" component="label" size="small">
             <input
@@ -447,7 +397,11 @@ export default function EditProduct() {
             />
           </FormGroup>
         </Grid>
-        <Grid item xs={12}>
+        <Grid
+          item
+          xs={12}
+          style={{ display: 'flex', justifyContent: 'flex-end' }}
+        >
           {alert.state ? (
             <></>
           ) : (

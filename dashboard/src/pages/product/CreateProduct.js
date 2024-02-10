@@ -1,40 +1,37 @@
-import * as React from 'react'
-import {
-  Paper,
-  Grid,
-  TextField,
-  Button,
-  Typography,
-  Select,
-  MenuItem,
-  InputLabel,
-  IconButton,
-  FormControl,
-  Breadcrumbs,
-  Link,
-  CardMedia,
-} from '@mui/material'
-import PageTitle from '../../components/title/PageTitle'
-import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
-import * as Yup from 'yup'
-import { useState, useEffect } from 'react'
-import AxiosClient from '../../utils/axios'
-import { useNavigate, Link as ReactRouterLink } from 'react-router-dom'
-import LoadingBar from '../../components/loading/LoadingBar'
-import ErrorMessage from '../../utils/errorMessage'
-import HttpErrorNotification from '../../components/notifications/HttpErrorNotification'
 import AttachFileIcon from '@mui/icons-material/AttachFile'
-import HomeIcon from '@mui/icons-material/Home'
 import ContentCopyIcon from '@mui/icons-material/ContentCopy'
-import { UNITS, ORDER_DIFFERENCE } from '../../utils/const'
+import HomeIcon from '@mui/icons-material/Home'
+import {
+  Breadcrumbs,
+  Button,
+  CardMedia,
+  FormControl,
+  Grid,
+  IconButton,
+  InputLabel,
+  Link,
+  MenuItem,
+  Paper,
+  Select,
+  TextField,
+  Typography,
+} from '@mui/material'
+import * as React from 'react'
+import { useEffect, useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { Link as ReactRouterLink, useNavigate } from 'react-router-dom'
+import * as Yup from 'yup'
+import LoadingBar from '../../components/loading/LoadingBar'
+import HttpErrorNotification from '../../components/notifications/HttpErrorNotification'
+import PageTitle from '../../components/title/PageTitle'
+import AxiosClient from '../../utils/axios'
+import ErrorMessage from '../../utils/errorMessage'
 
 export default function CreateProduct() {
   const navigate = useNavigate()
   const [sendRequest, setSendRequest] = useState(false)
   const [alert, setAlert] = useState({ state: false, message: '' })
-  const [unit, setUnit] = useState('QUANTITY')
-  const [orderDifference, setOrderDifference] = useState(1)
   const [categories, setCategories] = useState([])
   const [category, setCategory] = useState('')
   const [subCategories, setSubCategories] = useState([])
@@ -84,10 +81,8 @@ export default function CreateProduct() {
       formData.append('description[RU]', body.descriptionRU || '')
       formData.append('price', body.price)
       formData.append('parent', subCategory)
-      formData.append('unit', unit)
       formData.append('min_order', body.minimumOrder)
       formData.append('max_order', body.maximumOrder)
-      formData.append('order_difference', orderDifference)
       formData.append('is_active', true)
       formData.append('image', file || null)
 
@@ -106,10 +101,6 @@ export default function CreateProduct() {
       setSendRequest(false)
     }
   }
-
-  const handleUnitChange = (event) => setUnit(event.target.value)
-  const handleDifferenceChange = (event) =>
-    setOrderDifference(event.target.value)
 
   const fetch = async () => {
     let categories = []
@@ -291,7 +282,7 @@ export default function CreateProduct() {
           </Typography>
         </Grid>
 
-        <Grid item xs={4}>
+        <Grid item xs={3}>
           <TextField
             required
             id="minimumOrder"
@@ -309,7 +300,7 @@ export default function CreateProduct() {
           </Typography>
         </Grid>
 
-        <Grid item xs={4}>
+        <Grid item xs={3}>
           <TextField
             required
             id="maximumOrder"
@@ -327,7 +318,7 @@ export default function CreateProduct() {
           </Typography>
         </Grid>
 
-        <Grid item xs={4}>
+        <Grid item xs={3}>
           <TextField
             required
             id="price"
@@ -345,47 +336,7 @@ export default function CreateProduct() {
           </Typography>
         </Grid>
 
-        <Grid item xs={4}>
-          <InputLabel id="unit-label">O'lchov birligi</InputLabel>
-          <Select
-            labelId="unit-label"
-            id="unit"
-            value={unit}
-            label="O'lchov birligi"
-            onChange={handleUnitChange}
-          >
-            {UNITS.map((category, index) => {
-              return (
-                <MenuItem key={index} value={category.value}>
-                  {category.name}
-                </MenuItem>
-              )
-            })}
-          </Select>
-        </Grid>
-
-        <Grid item xs={4}>
-          <InputLabel id="orderDifference-label">
-            Buyurtmalar qilish farqi
-          </InputLabel>
-          <Select
-            labelId="unit-label"
-            id="orderDifference"
-            value={orderDifference}
-            label="Buyurtmalar qilish farqi"
-            onChange={handleDifferenceChange}
-          >
-            {ORDER_DIFFERENCE.map((value, index) => {
-              return (
-                <MenuItem key={index} value={value.value}>
-                  {value.name}
-                </MenuItem>
-              )
-            })}
-          </Select>
-        </Grid>
-
-        <Grid item xs={4}>
+        <Grid item xs={3}>
           <InputLabel>Rasm</InputLabel>
           <IconButton color="primary" component="label" size="small">
             <input
@@ -403,7 +354,11 @@ export default function CreateProduct() {
           )}
         </Grid>
 
-        <Grid item xs={12}>
+        <Grid
+          item
+          xs={12}
+          style={{ display: 'flex', justifyContent: 'flex-end' }}
+        >
           {alert.state ? (
             <></>
           ) : (
@@ -416,6 +371,7 @@ export default function CreateProduct() {
             </Button>
           )}
         </Grid>
+
         <Grid item xs={12}>
           {alert.state ? (
             <HttpErrorNotification message={alert.message} />
