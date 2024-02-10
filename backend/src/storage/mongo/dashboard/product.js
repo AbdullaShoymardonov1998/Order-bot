@@ -65,10 +65,8 @@ exports.productStorage = {
         },
         parent: body.parent,
         price: body.price,
-        unit: body.unit,
         min_order: body.min_order,
         max_order: body.max_order,
-        order_difference: body.order_difference,
         is_active: body.is_active,
         updated_at: new Date(),
       }

@@ -1,8 +1,24 @@
 const mongoose = require("mongoose");
 const { LanguageRequired, LanguageDefault } = require("./Language");
-const { UNIT_QUANTITY, UNIT_MASS } = require("../states");
 const { config } = require("../config");
 
+const ColorSchema = new mongoose.Schema({
+  name: {
+    type: String,
+  },
+  picture: {
+    uuid: {
+      type: String,
+      default: null,
+    },
+  },
+});
+
+const SizeSchema = new mongoose.Schema({
+  name: {
+    type: String,
+  },
+});
 const ProductSchema = new mongoose.Schema(
   {
     title: LanguageRequired,
@@ -18,24 +34,21 @@ const ProductSchema = new mongoose.Schema(
       ref: "Category",
       required: true,
     },
+    thumbnail: {
+      type: String,
+      ref: "Picture",
+    },
     price: {
       type: Number,
       default: 0,
     },
-    unit: {
-      type: String,
-      enum: [UNIT_QUANTITY, UNIT_MASS],
-      required: true,
-    },
+    colors: [ColorSchema],
+    sizes: [SizeSchema],
     min_order: {
       type: Number,
       default: 1,
     },
     max_order: {
-      type: Number,
-      default: 1,
-    },
-    order_difference: {
       type: Number,
       default: 1,
     },
@@ -62,7 +75,6 @@ const ProductSchema = new mongoose.Schema(
 
 ProductSchema.virtual("picture.url").get(function () {
   return this.picture.uuid ? config.cdnURL + this.picture.uuid : null;
-  // return "https://storage.kun.uz/source/10/clGSFA_B8zWBPnaEAT7b_8KehNs3N5mc.jpg";
 });
 
 exports.Product = mongoose.model("Product", ProductSchema);

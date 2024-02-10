@@ -11,10 +11,6 @@ exports.USER_DISPATCHER = "DISPATCHER";
 exports.USER_DELIVER_PERSON = "DELIVER_PERSON";
 exports.TELEGRAM_USER = "TELEGRAM_USER";
 
-// Product quantity types
-exports.UNIT_QUANTITY = "QUANTITY";
-exports.UNIT_MASS = "MASS";
-
 // Keyboard state
 exports.DEFAULT_STATE = "DEFAULT";
 exports.ADD_LOCATION = "ADD_LOCATION";

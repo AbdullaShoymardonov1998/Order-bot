@@ -1,6 +1,5 @@
 const { productStorage } = require("../../storage/mongo/dashboard/product");
 const { categoryStorage } = require("../../storage/mongo/dashboard/category");
-const { UNIT_QUANTITY } = require("../../states");
 const fileUpload = require("../../util/minio");
 
 exports.productService = {
@@ -13,12 +12,6 @@ exports.productService = {
       };
     }
 
-    if (product.unit === UNIT_QUANTITY && product.order_difference !== 1) {
-      throw {
-        statusCode: 400,
-        message: "order_difference should be integer",
-      };
-    }
     let picture = null;
     if (file) {
       picture = await fileUpload.upload(file);
@@ -38,13 +31,6 @@ exports.productService = {
       throw {
         statusCode: 400,
         message: `Category id=${body.parent} is not subcategory`,
-      };
-    }
-
-    if (body.unit === UNIT_QUANTITY && body.order_difference !== 1) {
-      throw {
-        statusCode: 400,
-        message: "order_difference should be integer",
       };
     }
 

@@ -1,7 +1,6 @@
 const { orderStorage } = require("../../storage/mongo/bot/order");
 const { userStorage } = require("../../storage/mongo/bot/user");
 const telegram = require("../../util/telegram");
-const { UNIT_QUANTITY, UNIT_MASS } = require("../../states");
 
 exports.orderService = {
   create: async (request) => {
@@ -33,11 +32,6 @@ exports.orderService = {
       productsInfo += `\n<b>${index + 1}.${
         cart.product_id.title.UZ
       }</b>\n ✨ <i>${cart.product_id.description.UZ} ➖ ${cart.quantity} </i>`;
-      if (cart.product_id.unit == UNIT_QUANTITY) {
-        productsInfo += " ta \n";
-      } else if (cart.product_id.unit == UNIT_MASS) {
-        productsInfo += " kg \n";
-      }
     });
 
     request.products = products;

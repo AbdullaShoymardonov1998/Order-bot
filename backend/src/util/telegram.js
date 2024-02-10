@@ -13,7 +13,6 @@ const telegram = {
           parse_mode: "HTML",
         }
       );
-      console.log(response);
     } catch (error) {
       logger.error(
         `Sending telegram notification: ${error.message}, ${error.stack}`

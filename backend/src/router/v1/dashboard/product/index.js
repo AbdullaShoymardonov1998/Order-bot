@@ -10,6 +10,7 @@ const hasAccess = require("../middleware");
 const multer = require("multer");
 const upload = multer({ dest: "uploads/" });
 
+// Create a new product
 router.post(
   "/",
   hasAccess,
@@ -17,10 +18,15 @@ router.post(
   joi.body(validator.create),
   async (req, res, next) => {
     try {
+      const productData = { ...req.body };
+      if (req.file) {
+        productData.image = req.file.path;
+      }
+      const product = await productService.create(productData);
       return res.json({
         status: STATUS_SUCCESS,
         message: "Product created successfully",
-        data: await productService.create(req.body, req.file),
+        data: product,
       });
     } catch (error) {
       next(error);
@@ -28,16 +34,18 @@ router.post(
   }
 );
 
+// Get all products with pagination
 router.get(
   "/",
   hasAccess,
   joi.query(validator.getAll),
   async (req, res, next) => {
     try {
+      const products = await productService.getAll(req.query.page);
       return res.json({
         status: STATUS_SUCCESS,
         message: "Products obtained successfully",
-        data: await productService.getAll(req.query.page),
+        data: products,
       });
     } catch (error) {
       next(error);
@@ -45,16 +53,18 @@ router.get(
   }
 );
 
+// Get a single product by ID
 router.get(
   "/:id",
   hasAccess,
   joi.params(validator.get),
   async (req, res, next) => {
     try {
+      const product = await productService.get(req.params.id);
       return res.json({
         status: STATUS_SUCCESS,
         message: "Product obtained successfully",
-        data: await productService.get(req.params.id),
+        data: product,
       });
     } catch (error) {
       next(error);
@@ -62,16 +72,18 @@ router.get(
   }
 );
 
+// Delete a product by ID
 router.delete(
   "/:id",
   hasAccess,
   joi.params(validator.delete),
   async (req, res, next) => {
     try {
+      await productService.delete(req.params.id);
       return res.json({
         status: STATUS_SUCCESS,
         message: "Product deleted successfully",
-        data: await productService.delete(req.params.id),
+        data: null, // Or provide some identifier if needed
       });
     } catch (error) {
       next(error);
@@ -79,17 +91,26 @@ router.delete(
   }
 );
 
+// Update a product by ID
 router.put(
   "/:id",
-  upload.single("image"),
+  upload.single("image"), // For handling the main image update
   hasAccess,
   joi.body(validator.update),
   async (req, res, next) => {
     try {
+      const updateData = { ...req.body };
+      if (req.file) {
+        updateData.image = req.file.path; // Adjust based on your file handling
+      }
+      const updatedProduct = await productService.update(
+        req.params.id,
+        updateData
+      );
       return res.json({
         status: STATUS_SUCCESS,
         message: "Product updated successfully",
-        data: await productService.update(req.params.id, req.body, req.file),
+        data: updatedProduct,
       });
     } catch (error) {
       next(error);

@@ -1,5 +1,15 @@
 const Joi = require("joi");
-const { UNIT_QUANTITY, UNIT_MASS } = require("../../../../states");
+
+const ColorSchema = Joi.object({
+  name: Joi.string().required(),
+  picture: Joi.object({
+    uuid: Joi.string().allow(null),
+  }),
+});
+
+const SizeSchema = Joi.object({
+  name: Joi.string().required(),
+});
 
 const create = Joi.object({
   title: {
@@ -13,21 +23,19 @@ const create = Joi.object({
   image: Joi.string().allow(null),
   parent: Joi.string().required(),
   price: Joi.number().integer().positive().required(),
-  unit: Joi.string().valid(UNIT_QUANTITY, UNIT_MASS).required(),
   min_order: Joi.number()
     .positive()
-    .multiple(Joi.ref("order_difference"))
     .required(),
   max_order: Joi.number()
     .positive()
-    .multiple(Joi.ref("order_difference"))
     .greater(Joi.ref("min_order"))
     .min(1)
     .required(),
-  order_difference: Joi.number().valid(0.2, 0.5, 1).required(),
   is_active: Joi.boolean().required(),
+  colors: Joi.array().items(ColorSchema),
+  sizes: Joi.array().items(SizeSchema),
+  thumbnail: Joi.string().allow(null), // Assuming thumbnail is just a string UUID reference
 });
-
 const getAll = Joi.object({
   page: Joi.number().integer().positive().required(),
 });
