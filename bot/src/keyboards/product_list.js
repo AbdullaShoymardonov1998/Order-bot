@@ -32,15 +32,14 @@ module.exports = async (ctx, page, parent) => {
 
 async function productListKeyboard(response, page, parent, language) {
   let categoryParent = null;
-  const inline_keyboard = []; // Renamed to more clearly represent its final use
+  const inline_keyboard = [];
 
-  const row = []; // Temporary array to hold buttons for products
+  const row = [];
   response.list.forEach((value, index) => {
     if (index < 6) {
-      // Display only the first 5 products
       let number = index + 1;
       if (page > 1) {
-        number += (page - 1) * 6; // Assuming STATIC.LIMIT is 5
+        number += (page - 1) * 6;
       }
       categoryParent = value.parent.parent;
 
@@ -55,7 +54,6 @@ async function productListKeyboard(response, page, parent, language) {
     }
   });
 
-  // Push the first row of product buttons
   if (row.length) inline_keyboard.push(row);
 
   // Navigation buttons
@@ -83,7 +81,6 @@ async function productListKeyboard(response, page, parent, language) {
     });
   }
 
-  // Only add the navigation row if it has buttons
   if (navigationRow.length) inline_keyboard.push(navigationRow);
   // Back button row
   const backRow = [
@@ -97,7 +94,6 @@ async function productListKeyboard(response, page, parent, language) {
     },
   ];
 
-  // Add the back button row to the keyboard
   inline_keyboard.push(backRow);
   return {
     reply_markup: {
