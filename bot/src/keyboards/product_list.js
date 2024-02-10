@@ -32,39 +32,37 @@ module.exports = async (ctx, page, parent) => {
 
 async function productListKeyboard(response, page, parent, language) {
   let categoryParent = null;
-  const products = response.list.map((value, index) => {
-    let number = index + 1;
-    if (page > 1) {
-      number += (page - 1) * STATIC.LIMIT;
-    }
-    categoryParent = value.parent.parent;
-    return [
-      {
-        text: `${number}. ${value.title[language]}`,
+  const inline_keyboard = []; // Renamed to more clearly represent its final use
+
+  const row = []; // Temporary array to hold buttons for products
+  response.list.forEach((value, index) => {
+    if (index < 6) {
+      // Display only the first 5 products
+      let number = index + 1;
+      if (page > 1) {
+        number += (page - 1) * 6; // Assuming STATIC.LIMIT is 5
+      }
+      categoryParent = value.parent.parent;
+
+      row.push({
+        text: `${number}`,
         callback_data: JSON.stringify({
           a: STATE.PRODUCT_INFO,
           p: value._id,
           q: 1,
         }),
-      },
-    ];
+      });
+    }
   });
 
-  products.push([
-    {
-      text: WORD[language].BACK,
-      callback_data: JSON.stringify({
-        a: STATE.CATEGORY,
-        p: categoryParent,
-        n: 1,
-      }),
-    },
-  ]);
+  // Push the first row of product buttons
+  if (row.length) inline_keyboard.push(row);
 
-  const navigation = [];
+  // Navigation buttons
+  const navigationRow = [];
 
   if (page != 1) {
-    navigation.push({
+    navigationRow.push({
       text: WORD.GENERAL.PREVIOUS,
       callback_data: JSON.stringify({
         a: STATE.PRODUCT,
@@ -75,7 +73,7 @@ async function productListKeyboard(response, page, parent, language) {
   }
 
   if (page < response.total_pages) {
-    navigation.push({
+    navigationRow.push({
       text: WORD.GENERAL.NEXT,
       callback_data: JSON.stringify({
         a: STATE.PRODUCT,
@@ -85,13 +83,25 @@ async function productListKeyboard(response, page, parent, language) {
     });
   }
 
-  if (response.total_pages != 1) {
-    products.push(navigation);
-  }
+  // Only add the navigation row if it has buttons
+  if (navigationRow.length) inline_keyboard.push(navigationRow);
+  // Back button row
+  const backRow = [
+    {
+      text: WORD[language].BACK,
+      callback_data: JSON.stringify({
+        a: STATE.CATEGORY,
+        p: categoryParent,
+        n: 1,
+      }),
+    },
+  ];
 
+  // Add the back button row to the keyboard
+  inline_keyboard.push(backRow);
   return {
     reply_markup: {
-      inline_keyboard: products,
+      inline_keyboard: inline_keyboard,
     },
   };
 }

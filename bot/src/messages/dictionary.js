@@ -20,7 +20,7 @@ const WORD = {
     SAVED: "✅ Saqlandi",
     KG: "kg",
     QUANTITY: "dona",
-    BACK: "⏪ Ortga",
+    BACK: "🔙 Ortga",
     SELECT_QUANTITY: "👇 Mahsulot miqdorini tanlang",
     ADD_TO_CART: "🛒 Savatchaga qo'shish",
     MINIMUM_ORDER: "Minimum buyurtma",
@@ -39,7 +39,7 @@ const WORD = {
     CONTINUE_CURRENT_LOCATION: "🚕 Ushbu manzilga yuborish",
     YOU_HAVE_EMPTY_CART:
       "❗️ Savatchangizda mahsulot yo'q. Iltimos buyurtma qilish uchun savatchangizga mahsulot qo'shing",
-    CANCEL_ADD_LOCATION: "⏪ Bekor qilish",
+    CANCEL_ADD_LOCATION: "🔙 Bekor qilish",
     LOCATION_EXAMPLE:
       "Quyidagi tartibda yozing:\nManzil, Aloqa uchun telefon raqam\n\n<b>Misol</b>: Jizzax shahri, Zargarlik mahallasi, Yoshlik ko'chasi, 1-xonadon, +998 90 123 4567",
     CONFIRM_ORDER: "Mahsulotlar ro'yhati",
@@ -83,7 +83,7 @@ const WORD = {
     CONTINUE_CURRENT_LOCATION: "🚕 Доставить на текущий адрес",
     YOU_HAVE_EMPTY_CART:
       "❗️ Ваша корзина пуста. Пожалуйста, добавьте товары для доставки",
-    CANCEL_ADD_LOCATION: "⏪ Отмена",
+    CANCEL_ADD_LOCATION: "🔙 Отмена",
     LOCATION_EXAMPLE:
       "Напишите как пример: \nАдрес, Контактный телефон\n\n<b>Пример</b>: город Джизак, Махалля Заргарлик, улица Йошлик, 1-квартира, +998 90 123 4567",
     CONFIRM_ORDER: "Список продуктов",
@@ -97,8 +97,8 @@ const WORD = {
     ERROR:
       "Botda xatolik yuz berdi.\n\n<b>Botni qayta ishga tushirish uchun 👉 /start buyrug'ini bosing</b>\n\nOшибкa в боте.\n\n <b>Нажмите 👉 /start, чтобы перезапустить бота.</b>",
     SELECT_LANGUAGE: "👇 Tilni tanlang - Выберите язык",
-    NEXT: "▶️ keyingi",
-    PREVIOUS: "◀️ oldingi",
+    NEXT: "👉🏻 keyingi",
+    PREVIOUS: "👈🏻 oldingi",
   },
 };
 
@@ -106,9 +106,7 @@ const STATIC = {
   DEFAULT_LANGUAGE: "UZ",
   LANGUAGE_UZ: "UZ",
   LANGUAGE_RU: "RU",
-  LIMIT: 5,
-  UNIT_QUANTITY: "QUANTITY",
-  UNIT_MASS: "MASS",
+  LIMIT: 6,
   SEND_MESSAGE: "SEND_MESSAGE",
   EDIT_MESSAGE: "EDIT_MESSAGE",
 };

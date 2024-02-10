@@ -20,18 +20,11 @@ module.exports = async (ctx, id, quantity) => {
   const product = data.data.product;
   const language = data.data.user.language;
 
-  let unit = "";
-  if (product.unit == STATIC.UNIT_MASS) {
-    unit = WORD[language].KG;
-  } else if (product.unit == STATIC.UNIT_QUANTITY) {
-    unit = WORD[language].QUANTITY;
-  }
-
   let info = "";
   info += `<b>${product.title[language]}</b>\n\n`;
   info += `${product.price.toLocaleString().replace(",", " ")} ${
     WORD[language].MONEY
-  } / 1 ${unit}`;
+  } / 1 dona`;
 
   if (product.picture.uuid) {
     info += ` <a href="${product.picture.url}">&#8205;</a>`;
@@ -43,21 +36,13 @@ module.exports = async (ctx, id, quantity) => {
 
   info += `\n${WORD[language].SELECT_QUANTITY}`;
 
-  const quantityText = `${quantity} ${unit}`;
+  const quantityText = `${quantity} dona`;
 
   let minusButtonQuantity = 0;
   let plusButtonQuantity = 0;
-  if (product.unit == STATIC.UNIT_QUANTITY) {
-    minusButtonQuantity = parseInt(quantity) - product.order_difference;
-    plusButtonQuantity = parseInt(quantity) + product.order_difference;
-  } else if (product.unit == STATIC.UNIT_MASS) {
-    minusButtonQuantity = parseFloat(
-      (parseFloat(quantity) - product.order_difference).toFixed(1)
-    );
-    plusButtonQuantity = parseFloat(
-      (parseFloat(quantity) + product.order_difference).toFixed(1)
-    );
-  }
+
+  minusButtonQuantity = parseInt(quantity) - 1;
+  plusButtonQuantity = parseInt(quantity) + 1;
 
   let minusButtonState = STATE.PRODUCT_INFO;
   if (minusButtonQuantity < product.min_order) {
