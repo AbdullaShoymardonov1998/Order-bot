@@ -39,11 +39,13 @@ export default function CreateProduct() {
   const [category, setCategory] = useState('')
   const [subCategories, setSubCategories] = useState([])
   const [subCategory, setSubCategory] = useState('')
-  const [file, setFile] = useState(null)
-  const [fileName, setFileName] = useState('')
+  const [picture, setPicture] = useState(null)
+  const [pictureName, setPictureName] = useState('')
   const [pictureUrl, setPictureUrl] = useState(null)
   const [sizes, setSizes] = useState([{ name: '' }])
-  const [colors, setColors] = useState([{ name: '', picture: null }])
+  const [colors, setColors] = useState([
+    { name: '', colorName: '', picture: null, fileId: null },
+  ])
 
   const validationSchema = Yup.object().shape({
     titleUZ: Yup.string().required('Mahsulot nomini yozing'),
@@ -57,10 +59,8 @@ export default function CreateProduct() {
       .default(() => 1000),
     minimumOrder: Yup.number()
       .required('Minium buyurtma sonini kiriting')
-      .min(0.1, "Kamida 0.1 bo'lish kerak"),
+      .min(1, "Kamida 1 bo'lish kerak"),
     maximumOrder: Yup.number().required('Maximum buyurtma sonini kiriting'),
-    size: Yup.string().required(`Mahsulot o'lchamini kiriting`),
-    color: Yup.string().required(`Mahsulot rangini kiriting`),
   })
   const {
     register,
@@ -72,104 +72,79 @@ export default function CreateProduct() {
     resolver: yupResolver(validationSchema),
   })
 
-  const handleFileChange = (e) => {
-    setFileName(e.target.files[0].name)
-    setFile(e.target.files[0])
+  const handlePictureChange = async (e) => {
+    setSendRequest(true)
+    const formData = new FormData()
+    formData.append('image', e.target.files[0])
+
+    const response = await AxiosClient.post('/picture', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    })
+    setPicture(response.data.data.fileId)
+    setPictureName(e.target.files[0].name)
     setPictureUrl(URL.createObjectURL(e.target.files[0]))
+    setSendRequest(false)
   }
-  const handleColorPictureChange = (index, e) => {
+
+  const handleColorPictureChange = async (index, e) => {
+    setSendRequest(true)
+    const formData = new FormData()
+    formData.append('image', e.target.files[0])
+
+    const response = await AxiosClient.post('/picture', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    })
+
     const file = e.target.files[0]
-    if (file) {
-      const pictureUrl = URL.createObjectURL(file)
-      const updatedColors = colors.map((color, colorIndex) => {
-        if (index === colorIndex) {
-          return { ...color, name: file.name, picture: pictureUrl }
+    const pictureUrl = URL.createObjectURL(file)
+    const updatedColors = colors.map((color, colorIndex) => {
+      console.log('color', color)
+      if (index === colorIndex) {
+        return {
+          ...color,
+          name: file.name,
+          picture: pictureUrl,
+          fileId: response.data.data.fileId,
         }
-        return color
-      })
-      setColors(updatedColors)
-    }
+      }
+      return color
+    })
+    setColors(updatedColors)
+    setSendRequest(false)
   }
-  // const onSubmit = async (body) => {
-  //   try {
-  //     setSendRequest(true)
-  //     const formData = new FormData()
-  //     formData.append('title[UZ]', body.titleUZ)
-  //     formData.append('title[RU]', body.titleRU)
-  //     formData.append('description[UZ]', body.descriptionUZ || '')
-  //     formData.append('description[RU]', body.descriptionRU || '')
-  //     formData.append('price', body.price)
-  //     formData.append('parent', subCategory)
-  //     formData.append('min_order', body.minimumOrder)
-  //     formData.append('max_order', body.maximumOrder)
-  //     formData.append('is_active', true)
-  //     sizes.forEach((size, index) => {
-  //       formData.append(`sizes[${index}][name]`, body.size.name)
-  //     })
 
-  //     colors.forEach((color, index) => {
-  //       formData.append(`colors[${index}][name]`, body.color.name)
-  //       if (body.color.picture) {
-  //         formData.append(
-  //           `colors[${index}][picture]`,
-  //           body.color.name,
-  //           body.color.picture,
-  //         )
-  //       }
-  //     })
-  //     formData.append('image', file || null)
-
-  //     await AxiosClient.post('/product', formData, {
-  //       headers: {
-  //         'Content-Type': 'multipart/form-data',
-  //       },
-  //     })
-  //     navigate(`/product`)
-  //   } catch (error) {
-  //     const message = ErrorMessage(error)
-  //     setAlert({
-  //       state: true,
-  //       message,
-  //     })
-  //     setSendRequest(false)
-  //   }
-  // }
   const onSubmit = async (body) => {
     try {
       setSendRequest(true)
-
-      const formData = new FormData()
-      formData.append('title[UZ]', body.titleUZ)
-      formData.append('title[RU]', body.titleRU)
-      formData.append('description[UZ]', body.descriptionUZ || '')
-      formData.append('description[RU]', body.descriptionRU || '')
-      formData.append('price', body.price)
-      formData.append('parent', subCategory)
-      formData.append('min_order', body.minimumOrder)
-      formData.append('max_order', body.maximumOrder)
-      formData.append('is_active', true)
-
-      sizes.forEach((size, index) => {
-        formData.append(`sizes[${index}][name]`, body.sizes.name)
-      })
-
-      colors.forEach((color, index) => {
-        formData.append(`colors[${index}][name]`, body.colors.name)
-        if (body.colors.picture) {
-          formData.append(
-            `colors[${index}][picture]`,
-            body.colors.name,
-            body.colors.picture,
-          )
-        }
-      })
-
-      formData.append('image', body.file || null)
-
-      await AxiosClient.post('/product', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
+      console.log('sizes', sizes)
+      await AxiosClient.post('/product', {
+        title: {
+          UZ: body.titleUZ,
+          RU: body.titleRU,
         },
+        description: {
+          UZ: body.descriptionUZ,
+          RU: body.descriptionRU,
+        },
+        picture: {
+          uuid: picture,
+        },
+        parent: subCategory,
+        price: body.price,
+        min_order: body.minimumOrder,
+        max_order: body.maximumOrder,
+        is_active: true,
+        colors: colors.map((c) => {
+          if (c.colorName && c.fileId) {
+            return { name: c.colorName, picture: { uuid: c.fileId } }
+          }
+          return
+        }),
+        sizes: sizes.filter((e) => e.name.length > 0),
       })
 
       // If successful, navigate to the product page
@@ -246,11 +221,9 @@ export default function CreateProduct() {
     newSizes[index].name = event.target.value
     setSizes(newSizes)
   }
-
   const handleAddSize = () => {
     setSizes([...sizes, { name: '' }])
   }
-
   const handleRemoveSize = (index) => {
     const newSizes = [...sizes]
     newSizes.splice(index, 1)
@@ -262,18 +235,17 @@ export default function CreateProduct() {
     newColors.splice(index, 1)
     setColors(newColors)
   }
-
   const handleColorChange = (index, event) => {
     const newColors = [...colors]
-    newColors[index].name = event.target.value
+    newColors[index].colorName = event.target.value
     setColors(newColors)
   }
-
   const handleAddColor = () => {
     setColors([...colors, { name: '', picture: null }])
   }
 
   const handleSubCategoryChange = (event) => setSubCategory(event.target.value)
+
   const copyTitle = () => {
     setValue('titleRU', getValues('titleUZ'))
   }
@@ -481,7 +453,7 @@ export default function CreateProduct() {
                 marginBottom: '8px',
               }}
             >
-              Mahsulot razmeri
+              Mahsulot o'lchami
             </InputLabel>
             <Typography variant="inherit" color="textSecondary">
               {errors.size?.message}
@@ -491,7 +463,7 @@ export default function CreateProduct() {
                 <Grid item xs={8} sx={{ my: 1 }}>
                   <TextField
                     fullWidth
-                    label="Razmeri"
+                    label="O'lchami"
                     value={size.name}
                     onChange={(e) => handleSizeChange(index, e)}
                   />
@@ -556,7 +528,7 @@ export default function CreateProduct() {
                 </Grid>
                 <Grid item xs={12} container alignItems="center" spacing={2}>
                   <Grid item>
-                    <InputLabel>Rang uchun rasm</InputLabel>
+                    <InputLabel>Rasm</InputLabel>
                   </Grid>
 
                   <Grid item>
@@ -617,9 +589,9 @@ export default function CreateProduct() {
                 type="file"
                 accept="image/*"
                 hidden
-                onChange={handleFileChange}
+                onChange={handlePictureChange}
               />
-              <AttachFileIcon fontSize="medium" /> {fileName}
+              <AttachFileIcon fontSize="medium" /> {pictureName}
             </IconButton>
             {pictureUrl ? (
               <CardMedia

@@ -2,17 +2,23 @@ const mongoose = require("mongoose");
 const { LanguageRequired, LanguageDefault } = require("./Language");
 const { config } = require("../config");
 
-const ColorSchema = new mongoose.Schema({
-  name: {
-    type: String,
-  },
-  picture: {
-    uuid: {
+const ColorSchema = new mongoose.Schema(
+  {
+    name: {
       type: String,
-      default: null,
+    },
+    picture: {
+      uuid: {
+        type: String,
+        default: null,
+      },
     },
   },
-});
+  {
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true },
+  }
+);
 
 const SizeSchema = new mongoose.Schema({
   name: {
@@ -24,6 +30,7 @@ const ProductSchema = new mongoose.Schema(
     title: LanguageRequired,
     description: LanguageDefault,
     picture: {
+      // main picture
       uuid: {
         type: String,
         default: null,
@@ -35,8 +42,9 @@ const ProductSchema = new mongoose.Schema(
       required: true,
     },
     thumbnail: {
+      // picture which will be shown in pagination
       type: String,
-      ref: "Picture",
+      ref: "Thumbnail",
     },
     price: {
       type: Number,
@@ -62,10 +70,6 @@ const ProductSchema = new mongoose.Schema(
     updated_at: {
       type: Date,
     },
-    deleted_at: {
-      type: Date,
-      default: null,
-    },
   },
   {
     toJSON: { virtuals: true },
@@ -74,6 +78,10 @@ const ProductSchema = new mongoose.Schema(
 );
 
 ProductSchema.virtual("picture.url").get(function () {
+  return this.picture.uuid ? config.cdnURL + this.picture.uuid : null;
+});
+
+ColorSchema.virtual("picture.url").get(function () {
   return this.picture.uuid ? config.cdnURL + this.picture.uuid : null;
 });
 

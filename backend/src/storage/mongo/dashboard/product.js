@@ -2,17 +2,18 @@ const { Product } = require("../../../models/Product");
 const { PAGE_LIMIT } = require("../../../states");
 
 exports.productStorage = {
-  create: async (product, picture) => {
+  create: async (product) => {
     const time = new Date();
     product.created_at = time;
     product.updated_at = time;
-    return await Product.create({ ...product, picture: { uuid: picture } });
+    return await Product.create(product);
   },
   get: async (id) => {
     const product = await Product.findOne({
       _id: id,
-      deleted_at: null,
-    }).populate("parent");
+    })
+      .populate("parent")
+      .populate("thumbnail");
     if (product == null) {
       throw {
         statusCode: 404,
@@ -23,9 +24,7 @@ exports.productStorage = {
     return product;
   },
   getAll: async (page) => {
-    const filter = {
-      deleted_at: null,
-    };
+    const filter = {};
     const options = {
       skip: (page - 1) * PAGE_LIMIT,
       limit: PAGE_LIMIT,
@@ -45,11 +44,10 @@ exports.productStorage = {
       pages,
     };
   },
-  update: async (id, body, picture) => {
+  update: async (id, body) => {
     const product = await Product.findOneAndUpdate(
       {
         _id: id,
-        deleted_at: null,
       },
       {
         title: {
@@ -60,15 +58,16 @@ exports.productStorage = {
           UZ: body.description.UZ,
           RU: body.description.RU,
         },
-        picture: {
-          uuid: picture,
-        },
+        picture: body.picture,
         parent: body.parent,
         price: body.price,
         min_order: body.min_order,
         max_order: body.max_order,
         is_active: body.is_active,
         updated_at: new Date(),
+        colors: body.colors,
+        sizes: body.sizes,
+        thumbnail: body.thumbnail,
       }
     );
     return product;
@@ -76,19 +75,12 @@ exports.productStorage = {
   delete: async (id) => {
     const filter = {
       _id: id,
-      deleted_at: null,
     };
-    const update = {
-      deleted_at: new Date(),
-      picture: {
-        uuid: null,
-      },
-    };
-    const updatedProduct = await Product.findOneAndUpdate(filter, update);
 
+    const updatedProduct = await Product.deleteOne(filter);
     return updatedProduct;
   },
   countChildrenProducts: async (parent) => {
-    return await Product.countDocuments({ parent, deleted_at: null });
+    return await Product.countDocuments({ parent });
   },
 };

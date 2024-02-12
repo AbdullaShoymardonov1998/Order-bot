@@ -20,12 +20,12 @@ const create = Joi.object({
     UZ: Joi.string().allow(""),
     RU: Joi.string().allow(""),
   },
-  image: Joi.string().allow(null),
+  picture: {
+    uuid: Joi.string().allow(null),
+  },
   parent: Joi.string().required(),
   price: Joi.number().integer().positive().required(),
-  min_order: Joi.number()
-    .positive()
-    .required(),
+  min_order: Joi.number().positive().required(),
   max_order: Joi.number()
     .positive()
     .greater(Joi.ref("min_order"))

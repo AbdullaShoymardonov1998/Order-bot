@@ -22,11 +22,23 @@ module.exports = async (ctx, page, parent) => {
     };
   }
   const user = data.data.user;
-  const product = data.data.product;
+  const products = data.data.product;
+
+  const thumbnail = products.list[0]?.thumbnail?.picture?.url;
 
   await ctx.editMessageText(
-    WORD[user.language].SELECT_PRODUCT,
-    await productListKeyboard(product, page, parent, user.language)
+    `${WORD[user.language].SELECT_PRODUCT} <a href="${thumbnail}">&#8205;</a>`,
+    {
+      reply_markup: {
+        inline_keyboard: await productListKeyboard(
+          products,
+          page,
+          parent,
+          user.language
+        ),
+      },
+      parse_mode: "HTML",
+    }
   );
 };
 
@@ -95,9 +107,5 @@ async function productListKeyboard(response, page, parent, language) {
   ];
 
   inline_keyboard.push(backRow);
-  return {
-    reply_markup: {
-      inline_keyboard: inline_keyboard,
-    },
-  };
+  return inline_keyboard;
 }

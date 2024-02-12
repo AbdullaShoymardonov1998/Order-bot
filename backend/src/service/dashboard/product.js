@@ -3,7 +3,7 @@ const { categoryStorage } = require("../../storage/mongo/dashboard/category");
 const fileUpload = require("../../util/minio");
 
 exports.productService = {
-  create: async (product, file) => {
+  create: async (product) => {
     const parent = await categoryStorage.get(product.parent);
     if (parent.parent == null) {
       throw {
@@ -12,12 +12,7 @@ exports.productService = {
       };
     }
 
-    let picture = null;
-    if (file) {
-      picture = await fileUpload.upload(file);
-    }
-
-    return await productStorage.create(product, picture);
+    return await productStorage.create(product);
   },
   get: async (id) => {
     return await productStorage.get(id);
