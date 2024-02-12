@@ -2,6 +2,9 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import AttachFileIcon from '@mui/icons-material/AttachFile'
 import ContentCopyIcon from '@mui/icons-material/ContentCopy'
 import HomeIcon from '@mui/icons-material/Home'
+import DeleteIcon from '@mui/icons-material/Delete'
+import AddIcon from '@mui/icons-material/Add'
+import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate'
 import {
   Breadcrumbs,
   Button,
@@ -39,6 +42,8 @@ export default function CreateProduct() {
   const [file, setFile] = useState(null)
   const [fileName, setFileName] = useState('')
   const [pictureUrl, setPictureUrl] = useState(null)
+  const [sizes, setSizes] = useState([{ name: '' }])
+  const [colors, setColors] = useState([{ name: '', picture: null }])
 
   const validationSchema = Yup.object().shape({
     titleUZ: Yup.string().required('Mahsulot nomini yozing'),
@@ -54,6 +59,8 @@ export default function CreateProduct() {
       .required('Minium buyurtma sonini kiriting')
       .min(0.1, "Kamida 0.1 bo'lish kerak"),
     maximumOrder: Yup.number().required('Maximum buyurtma sonini kiriting'),
+    size: Yup.string().required(`Mahsulot o'lchamini kiriting`),
+    color: Yup.string().required(`Mahsulot rangini kiriting`),
   })
   const {
     register,
@@ -70,10 +77,67 @@ export default function CreateProduct() {
     setFile(e.target.files[0])
     setPictureUrl(URL.createObjectURL(e.target.files[0]))
   }
+  const handleColorPictureChange = (index, e) => {
+    const file = e.target.files[0]
+    if (file) {
+      const pictureUrl = URL.createObjectURL(file)
+      const updatedColors = colors.map((color, colorIndex) => {
+        if (index === colorIndex) {
+          return { ...color, name: file.name, picture: pictureUrl }
+        }
+        return color
+      })
+      setColors(updatedColors)
+    }
+  }
+  // const onSubmit = async (body) => {
+  //   try {
+  //     setSendRequest(true)
+  //     const formData = new FormData()
+  //     formData.append('title[UZ]', body.titleUZ)
+  //     formData.append('title[RU]', body.titleRU)
+  //     formData.append('description[UZ]', body.descriptionUZ || '')
+  //     formData.append('description[RU]', body.descriptionRU || '')
+  //     formData.append('price', body.price)
+  //     formData.append('parent', subCategory)
+  //     formData.append('min_order', body.minimumOrder)
+  //     formData.append('max_order', body.maximumOrder)
+  //     formData.append('is_active', true)
+  //     sizes.forEach((size, index) => {
+  //       formData.append(`sizes[${index}][name]`, body.size.name)
+  //     })
 
+  //     colors.forEach((color, index) => {
+  //       formData.append(`colors[${index}][name]`, body.color.name)
+  //       if (body.color.picture) {
+  //         formData.append(
+  //           `colors[${index}][picture]`,
+  //           body.color.name,
+  //           body.color.picture,
+  //         )
+  //       }
+  //     })
+  //     formData.append('image', file || null)
+
+  //     await AxiosClient.post('/product', formData, {
+  //       headers: {
+  //         'Content-Type': 'multipart/form-data',
+  //       },
+  //     })
+  //     navigate(`/product`)
+  //   } catch (error) {
+  //     const message = ErrorMessage(error)
+  //     setAlert({
+  //       state: true,
+  //       message,
+  //     })
+  //     setSendRequest(false)
+  //   }
+  // }
   const onSubmit = async (body) => {
     try {
       setSendRequest(true)
+
       const formData = new FormData()
       formData.append('title[UZ]', body.titleUZ)
       formData.append('title[RU]', body.titleRU)
@@ -84,20 +148,39 @@ export default function CreateProduct() {
       formData.append('min_order', body.minimumOrder)
       formData.append('max_order', body.maximumOrder)
       formData.append('is_active', true)
-      formData.append('image', file || null)
+
+      sizes.forEach((size, index) => {
+        formData.append(`sizes[${index}][name]`, body.sizes.name)
+      })
+
+      colors.forEach((color, index) => {
+        formData.append(`colors[${index}][name]`, body.colors.name)
+        if (body.colors.picture) {
+          formData.append(
+            `colors[${index}][picture]`,
+            body.colors.name,
+            body.colors.picture,
+          )
+        }
+      })
+
+      formData.append('image', body.file || null)
 
       await AxiosClient.post('/product', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
       })
-      navigate(`/product`)
+
+      // If successful, navigate to the product page
+      navigate('/product')
     } catch (error) {
       const message = ErrorMessage(error)
       setAlert({
         state: true,
         message,
       })
+    } finally {
       setSendRequest(false)
     }
   }
@@ -157,13 +240,46 @@ export default function CreateProduct() {
       })
     }
   }
+
+  const handleSizeChange = (index, event) => {
+    const newSizes = [...sizes]
+    newSizes[index].name = event.target.value
+    setSizes(newSizes)
+  }
+
+  const handleAddSize = () => {
+    setSizes([...sizes, { name: '' }])
+  }
+
+  const handleRemoveSize = (index) => {
+    const newSizes = [...sizes]
+    newSizes.splice(index, 1)
+    setSizes(newSizes)
+  }
+
+  const handleRemoveColor = (index) => {
+    const newColors = [...colors]
+    newColors.splice(index, 1)
+    setColors(newColors)
+  }
+
+  const handleColorChange = (index, event) => {
+    const newColors = [...colors]
+    newColors[index].name = event.target.value
+    setColors(newColors)
+  }
+
+  const handleAddColor = () => {
+    setColors([...colors, { name: '', picture: null }])
+  }
+
   const handleSubCategoryChange = (event) => setSubCategory(event.target.value)
   const copyTitle = () => {
     setValue('titleRU', getValues('titleUZ'))
   }
   return (
     <Paper sx={{ p: 1 }}>
-      <Grid container spacing={1}>
+      <Grid container spacing={2}>
         <Grid item xs={12}>
           <PageTitle title="Yangi mahsulot" />
         </Grid>
@@ -266,7 +382,7 @@ export default function CreateProduct() {
           </Typography>
         </Grid>
 
-        <Grid item xs={6}>
+        <Grid item xs={5}>
           <TextField
             required
             id="descriptionRU"
@@ -282,7 +398,7 @@ export default function CreateProduct() {
           </Typography>
         </Grid>
 
-        <Grid item xs={3}>
+        <Grid item xs={4}>
           <TextField
             required
             id="minimumOrder"
@@ -300,7 +416,7 @@ export default function CreateProduct() {
           </Typography>
         </Grid>
 
-        <Grid item xs={3}>
+        <Grid item xs={4}>
           <TextField
             required
             id="maximumOrder"
@@ -318,7 +434,7 @@ export default function CreateProduct() {
           </Typography>
         </Grid>
 
-        <Grid item xs={3}>
+        <Grid item xs={4}>
           <TextField
             required
             id="price"
@@ -335,33 +451,218 @@ export default function CreateProduct() {
             {errors.price?.message}
           </Typography>
         </Grid>
+        <InputLabel
+          sx={{
+            fontSize: '1.2rem',
+            paddingLeft: '1rem',
+            paddingTop: '1.5rem',
+            color: (theme) => theme.palette.primary.main,
+            fontWeight: 'bold',
+            marginBottom: '8px',
+          }}
+        >
+          Mahsulot alohida belgilari
+        </InputLabel>
+        <Grid
+          container
+          spacing={3}
+          sx={{
+            backgroundColor: '#f9f9f9',
+            borderRadius: '8px',
+            margin: '20px',
+          }}
+        >
+          <Grid item xs={4}>
+            <InputLabel
+              sx={{
+                fontSize: '1.2rem',
+                color: (theme) => theme.palette.primary.main,
+                fontWeight: 'bold',
+                marginBottom: '8px',
+              }}
+            >
+              Mahsulot razmeri
+            </InputLabel>
+            <Typography variant="inherit" color="textSecondary">
+              {errors.size?.message}
+            </Typography>
+            {sizes.map((size, index) => (
+              <Grid container spacing={2} key={index}>
+                <Grid item xs={8} sx={{ my: 1 }}>
+                  <TextField
+                    fullWidth
+                    label="Razmeri"
+                    value={size.name}
+                    onChange={(e) => handleSizeChange(index, e)}
+                  />
+                </Grid>
+                <Grid item xs={4}>
+                  <IconButton
+                    sx={{
+                      padding: '10px',
+                      fontSize: '2rem',
+                      my: 1,
+                    }}
+                    onClick={() => handleRemoveSize(index)}
+                  >
+                    <DeleteIcon fontSize="medium" />
+                  </IconButton>
+                </Grid>
+              </Grid>
+            ))}
+            <Button
+              variant="outlined"
+              color="primary"
+              onClick={handleAddSize}
+              sx={{ my: 2 }}
+            >
+              <AddIcon />
+            </Button>
+          </Grid>
+          <Grid item xs={4}>
+            <InputLabel
+              sx={{
+                fontSize: '1.2rem',
+                color: (theme) => theme.palette.primary.main,
+                fontWeight: 'bold',
+                marginBottom: '8px',
+              }}
+            >
+              Mahsulot Rangi
+            </InputLabel>
+            <Typography variant="inherit" color="textSecondary">
+              {errors.color?.message}
+            </Typography>
+            {colors.map((color, index) => (
+              <Grid container spacing={2} key={index}>
+                <Grid item xs={6} sx={{ my: 1 }}>
+                  <TextField
+                    fullWidth
+                    label="Rangi"
+                    onChange={(e) => handleColorChange(index, e)}
+                  />
+                </Grid>
+                <Grid item xs={6}>
+                  <IconButton
+                    sx={{
+                      padding: '10px',
+                      fontSize: '2rem',
+                      my: 1,
+                    }}
+                    onClick={() => handleRemoveColor(index)}
+                  >
+                    <DeleteIcon fontSize="medium" />
+                  </IconButton>
+                </Grid>
+                <Grid item xs={12} container alignItems="center" spacing={2}>
+                  <Grid item>
+                    <InputLabel>Rang uchun rasm</InputLabel>
+                  </Grid>
 
-        <Grid item xs={3}>
-          <InputLabel>Rasm</InputLabel>
-          <IconButton color="primary" component="label" size="small">
-            <input
-              type="file"
-              accept="image/*"
-              hidden
-              onChange={handleFileChange}
-            />
-            <AttachFileIcon fontSize="medium" /> {fileName}
-          </IconButton>
-          {pictureUrl ? (
-            <CardMedia component="img" image={pictureUrl} alt="Rasm" />
-          ) : (
-            <></>
-          )}
+                  <Grid item>
+                    <IconButton color="primary" component="label" size="small">
+                      <input
+                        type="file"
+                        accept="image/*"
+                        hidden
+                        onChange={(e) => handleColorPictureChange(index, e)}
+                      />
+                      <AddPhotoAlternateIcon fontSize="medium" />
+                    </IconButton>
+                  </Grid>
+
+                  {color.picture && (
+                    <Grid item>
+                      <CardMedia
+                        sx={{ width: '10rem', height: '10rem' }}
+                        component="img"
+                        image={color.picture}
+                        alt="Rangli rasm"
+                      />
+                    </Grid>
+                  )}
+                </Grid>
+              </Grid>
+            ))}
+            <Button
+              variant="outlined"
+              color="primary"
+              onClick={handleAddColor}
+              sx={{ my: 2 }}
+            >
+              <AddIcon />
+            </Button>
+          </Grid>
+
+          <Grid
+            item
+            xs={4}
+            sx={{
+              backgroundColor: '#fff',
+            }}
+          >
+            <InputLabel
+              sx={{
+                fontSize: '1.2rem',
+                paddingLeft: '1rem',
+                color: (theme) => theme.palette.primary.main,
+                fontWeight: 'bold',
+                marginBottom: '8px',
+              }}
+            >
+              Mahsulot rasmi
+            </InputLabel>
+            <IconButton color="primary" component="label" size="small">
+              <input
+                type="file"
+                accept="image/*"
+                hidden
+                onChange={handleFileChange}
+              />
+              <AttachFileIcon fontSize="medium" /> {fileName}
+            </IconButton>
+            {pictureUrl ? (
+              <CardMedia
+                sx={{
+                  padding: '8px',
+                  borderRadius: '8px',
+                  width: '150px',
+                  height: '150px',
+                  border: '2px solid #ddd', // Adjust the border style as needed
+                }}
+                component="img"
+                image={pictureUrl}
+                alt="Rasm"
+              />
+            ) : (
+              <></>
+            )}
+          </Grid>
         </Grid>
 
         <Grid
           item
           xs={12}
-          style={{ display: 'flex', justifyContent: 'flex-end' }}
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+          }}
         >
-          {alert.state ? (
-            <></>
-          ) : (
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            <Breadcrumbs separator="›" aria-label="breadcrumb">
+              <Link
+                underline="hover"
+                component={ReactRouterLink}
+                key="1"
+                color="inherit"
+                to="/product"
+              >
+                <HomeIcon color="primary" />
+              </Link>
+            </Breadcrumbs>
+          </div>
+          {alert.state ? null : (
             <Button
               variant="contained"
               color="primary"
@@ -381,18 +682,6 @@ export default function CreateProduct() {
         </Grid>
 
         {sendRequest ? <LoadingBar /> : <></>}
-
-        <Breadcrumbs separator="›" aria-label="breadcrumb">
-          <Link
-            underline="hover"
-            component={ReactRouterLink}
-            key="1"
-            color="inherit"
-            to="/product"
-          >
-            <HomeIcon />
-          </Link>
-        </Breadcrumbs>
       </Grid>
     </Paper>
   )

@@ -1,12 +1,5 @@
 import * as React from 'react'
-import {
-  Paper,
-  Grid,
-  Button,
-  ButtonGroup,
-  Breadcrumbs,
-  Link,
-} from '@mui/material'
+import { Paper, Grid, Button, Breadcrumbs, Link } from '@mui/material'
 import PageTitle from '../../components/title/PageTitle'
 import { useState, useEffect } from 'react'
 import AxiosClient from '../../utils/axios'
@@ -68,22 +61,24 @@ export default function DeleteProduct() {
     <Paper sx={{ p: 1 }}>
       <Grid container spacing={1}>
         <Grid item xs={12}>
-          <PageTitle title="Kategoriyani o'chirish" />
+          <PageTitle title="Mahsulotni o'chirish" />
         </Grid>
         <Grid item xs={12}>
           "{title}" ni o'chirishni tasdiqlaysizmi?
         </Grid>
 
         <Grid item xs={12}>
-          <ButtonGroup
+          <Button variant="contained" color="error" onClick={confirmHandler}>
+            O'chirish
+          </Button>
+          <Button
             variant="contained"
-            color="primary"
-            aria-label="contained primary button group"
-            sx={{ m: 0.5 }}
+            color="success"
+            sx={{ ml: 2 }}
+            onClick={cancelHandler}
           >
-            <Button onClick={confirmHandler}>O'chirish</Button>
-            <Button onClick={cancelHandler}>Bekor qilish</Button>
-          </ButtonGroup>
+            Bekor qilish
+          </Button>
         </Grid>
         <Grid item xs={12}>
           {alert.state ? (

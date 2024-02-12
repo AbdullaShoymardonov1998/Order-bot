@@ -2,6 +2,9 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import AttachFileIcon from '@mui/icons-material/AttachFile'
 import ContentCopyIcon from '@mui/icons-material/ContentCopy'
 import HomeIcon from '@mui/icons-material/Home'
+import AddIcon from '@mui/icons-material/Add'
+import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate'
+import DeleteIcon from '@mui/icons-material/Delete'
 import {
   Breadcrumbs,
   Button,
@@ -48,6 +51,9 @@ export default function EditProduct() {
   const [fileName, setFileName] = useState('')
   const [oldPictureUrl, setOldPictureUrl] = useState(null)
   const [isActive, setIsActive] = useState(false)
+  const [colors, setColors] = useState([])
+  const [sizes, setSizes] = useState([])
+
   const handleIsActive = (event) => setIsActive(event.target.checked)
 
   const validationSchema = Yup.object().shape({
@@ -83,6 +89,7 @@ export default function EditProduct() {
 
   const onSubmit = async (body) => {
     try {
+      console.log(JSON.stringify(body))
       setSendRequest(true)
       const formData = new FormData()
       formData.append('title[UZ]', body.titleUZ)
@@ -95,7 +102,20 @@ export default function EditProduct() {
       formData.append('max_order', body.maximumOrder)
       formData.append('is_active', isActive)
       formData.append('image', file || null)
+      sizes.forEach((size, index) => {
+        formData.append(`sizes[${index}][name]`, body.sizes.name)
+      })
 
+      colors.forEach((color, index) => {
+        formData.append(`colors[${index}][name]`, body.colors.name)
+        if (body.colors.picture) {
+          formData.append(
+            `colors[${index}][picture]`,
+            body.colors.name,
+            body.colors.picture,
+          )
+        }
+      })
       await AxiosClient.put(`/product/${params.productId}`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
@@ -156,6 +176,8 @@ export default function EditProduct() {
         setValue('price', data.product.price)
         setValue('minimumOrder', data.product.min_order)
         setValue('maximumOrder', data.product.max_order)
+        setValue('sizes', data.product.sizes)
+        setValue('colors', data.product.colors)
         setCategory(data.product.parent.parent)
         setSubCategory(data.product.parent._id)
         setOldPictureUrl(data.product.picture.url)
@@ -165,6 +187,7 @@ export default function EditProduct() {
         )
         setSubCategories(newSubCategories.data.data.categories)
       },
+
       (error) => {
         const message = ErrorMessage(error)
         setAlert({
@@ -189,6 +212,51 @@ export default function EditProduct() {
   }
   const handleSubCategoryChange = (event) => setSubCategory(event.target.value)
   const copyTitle = () => setValue('titleRU', getValues('titleUZ'))
+  const handleAddSize = () => {
+    setSizes([...sizes, { name: '', quantity: 0 }])
+  }
+
+  const handleRemoveSize = (index) => {
+    const newSizes = [...sizes]
+    newSizes.splice(index, 1)
+    setSizes(newSizes)
+  }
+
+  const handleSizeChange = (index, event) => {
+    const newSizes = [...sizes]
+    newSizes[index].name = event.target.value
+    setSizes(newSizes)
+  }
+
+  const handleAddColor = () => {
+    setColors([...colors, { name: '', picture: null }])
+  }
+
+  const handleRemoveColor = (index) => {
+    const newColors = [...colors]
+    newColors.splice(index, 1)
+    setColors(newColors)
+  }
+
+  const handleColorChange = (index, event) => {
+    const newColors = [...colors]
+    newColors[index].name = event.target.value
+    setColors(newColors)
+  }
+
+  const handleColorPictureChange = (index, e) => {
+    const file = e.target.files[0]
+    if (file) {
+      const pictureUrl = URL.createObjectURL(file)
+      const updatedColors = colors.map((color, colorIndex) => {
+        if (index === colorIndex) {
+          return { ...color, name: file.name, picture: pictureUrl }
+        }
+        return color
+      })
+      setColors(updatedColors)
+    }
+  }
   return (
     <Paper sx={{ p: 1 }}>
       <Grid container spacing={1}>
@@ -216,7 +284,6 @@ export default function EditProduct() {
             </Select>
           </FormControl>
         </Grid>
-
         <Grid item xs={6}>
           <FormControl>
             <InputLabel id="subCategory-label">Sub Kategoriya</InputLabel>
@@ -238,7 +305,6 @@ export default function EditProduct() {
             </Select>
           </FormControl>
         </Grid>
-
         <Grid item xs={6}>
           <TextField
             required
@@ -255,7 +321,6 @@ export default function EditProduct() {
             {errors.titleUZ?.message}
           </Typography>
         </Grid>
-
         <Grid item xs={5}>
           <TextField
             required
@@ -277,7 +342,6 @@ export default function EditProduct() {
             <ContentCopyIcon />
           </IconButton>
         </Grid>
-
         <Grid item xs={6}>
           <TextField
             required
@@ -294,7 +358,6 @@ export default function EditProduct() {
             {errors.descriptionUZ?.message}
           </Typography>
         </Grid>
-
         <Grid item xs={6}>
           <TextField
             required
@@ -311,8 +374,7 @@ export default function EditProduct() {
             {errors.descriptionRU?.message}
           </Typography>
         </Grid>
-
-        <Grid item xs={3}>
+        <Grid item xs={4}>
           <TextField
             required
             id="minimumOrder"
@@ -329,8 +391,7 @@ export default function EditProduct() {
             {errors.minimumOrder?.message}
           </Typography>
         </Grid>
-
-        <Grid item xs={3}>
+        <Grid item xs={4}>
           <TextField
             required
             id="maximumOrder"
@@ -347,8 +408,7 @@ export default function EditProduct() {
             {errors.maximumOrder?.message}
           </Typography>
         </Grid>
-
-        <Grid item xs={3}>
+        <Grid item xs={4}>
           <TextField
             required
             id="price"
@@ -365,23 +425,190 @@ export default function EditProduct() {
             {errors.price?.message}
           </Typography>
         </Grid>
+        <InputLabel
+          sx={{
+            fontSize: '1.2rem',
+            paddingLeft: '1rem',
+            paddingTop: '1.5rem',
+            color: (theme) => theme.palette.primary.main,
+            fontWeight: 'bold',
+            marginBottom: '8px',
+          }}
+        >
+          Mahsulot alohida belgilari
+        </InputLabel>
+        <Grid
+          container
+          spacing={3}
+          sx={{
+            backgroundColor: '#f9f9f9',
+            borderRadius: '8px',
+            margin: '20px',
+          }}
+        >
+          <Grid item xs={4}>
+            <InputLabel
+              sx={{
+                fontSize: '1.2rem',
+                color: (theme) => theme.palette.primary.main,
+                fontWeight: 'bold',
+                marginBottom: '8px',
+              }}
+            >
+              Mahsulot razmeri
+            </InputLabel>
+            <Typography variant="inherit" color="textSecondary">
+              {errors.size?.message}
+            </Typography>
+            {sizes.map((size, index) => (
+              <Grid container spacing={2} key={index}>
+                <Grid item xs={8} sx={{ my: 1 }}>
+                  <TextField
+                    fullWidth
+                    label="Razmeri"
+                    value={size.name}
+                    onChange={(e) => handleSizeChange(index, e)}
+                  />
+                </Grid>
+                <Grid item xs={4}>
+                  <IconButton
+                    sx={{
+                      padding: '10px',
+                      fontSize: '2rem',
+                      my: 1,
+                    }}
+                    onClick={() => handleRemoveSize(index)}
+                  >
+                    <DeleteIcon fontSize="medium" />
+                  </IconButton>
+                </Grid>
+              </Grid>
+            ))}
+            <Button
+              variant="outlined"
+              color="primary"
+              onClick={handleAddSize}
+              sx={{ my: 2 }}
+            >
+              <AddIcon />
+            </Button>
+          </Grid>
+          <Grid item xs={4}>
+            <InputLabel
+              sx={{
+                fontSize: '1.2rem',
+                color: (theme) => theme.palette.primary.main,
+                fontWeight: 'bold',
+                marginBottom: '8px',
+              }}
+            >
+              Mahsulot Rangi
+            </InputLabel>
+            <Typography variant="inherit" color="textSecondary">
+              {errors.color?.message}
+            </Typography>
+            {colors.map((color, index) => (
+              <Grid container spacing={2} key={index}>
+                <Grid item xs={6} sx={{ my: 1 }}>
+                  <TextField
+                    fullWidth
+                    label="Rangi"
+                    onChange={(e) => handleColorChange(index, e)}
+                  />
+                </Grid>
+                <Grid item xs={6}>
+                  <IconButton
+                    sx={{
+                      padding: '10px',
+                      fontSize: '2rem',
+                      my: 1,
+                    }}
+                    onClick={() => handleRemoveColor(index)}
+                  >
+                    <DeleteIcon fontSize="medium" />
+                  </IconButton>
+                </Grid>
+                <Grid item xs={12} container alignItems="center" spacing={2}>
+                  <Grid item>
+                    <InputLabel>Rang uchun rasm</InputLabel>
+                  </Grid>
 
-        <Grid item xs={3}>
-          <InputLabel>Rasm</InputLabel>
-          <IconButton color="primary" component="label" size="small">
-            <input
-              type="file"
-              accept="image/*"
-              hidden
-              onChange={handleFileChange}
-            />
-            <AttachFileIcon fontSize="medium" /> {fileName}
-          </IconButton>
-          {oldPictureUrl ? (
-            <CardMedia component="img" image={oldPictureUrl} alt="Rasm" />
-          ) : (
-            <></>
-          )}
+                  <Grid item>
+                    <IconButton color="primary" component="label" size="small">
+                      <input
+                        type="file"
+                        accept="image/*"
+                        hidden
+                        onChange={(e) => handleColorPictureChange(index, e)}
+                      />
+                      <AddPhotoAlternateIcon
+                        fontSize="medium"
+                        color="success"
+                      />
+                    </IconButton>
+                  </Grid>
+
+                  {color.picture && (
+                    <Grid item>
+                      <CardMedia
+                        sx={{ width: '10rem', height: '10rem' }}
+                        component="img"
+                        image={color.picture}
+                        alt="Rangli rasm"
+                      />
+                    </Grid>
+                  )}
+                </Grid>
+              </Grid>
+            ))}
+            <Button
+              variant="outlined"
+              color="primary"
+              onClick={handleAddColor}
+              sx={{ my: 2 }}
+            >
+              <AddIcon />
+            </Button>
+          </Grid>
+
+          <Grid
+            item
+            xs={4}
+            sx={{
+              backgroundColor: '#fff',
+            }}
+          >
+            <InputLabel
+              sx={{
+                fontSize: '1.2rem',
+                paddingLeft: '1rem',
+                color: (theme) => theme.palette.primary.main,
+                fontWeight: 'bold',
+                marginBottom: '8px',
+              }}
+            >
+              Mahsulot rasmi
+            </InputLabel>
+            <IconButton color="primary" component="label" size="small">
+              <input
+                type="file"
+                accept="image/*"
+                hidden
+                onChange={handleFileChange}
+              />
+              <AttachFileIcon fontSize="medium" /> {fileName}
+            </IconButton>
+            {oldPictureUrl ? (
+              <CardMedia
+                sx={{ width: '15rem', height: '15rem' }}
+                component="img"
+                image={oldPictureUrl}
+                alt="Rasm"
+              />
+            ) : (
+              <></>
+            )}
+          </Grid>
         </Grid>
         <Grid item xs={12}>
           <FormGroup>
@@ -400,11 +627,26 @@ export default function EditProduct() {
         <Grid
           item
           xs={12}
-          style={{ display: 'flex', justifyContent: 'flex-end' }}
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+          }}
         >
-          {alert.state ? (
-            <></>
-          ) : (
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            <Breadcrumbs separator="›" aria-label="breadcrumb">
+              <Link
+                underline="hover"
+                component={ReactRouterLink}
+                key="1"
+                color="inherit"
+                to="/product"
+              >
+                <HomeIcon fontSize="medium" />
+              </Link>
+            </Breadcrumbs>
+          </div>
+          {alert.state ? null : (
             <Button
               variant="contained"
               color="primary"
@@ -421,20 +663,7 @@ export default function EditProduct() {
             <></>
           )}
         </Grid>
-
         {sendRequest ? <LoadingBar /> : <></>}
-
-        <Breadcrumbs separator="›" aria-label="breadcrumb">
-          <Link
-            underline="hover"
-            component={ReactRouterLink}
-            key="1"
-            color="inherit"
-            to="/product"
-          >
-            <HomeIcon />
-          </Link>
-        </Breadcrumbs>
       </Grid>
     </Paper>
   )
