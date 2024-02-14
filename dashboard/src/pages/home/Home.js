@@ -75,26 +75,6 @@ export default function Home() {
             </Link>
           </Card>
         </Grid>
-
-        <Grid item xs={12} md={4}>
-          <Card>
-            <Link to="/thumbnail">
-              <CardActionArea>
-                <CardMedia
-                  component="img"
-                  height="200"
-                  image={thumbnailImage}
-                  alt="Thumbnail"
-                />
-                <CardContent>
-                  <Typography variant="h5" component="div">
-                    Thumbnail
-                  </Typography>
-                </CardContent>
-              </CardActionArea>
-            </Link>
-          </Card>
-        </Grid>
       </Grid>
     </Paper>
   )

@@ -16,7 +16,7 @@ exports.productStorage = {
     const findProduct = () =>
       new Promise((resolve, reject) => {
         Product.find(filter, null, options)
-          .sort({ created_at: -1 })
+          .sort({ created_at: 1 })
           .populate({ model: "Category", path: "parent" })
           .populate({ model: "Thumbnail", path: "thumbnail" })
           .exec((err, templates) => {

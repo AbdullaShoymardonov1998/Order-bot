@@ -4,6 +4,8 @@ const joi = require("express-joi-validation").createValidator({
 });
 const { STATUS_SUCCESS } = require("../../../../states");
 const { productService } = require("../../../../service/dashboard/product");
+
+const botProductService = require("../../../../service/bot/product");
 const validator = require("./validator");
 const router = express.Router();
 const hasAccess = require("../middleware");
@@ -39,6 +41,22 @@ router.get(
         status: STATUS_SUCCESS,
         message: "Products obtained successfully",
         data: products,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
+router.post(
+  "/thumbnail",
+  joi.body(validator.findThumbnail),
+  async (req, res, next) => {
+    try {
+      return res.json({
+        status: STATUS_SUCCESS,
+        message: "Product list obtained successfully",
+        data: await botProductService.productService.find(req.body),
       });
     } catch (error) {
       next(error);

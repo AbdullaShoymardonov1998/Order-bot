@@ -7,6 +7,8 @@ import LoadingBar from '../../components/loading/LoadingBar'
 import HttpErrorNotification from '../../components/notifications/HttpErrorNotification'
 import PageTitle from '../../components/title/PageTitle'
 import EditIcon from '@mui/icons-material/Edit'
+
+import CollectionsOutlinedIcon from '@mui/icons-material/CollectionsOutlined'
 import {
   Button,
   Paper,
@@ -30,6 +32,8 @@ export default function Category() {
   const [alert, setAlert] = useState({ state: false, message: '' })
   const [title, setTitle] = useState('')
   const [sendRequest, setSendRequest] = useState(true)
+
+  const productHandler = (id) => nav(`/category/${id}/product`)
 
   const editHandler = (id) =>
     nav(`/category/${id}/edit?parent=${params.categoryId}`)
@@ -77,17 +81,20 @@ export default function Category() {
       headerName: 'Yangilandi',
       sortable: false,
       editable: false,
-      minWidth: 200,
+      minWidth: 120,
       valueGetter: (params) =>
         `${new Date(params.row.updated_at).toLocaleString('ru-RU')}`,
     },
     {
       field: 'action',
       headerName: 'Boshqaruv',
-      minWidth: 200,
+      minWidth: 250,
       renderCell: (params) => {
         return (
           <Grid container>
+            <Button onClick={productHandler.bind(this, params.id)}>
+              <CollectionsOutlinedIcon />
+            </Button>
             <Button onClick={editHandler.bind(this, params.id)}>
               <EditIcon />
             </Button>

@@ -36,6 +36,12 @@ const create = Joi.object({
   sizes: Joi.array().items(SizeSchema),
   thumbnail: Joi.string().allow(null), // Assuming thumbnail is just a string UUID reference
 });
+const findThumbnail = Joi.object({
+  page: Joi.number().integer().optional(),
+  limit: Joi.number().integer().optional(),
+  parent: Joi.string().required(),
+  // telegram_id: Joi.number().integer().required(),
+});
 const getAll = Joi.object({
   page: Joi.number().integer().positive().required(),
 });
@@ -50,6 +56,7 @@ const remove = Joi.object({
 
 module.exports = {
   create,
+  findThumbnail,
   getAll,
   get,
   delete: remove,

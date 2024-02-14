@@ -102,7 +102,6 @@ export default function CreateProduct() {
     const file = e.target.files[0]
     const pictureUrl = URL.createObjectURL(file)
     const updatedColors = colors.map((color, colorIndex) => {
-      console.log('color', color)
       if (index === colorIndex) {
         return {
           ...color,

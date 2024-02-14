@@ -37,6 +37,7 @@ export default function App() {
               <Route path="create" element={<CreateCategory />} />
               <Route path=":categoryId" element={<Category />} />
               <Route path=":categoryId/edit" element={<EditCategory />} />
+              <Route path=":categoryId/product" element={<ThumbnailForm />} />
               <Route path=":categoryId/delete" element={<DeleteCategory />} />
             </Route>
 
@@ -45,10 +46,6 @@ export default function App() {
               <Route path="create" element={<CreateProduct />} />
               <Route path=":productId/edit" element={<EditProduct />} />
               <Route path=":productId/delete" element={<DeleteProduct />} />
-            </Route>
-
-            <Route path="thumbnail" element={<DashboardLayout />}>
-              <Route index element={<ThumbnailForm />} />
             </Route>
           </Route>
           <Route path="*" element={<PageNotFound />} />
