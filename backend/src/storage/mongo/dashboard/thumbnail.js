@@ -3,7 +3,6 @@ const { Product } = require("../../../models/Product");
 
 exports.thumbnailStorage = {
   create: async (thumbnail) => {
-    console.log(thumbnail.products);
     const newThumbnail = await Thumbnail.create(thumbnail);
 
     await Product.updateMany(

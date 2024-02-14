@@ -11,6 +11,7 @@ import {
 import exitImage from '../../assets/exit.jpg'
 import categoryImage from '../../assets/category.jpg'
 import productImage from '../../assets/product.jpg'
+import thumbnailImage from '../../assets/user.jpg'
 import { Link } from 'react-router-dom'
 
 export default function Home() {
@@ -68,6 +69,26 @@ export default function Home() {
                 <CardContent>
                   <Typography variant="h5" component="div">
                     Chiqish
+                  </Typography>
+                </CardContent>
+              </CardActionArea>
+            </Link>
+          </Card>
+        </Grid>
+
+        <Grid item xs={12} md={4}>
+          <Card>
+            <Link to="/thumbnail">
+              <CardActionArea>
+                <CardMedia
+                  component="img"
+                  height="200"
+                  image={thumbnailImage}
+                  alt="Thumbnail"
+                />
+                <CardContent>
+                  <Typography variant="h5" component="div">
+                    Thumbnail
                   </Typography>
                 </CardContent>
               </CardActionArea>

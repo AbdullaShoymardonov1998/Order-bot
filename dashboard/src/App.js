@@ -18,6 +18,7 @@ import Products from './pages/product/Products'
 import CreateProduct from './pages/product/CreateProduct'
 import EditProduct from './pages/product/EditProduct'
 import DeleteProduct from './pages/product/DeleteProduct'
+import ThumbnailForm from './pages/thumbnail/createThumbnail'
 
 export default function App() {
   return (
@@ -44,6 +45,10 @@ export default function App() {
               <Route path="create" element={<CreateProduct />} />
               <Route path=":productId/edit" element={<EditProduct />} />
               <Route path=":productId/delete" element={<DeleteProduct />} />
+            </Route>
+
+            <Route path="thumbnail" element={<DashboardLayout />}>
+              <Route index element={<ThumbnailForm />} />
             </Route>
           </Route>
           <Route path="*" element={<PageNotFound />} />

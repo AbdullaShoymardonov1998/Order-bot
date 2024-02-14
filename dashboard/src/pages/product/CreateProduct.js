@@ -1,9 +1,9 @@
 import { yupResolver } from '@hookform/resolvers/yup'
-import AttachFileIcon from '@mui/icons-material/AttachFile'
 import ContentCopyIcon from '@mui/icons-material/ContentCopy'
 import HomeIcon from '@mui/icons-material/Home'
 import DeleteIcon from '@mui/icons-material/Delete'
 import AddIcon from '@mui/icons-material/Add'
+import AttachFileIcon from '@mui/icons-material/AttachFile'
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate'
 import {
   Breadcrumbs,
@@ -147,7 +147,6 @@ export default function CreateProduct() {
         sizes: sizes.filter((e) => e.name.length > 0),
       })
 
-      // If successful, navigate to the product page
       navigate('/product')
     } catch (error) {
       const message = ErrorMessage(error)
@@ -600,7 +599,7 @@ export default function CreateProduct() {
                   borderRadius: '8px',
                   width: '150px',
                   height: '150px',
-                  border: '2px solid #ddd', // Adjust the border style as needed
+                  border: '2px solid #ddd',
                 }}
                 component="img"
                 image={pictureUrl}
