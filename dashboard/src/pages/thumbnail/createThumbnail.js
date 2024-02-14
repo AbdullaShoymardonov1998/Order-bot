@@ -141,13 +141,6 @@ export default function Thumbnail() {
         <Grid item xs={10}>
           <PageTitle title="Mahsulot" />
         </Grid>
-        <Grid item xs={2}>
-          <Grid container justifyContent="flex-end">
-            <Button variant="contained" color="primary" onClick={createHandler}>
-              +
-            </Button>
-          </Grid>
-        </Grid>
       </Grid>
       <div style={{ width: '100%' }}>
         <DataGrid
