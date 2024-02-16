@@ -1,8 +1,7 @@
-const { STATE, WORD, STATIC } = require("../messages/dictionary");
+const { WORD } = require("../messages/dictionary");
 const { config } = require("../config");
 const axios = require("axios");
 const productListHelper = require("../utils/product_list");
-const menuKeyboard = require("./menu");
 
 module.exports = async (ctx) => {
   const { data, status } = await axios({

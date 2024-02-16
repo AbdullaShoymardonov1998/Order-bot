@@ -119,7 +119,6 @@ export default function CreateProduct() {
   const onSubmit = async (body) => {
     try {
       setSendRequest(true)
-      console.log('sizes', sizes)
       await AxiosClient.post('/product', {
         title: {
           UZ: body.titleUZ,

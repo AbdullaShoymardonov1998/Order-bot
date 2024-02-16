@@ -1,10 +1,12 @@
 require("dotenv").config();
-const { Telegraf, session } = require("telegraf");
+const { Scenes, session, Telegraf } = require("telegraf");
 const { logger } = require("./config/logger");
 const { commands } = require("./commands");
 const { listeners } = require("./listeners");
 const { WORD, STATE } = require("./messages/dictionary");
 const bot = new Telegraf(process.env.BOT_TOKEN);
+const { chooseColorScene } = require("./scenes/choose_product");
+const stage = new Scenes.Stage([chooseColorScene]);
 
 bot.use(async (ctx, next) => {
   let result = null;
@@ -45,6 +47,9 @@ bot.use(async (ctx, next) => {
   }
   await next();
 });
+
+bot.use(session());
+bot.use(stage.middleware());
 
 commands(bot);
 listeners(bot);

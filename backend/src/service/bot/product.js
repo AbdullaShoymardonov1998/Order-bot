@@ -18,4 +18,10 @@ exports.productService = {
       product: await productStorage.get(query.id),
     };
   },
+  getByColorId: async (query) => {
+    return {
+      user: await userStorage.getByTelegramId(query.telegram_id),
+      product: await productStorage.getbyColorId(query.id),
+    };
+  },
 };

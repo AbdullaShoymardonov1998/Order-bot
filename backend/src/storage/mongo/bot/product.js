@@ -60,7 +60,6 @@ exports.productStorage = {
       model: "Category",
       path: "parent",
     });
-
     if (existingProduct == null) {
       throw {
         statusCode: 404,
@@ -69,5 +68,23 @@ exports.productStorage = {
     }
 
     return existingProduct;
+  },
+  getbyColorId: async (colorId) => {
+    const filter = {
+      deleted_at: null,
+      is_active: true,
+      "colors._id": colorId,
+    };
+
+    const productWithColor = await Product.findOne(filter).populate({
+      model: "Category",
+      path: "parent",
+    });
+
+    if (!productWithColor) {
+      return null;
+    }
+
+    return productWithColor;
   },
 };

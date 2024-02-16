@@ -49,6 +49,9 @@ const WORD = {
     ORDER_STATUS: "Buyurtma holati",
     PENDING_ORDER:
       "Buyurtma ko'rib chiqilmoqda va tez orada menejerlarimiz siz bilan bog'lanadi",
+    SELECT_COLOR: "Mahsulot rangini tanlang\n",
+    SELECT_SIZE: "Mahsulot o'lchamini tanlang",
+    SELECT_QUANTITY: "Buyurtma sonini kiriting",
   },
   RU: {
     LANGUAGE: "🇷🇺 Русский",
@@ -92,6 +95,9 @@ const WORD = {
     ORDER_CONFIRMED: "✅ Заказ подтвержден",
     ORDER_STATUS: "Статус заказа",
     PENDING_ORDER: "Заказ находится в обработке",
+    SELECT_COLOR: "Mahsulot rangini tanlang\n",
+    SELECT_SIZE: "Mahsulot o'lchamini tanlang\n",
+    SELECT_QUANTITY: "Buyurtma sonini kiriting\n",
   },
   GENERAL: {
     ERROR:
@@ -133,8 +139,11 @@ const STATE = {
   ADD_LOCATION: "al",
   CONFIRM_ORDER: "co",
   CONFIRM_DELIVERY: "cd",
+  SELECT_COLOR: "w",
 };
-
+const SCENES = {
+  CHOOSE_COLOR: "CHOOSE COLOR",
+};
 /*
 Callback data
 a = action
@@ -147,4 +156,5 @@ module.exports = {
   STATIC,
   STATE,
   KEYBOARD_STATE,
+  SCENES,
 };

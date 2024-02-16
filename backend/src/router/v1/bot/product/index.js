@@ -33,4 +33,20 @@ router.get("/get", joi.query(validator.get), async (req, res, next) => {
   }
 });
 
+router.get(
+  "/get-color-id",
+  joi.query(validator.get),
+  async (req, res, next) => {
+    try {
+      return res.json({
+        status: STATUS_SUCCESS,
+        message: "Product with colorid obtained successfully",
+        data: await productService.getByColorId(req.query),
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
 exports.ProductRouter = router;

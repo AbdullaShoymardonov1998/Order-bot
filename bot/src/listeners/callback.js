@@ -1,4 +1,4 @@
-const { STATE, STATIC } = require("../messages/dictionary");
+const { STATE, STATIC, SCENES } = require("../messages/dictionary");
 const changeLanguage = require("../keyboards/change_language");
 const category = require("../keyboards/category");
 const productList = require("../keyboards/product_list");
@@ -30,8 +30,12 @@ exports.callback = async (ctx) => {
       await productList(ctx, callbackData.n, callbackData.p);
       break;
     case STATE.PRODUCT_INFO:
-      await productInfo(ctx, callbackData.p, callbackData.q);
+      await productInfo(ctx, callbackData.p);
       break;
+    case STATE.SELECT_COLOR:
+      await ctx.scene.enter(SCENES.CHOOSE_COLOR, { colorId: callbackData.c });
+      break;
+
     case STATE.SHOW_QUANTITY:
       ctx.answerCbQuery(callbackData.d);
       break;
