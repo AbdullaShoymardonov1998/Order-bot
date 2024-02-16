@@ -1,7 +1,7 @@
 const { Composer } = require("telegraf");
 const { config } = require("../../config");
 const axios = require("axios");
-const { WORD } = require("../../messages/dictionary");
+const { WORD, STATE } = require("../../messages/dictionary");
 const chooseColor = new Composer();
 chooseColor.on("callback_query", async (ctx) => {
   const { data, status } = await axios({
@@ -28,13 +28,14 @@ chooseColor.on("callback_query", async (ctx) => {
   if (pictureUrl.length > 0) {
     info += ` <a href="${pictureUrl[0].picture.url}">&#8205;</a>`;
   }
-
+  const language = data.data.user.language;
   const sizesKeyboard = product.sizes.map((size) => [
     {
       text: size.name,
       callback_data: `${size._id}`,
     },
   ]);
+
   await ctx.editMessageText(info, {
     reply_markup: {
       inline_keyboard: sizesKeyboard,

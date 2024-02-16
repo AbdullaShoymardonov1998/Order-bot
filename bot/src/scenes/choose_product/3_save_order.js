@@ -20,14 +20,15 @@ saveOrder.on("text", async (ctx) => {
   if (status !== 200) {
     throw { response: data, status };
   }
-  let info = `Savatchaga saqlandi`;
   const user = data.data.user;
-  await ctx.editMessageText(info, {
+  const language = data.data.user.language;
+  let info = `${WORD[language].ADDED_TO_CART}`;
+  await ctx.reply(info, {
     reply_markup: {
       inline_keyboard: [
         [
           {
-            text: `${WORD.UZ.GO_TO_CART} (${user.cart.length})`,
+            text: `${WORD[language].GO_TO_CART} (${user.cart.length})`,
             callback_data: JSON.stringify({
               a: STATE.CART,
             }),
@@ -35,7 +36,7 @@ saveOrder.on("text", async (ctx) => {
         ],
         [
           {
-            text: WORD.UZ.CONTINUE_SHOPPING,
+            text: WORD[language].CONTINUE_SHOPPING,
             callback_data: JSON.stringify({
               a: STATE.CATEGORY,
               n: 1,
