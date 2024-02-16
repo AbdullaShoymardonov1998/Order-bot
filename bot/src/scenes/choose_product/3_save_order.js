@@ -21,7 +21,7 @@ saveOrder.on("text", async (ctx) => {
     throw { response: data, status };
   }
   let info = `Savatchaga saqlandi`;
-
+  const user = data.data.user;
   await ctx.editMessageText(info, {
     reply_markup: {
       inline_keyboard: [
@@ -35,7 +35,7 @@ saveOrder.on("text", async (ctx) => {
         ],
         [
           {
-            text: WORD[language].CONTINUE_SHOPPING,
+            text: WORD.UZ.CONTINUE_SHOPPING,
             callback_data: JSON.stringify({
               a: STATE.CATEGORY,
               n: 1,
