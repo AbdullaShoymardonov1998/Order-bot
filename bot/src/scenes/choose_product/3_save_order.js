@@ -22,8 +22,8 @@ saveOrder.on("text", async (ctx) => {
   }
   const user = data.data.user;
   const language = data.data.user.language;
-  let info = `${WORD[language].ADDED_TO_CART}`;
-  await ctx.reply(info, {
+
+  await ctx.reply(`${WORD[language].ADDED_TO_CART}`, {
     reply_markup: {
       inline_keyboard: [
         [
@@ -36,7 +36,7 @@ saveOrder.on("text", async (ctx) => {
         ],
         [
           {
-            text: WORD[language].CONTINUE_SHOPPING,
+            text: `${WORD[language].CONTINUE_SHOPPING}`,
             callback_data: JSON.stringify({
               a: STATE.CATEGORY,
               n: 1,

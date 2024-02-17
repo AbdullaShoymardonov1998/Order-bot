@@ -35,10 +35,19 @@ chooseColor.on("callback_query", async (ctx) => {
       callback_data: `${size._id}`,
     },
   ]);
+  const keyboard = [
+    ...sizesKeyboard,
+    [
+      {
+        text: `${WORD[language].BACK}`,
+        callback_data: "null",
+      },
+    ],
+  ];
 
   await ctx.editMessageText(info, {
     reply_markup: {
-      inline_keyboard: sizesKeyboard,
+      inline_keyboard: keyboard,
     },
     parse_mode: "HTML",
   });
