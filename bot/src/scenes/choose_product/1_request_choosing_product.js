@@ -19,9 +19,9 @@ chooseColor.on("callback_query", async (ctx) => {
   }
   let info = `${WORD.UZ.SELECT_SIZE}`;
   const product = data.data.product;
-
+  console.log(product.id);
   ctx.wizard.state.productId = product.id;
-
+  console.log("CTX.prod ", ctx.wizard.state.productId);
   const pictureUrl = product.colors.filter(
     (colors) => colors.id === ctx.wizard.state.colorId
   );
