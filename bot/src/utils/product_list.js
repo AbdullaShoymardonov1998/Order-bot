@@ -8,7 +8,7 @@ module.exports = async (cart, language) => {
   cart.forEach((product, index) => {
     let subTotal = product.quantity * product.product_id?.price;
     total += subTotal;
-    console.log(product.product_id);
+    console.log(product);
     const color =
       product.product_id.colors.find((c) => c.id === product.color_id)?.name ||
       "Color not found";
