@@ -49,7 +49,6 @@ saveOrder.on("text", async (ctx) => {
       ],
     },
   });
-  logger.error("Save order: ", product_list)
   return ctx.scene.leave();
 });
 module.exports = {

@@ -1,3 +1,4 @@
+const { logger } = require("../config/logger");
 const { WORD } = require("../messages/dictionary");
 
 module.exports = async (cart, language) => {
@@ -5,7 +6,8 @@ module.exports = async (cart, language) => {
   let total = 0;
 
   cart.forEach((product, index) => {
-    let subTotal = product.quantity * product.product_id.price;
+    logger.info(product.product_id.price);
+    let subTotal = product.quantity * product.product_id?.price;
     total += subTotal;
     const color =
       product.product_id.colors.find((c) => c.id === product.color_id)?.name ||
@@ -20,7 +22,7 @@ module.exports = async (cart, language) => {
       product.product_id.description[language]
     }\n\n<b>Rangi: ✨ <i>${color}</i></b>\n\n<b>Mahsulot o'lchami : ✨ <i>${size}</i></b>\n\n⚡️\n\n <b>Umumiy summa: <i>${
       product.quantity
-    }</i> x <i>${product.product_id.price
+    }</i> x <i>${product.product_id?.price
       .toLocaleString()
       .replace(",", " ")} = ${subTotal
       .toLocaleString()
