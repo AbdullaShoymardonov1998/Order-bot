@@ -2,7 +2,6 @@ const { STATE, STATIC, WORD } = require("../messages/dictionary");
 const { config } = require("../config");
 const axios = require("axios");
 const productListHelper = require("../utils/product_list");
-const { logger } = require("../config/logger");
 
 module.exports = async (ctx, messageType) => {
   const { data, status } = await axios({

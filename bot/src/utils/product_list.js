@@ -1,11 +1,11 @@
-const { logger } = require("../config/logger");
 const { WORD } = require("../messages/dictionary");
 
 module.exports = async (cart, language) => {
   let productList = "";
   let total = 0;
-
+  console.log(cart);
   cart.forEach((product, index) => {
+    console.log(product);
     let subTotal = product.quantity * product.product_id?.price;
     total += subTotal;
     console.log(product);
