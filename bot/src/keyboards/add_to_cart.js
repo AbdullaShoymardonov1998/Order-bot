@@ -1,7 +1,6 @@
 const { STATE, STATIC, WORD } = require("../messages/dictionary");
 const { config } = require("../config");
 const axios = require("axios");
-const { logger } = require("../config/logger");
 
 module.exports = async (ctx, productId, quantity) => {
   const { data, status } = await axios({
@@ -14,11 +13,11 @@ module.exports = async (ctx, productId, quantity) => {
       quantity,
     },
   });
-
+  console.log(productId);
   if (status != 200) {
     throw { response: data, status };
   }
-  logger.error(`Add to cart: ${error.message}, ${error.stack}`);
+
   const product = data.data.product;
   const user = data.data.user;
   const language = user.language;

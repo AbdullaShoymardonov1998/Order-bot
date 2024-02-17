@@ -3,14 +3,13 @@ const { WORD } = require("../messages/dictionary");
 module.exports = async (cart, language) => {
   let productList = "";
   let total = 0;
-  console.log(cart);
   cart.forEach((product, index) => {
-    console.log(product);
     let subTotal = product.quantity * product.product_id?.price;
     total += subTotal;
-    console.log(product);
     const color =
-      product.product_id.colors.find((c) => c.id === product.color_id)?.name ||
+      (product.product_id.colors &&
+        product.product_id.colors.find((c) => c.id === product.color_id)
+          ?.name) ||
       "Color not found";
     const size =
       product.product_id.sizes.find((s) => s._id === product.size_id)?.name ||
