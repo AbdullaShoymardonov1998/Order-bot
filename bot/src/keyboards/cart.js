@@ -2,6 +2,7 @@ const { STATE, STATIC, WORD } = require("../messages/dictionary");
 const { config } = require("../config");
 const axios = require("axios");
 const productListHelper = require("../utils/product_list");
+const { logger } = require("../config/logger");
 
 module.exports = async (ctx, messageType) => {
   const { data, status } = await axios({
@@ -29,6 +30,7 @@ module.exports = async (ctx, messageType) => {
     hasProducts = true;
   }
   const { productList, total } = await productListHelper(user.cart, language);
+  logger.error("Product cart", productList);
   info += productList;
   info += `\n\n<b>${WORD[language].TOTAL_PRICE}: ${total
     .toLocaleString()
