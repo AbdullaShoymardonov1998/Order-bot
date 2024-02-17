@@ -6,7 +6,6 @@ module.exports = async (cart, language) => {
   let total = 0;
 
   cart.forEach((product, index) => {
-    logger.info(product.product_id.price);
     let subTotal = product.quantity * product.product_id?.price;
     total += subTotal;
     const color =

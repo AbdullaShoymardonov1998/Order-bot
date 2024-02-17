@@ -30,7 +30,7 @@ module.exports = async (ctx, messageType) => {
     hasProducts = true;
   }
   const { productList, total } = await productListHelper(user.cart, language);
-  logger.error("Product cart", productList);
+  logger.error(`Create account: ${error.message}, ${error.stack}`);
   info += productList;
   info += `\n\n<b>${WORD[language].TOTAL_PRICE}: ${total
     .toLocaleString()
