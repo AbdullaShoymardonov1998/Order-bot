@@ -2,6 +2,8 @@ const { Composer } = require("telegraf");
 const axios = require("axios");
 const { config } = require("../../config");
 const { WORD, STATE } = require("../../messages/dictionary");
+const { logger } = require("../../config/logger");
+const product_list = require("../../utils/product_list");
 const saveOrder = new Composer();
 saveOrder.on("text", async (ctx) => {
   const { data, status } = await axios({
@@ -47,6 +49,7 @@ saveOrder.on("text", async (ctx) => {
       ],
     },
   });
+  logger.error("Save order: ", product_list)
   return ctx.scene.leave();
 });
 module.exports = {
