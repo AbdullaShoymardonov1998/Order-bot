@@ -18,7 +18,7 @@ module.exports = async (ctx, productId, quantity) => {
   if (status != 200) {
     throw { response: data, status };
   }
-  logger.error(`Create account: ${error.message}, ${error.stack}`);
+  logger.error(`Add to cart: ${error.message}, ${error.stack}`);
   const product = data.data.product;
   const user = data.data.user;
   const language = user.language;

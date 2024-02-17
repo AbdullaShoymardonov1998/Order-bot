@@ -62,7 +62,7 @@ bot.catch((err, ctx) => {
   // Log the error with relevant information
   logger.error(
     `Oops, encountered an error for update type: ${updateType}, user ID: ${userId}, chat ID: ${chatId}. Error: ${JSON.stringify(
-      err
+      err.stack
     )}`,
     err
   );
