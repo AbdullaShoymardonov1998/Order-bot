@@ -30,7 +30,7 @@ export default function Thumbnail() {
   const createHandler = () => nav(`/product/create`)
   const [paginationModel, setPaginationModel] = useState({
     page: 0,
-    pageSize: 10,
+    pageSize: 6,
   })
   const [total, setTotal] = useState(0)
   const [loading, setLoading] = useState(false)
