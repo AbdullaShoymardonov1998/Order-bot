@@ -51,7 +51,7 @@ const WORD = {
       "Buyurtma ko'rib chiqilmoqda va tez orada menejerlarimiz siz bilan bog'lanadi",
     SELECT_COLOR: "Mahsulot rangini tanlang\n",
     SELECT_SIZE: "Mahsulot o'lchamini tanlang",
-    SELECT_QUANTITY: "Buyurtma sonini kiriting",
+    SELECT_QUANTITY: "Buyurtma sonini kiriting( misol: 5 )",
   },
   RU: {
     LANGUAGE: "🇷🇺 Русский",

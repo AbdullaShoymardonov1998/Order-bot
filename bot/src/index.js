@@ -45,6 +45,11 @@ bot.use(async (ctx, next) => {
       });
     }
   }
+
+  if (result?.status === "member") {
+    return;
+  }
+
   await next();
 });
 
