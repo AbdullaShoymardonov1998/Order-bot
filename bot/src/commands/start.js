@@ -5,8 +5,7 @@ const { WORD, STATIC } = require("../messages/dictionary");
 const { config } = require("../config");
 
 exports.start = async (ctx) => {
-  console.log("Message type : ", ctx.message.chat.type);
-  logger.error(JSON.stringify(ctx.message, null, 2));
+  // logger.error(JSON.stringify(ctx.message, null, 2));
 
   if (ctx.message.chat.type === "supergroup") {
     return;
