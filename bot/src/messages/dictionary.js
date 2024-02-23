@@ -10,7 +10,7 @@ const WORD = {
     START_MESSAGE: `Assalomu alaykum. Telegram botdan foydalanish uchun Telegram guruhimizga a'zo bo'ling`,
     CHECK_JOINED: "A'zo bo'lishni tekshirish",
     JOIN_GROUP: "👉 Guruhga qo'shilish",
-    GROUP_LINK: "https://t.me/haoomas2",
+    GROUP_LINK: "https://t.me/XitoyoptomHaoomas",
     CHECK_JOIN_GROUP:
       "<b>Siz guruh a'zosi emassiz.</b>\n\nBotdan foydalanish uchun guruhga a'zo bo'ling va /start buyrug'ini yuboring",
 
@@ -103,8 +103,8 @@ const WORD = {
     ERROR:
       "Botda xatolik yuz berdi.\n\n<b>Botni qayta ishga tushirish uchun 👉 /start buyrug'ini bosing</b>\n\nOшибкa в боте.\n\n <b>Нажмите 👉 /start, чтобы перезапустить бота.</b>",
     SELECT_LANGUAGE: "👇 Tilni tanlang - Выберите язык",
-    NEXT: "👉🏻 keyingi",
-    PREVIOUS: "👈🏻 oldingi",
+    NEXT: "👉🏻 keyingi sahifa",
+    PREVIOUS: "👈🏻 oldingi sahifa",
   },
 };
 
