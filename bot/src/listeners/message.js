@@ -10,9 +10,7 @@ const saveLocation = require("../keyboards/save_location");
 const confirmOrder = require("../keyboards/confirm_order");
 
 exports.message = async (ctx) => {
-  logger.error(ctx);
-
-  logger.error("Update ==  ", ctx.update);
+  //logger.error(JSON.stringify(ctx, null, 2));
   if (
     ctx.update.message?.left_chat_participant ||
     ctx.update.message?.new_chat_participant
