@@ -5,7 +5,7 @@ const { WORD, STATIC } = require("../messages/dictionary");
 const { config } = require("../config");
 
 exports.start = async (ctx) => {
-  logger.error(JSON.stringify(ctx.message, null, 2));
+  // logger.error(JSON.stringify(ctx.message, null, 2));
 
   if (ctx.message.chat.type === "supergroup") {
     const welcomeText = `Assalomu alaykum. Mahsulotlarimiz haqida ma'lumotni telegram botimizdan olishingiz va buyurtma qilishingiz mumkin`;
