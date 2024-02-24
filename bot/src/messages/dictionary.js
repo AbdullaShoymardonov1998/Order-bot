@@ -107,6 +107,7 @@ const WORD = {
     SELECT_LANGUAGE: "👇 Tilni tanlang - Выберите язык",
     NEXT: "👉🏻 keyingi sahifa",
     PREVIOUS: "👈🏻 oldingi sahifa",
+    WELCOME_TEXT: `Assalomu alaykum. Mahsulotlarimiz haqida ma'lumotni telegram botimizdan olishingiz va buyurtma qilishingiz mumkin`,
   },
 };
 

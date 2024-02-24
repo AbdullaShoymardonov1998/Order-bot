@@ -10,14 +10,33 @@ const saveLocation = require("../keyboards/save_location");
 const confirmOrder = require("../keyboards/confirm_order");
 
 exports.message = async (ctx) => {
-  //logger.error(JSON.stringify(ctx, null, 2));
   if (
     ctx.update.message?.left_chat_participant ||
     ctx.update.message?.new_chat_participant
   ) {
     return;
   }
-
+  if (ctx.update.message?.chat?.type === "supergroup") {
+    const admins = [
+      540277582, 5239296586, 6425476213, 653592679, 6329808915, 6287853878,
+    ];
+    if (!admins.includes(ctx.update.message?.from?.id)) {
+      return ctx.reply(WORD.GENERAL.WELCOME_TEXT, {
+        disable_web_page_preview: true,
+        parse_mode: "HTML",
+        reply_markup: {
+          inline_keyboard: [
+            [
+              {
+                url: `${WORD.UZ.BOT_LINK}`,
+                text: WORD.UZ.JOIN_BOT,
+              },
+            ],
+          ],
+        },
+      });
+    }
+  }
   const msg = ctx.message.text;
 
   if (
