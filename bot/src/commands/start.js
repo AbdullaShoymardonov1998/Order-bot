@@ -8,7 +8,22 @@ exports.start = async (ctx) => {
   // logger.error(JSON.stringify(ctx.message, null, 2));
 
   if (ctx.message.chat.type === "supergroup") {
-    return;
+    const welcomeText = `Assalomu alaykum. Mahsulotlarimiz haqida ma'lumotni telegram botimizdan olishingiz va buyurtma qilishingiz mumkin`;
+
+    return await ctx.reply(welcomeText, {
+      disable_web_page_preview: true,
+      parse_mode: "HTML",
+      reply_markup: {
+        inline_keyboard: [
+          [
+            {
+              url: `${WORD.UZ.BOT_LINK}`,
+              text: WORD.UZ.JOIN_BOT,
+            },
+          ],
+        ],
+      },
+    });
   }
 
   const telegram_id = ctx.message.from.id;

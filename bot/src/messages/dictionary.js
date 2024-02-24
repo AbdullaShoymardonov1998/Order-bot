@@ -10,6 +10,8 @@ const WORD = {
     START_MESSAGE: `Assalomu alaykum. Telegram botdan foydalanish uchun Telegram guruhimizga a'zo bo'ling`,
     CHECK_JOINED: "A'zo bo'lishni tekshirish",
     JOIN_GROUP: "👉 Guruhga qo'shilish",
+    JOIN_BOT: "🤖 Botdan foydalanish",
+    BOT_LINK: "https://t.me/haoomasbot",
     GROUP_LINK: "https://t.me/XitoyoptomHaoomas",
     CHECK_JOIN_GROUP:
       "<b>Siz guruh a'zosi emassiz.</b>\n\nBotdan foydalanish uchun guruhga a'zo bo'ling va /start buyrug'ini yuboring",
