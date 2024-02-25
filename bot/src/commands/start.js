@@ -8,9 +8,9 @@ exports.start = async (ctx) => {
   // logger.error(JSON.stringify(ctx.message, null, 2));
 
   if (ctx.message.chat.type === "supergroup") {
-    const welcomeText = `Assalomu alaykum. Mahsulotlarimiz haqida ma'lumotni telegram botimizdan olishingiz va buyurtma qilishingiz mumkin`;
+    const welcomeMessage = `Assalomu alaykum. Mahsulotlarimiz haqida ma'lumotni telegram botimizdan olishingiz va buyurtma qilishingiz mumkin`;
 
-    return await ctx.reply(welcomeText, {
+    return await ctx.reply(welcomeMessage, {
       disable_web_page_preview: true,
       parse_mode: "HTML",
       reply_markup: {
