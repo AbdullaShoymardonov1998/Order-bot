@@ -11,7 +11,7 @@ const WORD = {
     CHECK_JOINED: "A'zo bo'lishni tekshirish",
     JOIN_GROUP: "👉 Guruhga qo'shilish",
     JOIN_BOT: "🤖 Botdan foydalanish",
-    BOT_LINK: "https://t.me/haoomasbot",
+    BOT_LINK: "https://t.me/HaoomasBot",
     GROUP_LINK: "https://t.me/XitoyoptomHaoomas",
     CHECK_JOIN_GROUP:
       "<b>Siz guruh a'zosi emassiz.</b>\n\nBotdan foydalanish uchun guruhga a'zo bo'ling va /start buyrug'ini yuboring",
@@ -108,7 +108,7 @@ const WORD = {
     NEXT: "👉🏻 keyingi sahifa",
     PREVIOUS: "👈🏻 oldingi sahifa",
     WELCOME_TEXT:
-      "🤖 Haoomas botdan foydalanib, mahsulotlarimizdan o'zingizga yoqqanini tanlang va buyurtma qiling 🛍",
+      "🤖 Haoomas botdan foydalanib, mahsulotlarimizdan o'zingizga yoqqanini tanlang va buyurtma qiling 🛒",
   },
 };
 
