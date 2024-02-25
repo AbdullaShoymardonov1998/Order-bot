@@ -8,20 +8,21 @@ exports.start = async (ctx) => {
   // logger.error(JSON.stringify(ctx.message, null, 2));
 
   if (ctx.message.chat.type === "supergroup") {
-    return await ctx.reply(WORD.GENERAL.WELCOME_TEXT, {
-      disable_web_page_preview: true,
-      parse_mode: "HTML",
-      reply_markup: {
-        inline_keyboard: [
-          [
-            {
-              url: `${WORD.UZ.BOT_LINK}`,
-              text: WORD.UZ.JOIN_BOT,
-            },
-          ],
-        ],
-      },
-    });
+    return;
+    // return await ctx.reply(WORD.GENERAL.WELCOME_TEXT, {
+    //   disable_web_page_preview: true,
+    //   parse_mode: "HTML",
+    //   reply_markup: {
+    //     inline_keyboard: [
+    //       [
+    //         {
+    //           url: `${WORD.UZ.BOT_LINK}`,
+    //           text: WORD.UZ.JOIN_BOT,
+    //         },
+    //       ],
+    //     ],
+    //   },
+    // });
   }
 
   const telegram_id = ctx.message.from.id;
