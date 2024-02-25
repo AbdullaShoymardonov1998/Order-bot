@@ -107,6 +107,8 @@ const WORD = {
     SELECT_LANGUAGE: "👇 Tilni tanlang - Выберите язык",
     NEXT: "👉🏻 keyingi sahifa",
     PREVIOUS: "👈🏻 oldingi sahifa",
+    WELCOME_TEXT:
+      "🤖 Haoomas botdan foydalanib, mahsulotlarimizdan o'zingizga yoqqanini tanlang va buyurtma qiling 🛍",
   },
 };
 
