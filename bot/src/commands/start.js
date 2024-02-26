@@ -33,7 +33,7 @@ exports.start = async (ctx) => {
       botOperational = false;
     });
 
-    cron.schedule("0,30 8-23 * * *", async () => {
+    cron.schedule("0 8-23 * * *", async () => {
       if (botOperational) {
         await sendWelcomeMessage(ctx);
       }
