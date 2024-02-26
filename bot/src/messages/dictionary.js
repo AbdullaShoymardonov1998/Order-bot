@@ -102,6 +102,7 @@ const WORD = {
     SELECT_QUANTITY: "Buyurtma sonini kiriting\n",
   },
   GENERAL: {
+    HOME: "🏠 Bosh sahifa",
     ERROR:
       "Botda xatolik yuz berdi.\n\n<b>Botni qayta ishga tushirish uchun 👉 /start buyrug'ini bosing</b>\n\nOшибкa в боте.\n\n <b>Нажмите 👉 /start, чтобы перезапустить бота.</b>",
     SELECT_LANGUAGE: "👇 Tilni tanlang - Выберите язык",

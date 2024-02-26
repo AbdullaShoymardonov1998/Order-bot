@@ -2,10 +2,30 @@ const { Composer } = require("telegraf");
 const axios = require("axios");
 const { config } = require("../../config");
 const { WORD, STATE } = require("../../messages/dictionary");
-const { logger } = require("../../config/logger");
-const product_list = require("../../utils/product_list");
 const saveOrder = new Composer();
 saveOrder.on("text", async (ctx) => {
+  const quantity = ctx.message.text;
+  const isValidQuantity = !isNaN(quantity) && parseInt(quantity) > 0;
+
+  if (!isValidQuantity) {
+    return await ctx.reply("Iltimos, raqam kiriting. Qayta urinib ko'ring!", {
+      reply_markup: {
+        inline_keyboard: [
+          [
+            {
+              text: WORD.GENERAL.HOME,
+              callback_data: JSON.stringify({
+                a: STATE.CATEGORY,
+                n: 1,
+                p: null,
+              }),
+            },
+          ],
+        ],
+      },
+    });
+  }
+
   const { data, status } = await axios({
     method: "POST",
     url: `${config.apiURL}/user/cart`,
@@ -13,7 +33,7 @@ saveOrder.on("text", async (ctx) => {
     data: {
       telegram_id: ctx.chat.id,
       product_id: ctx.wizard.state.productId,
-      quantity: ctx.message.text,
+      quantity: quantity,
       color_id: ctx.wizard.state.colorId,
       size_id: ctx.wizard.state.sizeId,
     },
