@@ -8,7 +8,6 @@ const bot = new Telegraf(process.env.BOT_TOKEN);
 const { chooseColorScene } = require("./scenes/choose_product");
 const stage = new Scenes.Stage([chooseColorScene]);
 
-const cron = require("node-cron");
 bot.use(async (ctx, next) => {
   let result = null;
   try {
@@ -45,33 +44,6 @@ bot.use(async (ctx, next) => {
         },
       });
     }
-  }
-  if (ctx.update.message.chat.type === "supergroup") {
-    const options = {
-      scheduled: true,
-      timezone: "Asia/Tashkent",
-    };
-
-    cron.schedule(
-      "0 7-23 * * *",
-      async () => {
-        return await ctx.reply(WORD.GENERAL.WELCOME_TEXT, {
-          disable_web_page_preview: true,
-          parse_mode: "HTML",
-          reply_markup: {
-            inline_keyboard: [
-              [
-                {
-                  url: `${WORD.UZ.BOT_LINK}`,
-                  text: WORD.UZ.JOIN_BOT,
-                },
-              ],
-            ],
-          },
-        });
-      },
-      options
-    );
   }
 
   await next();
