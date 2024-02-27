@@ -1,42 +1,25 @@
 const axios = require("axios");
-const cron = require("node-cron");
 const menuKeyboard = require("../keyboards/menu");
 // const { logger } = require("../config/logger");
 const { WORD, STATIC } = require("../messages/dictionary");
 const { config } = require("../config");
 
-async function sendWelcomeMessage(ctx) {
-  return await ctx.reply(WORD.GENERAL.WELCOME_TEXT, {
-    disable_web_page_preview: true,
-    parse_mode: "HTML",
-    reply_markup: {
-      inline_keyboard: [
-        [
-          {
-            url: `${WORD.UZ.BOT_LINK}`,
-            text: WORD.UZ.JOIN_BOT,
-          },
-        ],
-      ],
-    },
-  });
-}
-
 exports.start = async (ctx) => {
   // logger.error(JSON.stringify(ctx.message, null, 2));
   if (ctx.message.chat.type === "supergroup") {
-    await sendWelcomeMessage(ctx);
-    let botOperational = true;
-
-    process.on("SIGINT", function () {
-      console.log("Shutting down...");
-      botOperational = false;
-    });
-
-    cron.schedule("0 8-23 * * *", async () => {
-      if (botOperational) {
-        await sendWelcomeMessage(ctx);
-      }
+    return await ctx.reply(WORD.GENERAL.WELCOME_TEXT, {
+      disable_web_page_preview: true,
+      parse_mode: "HTML",
+      reply_markup: {
+        inline_keyboard: [
+          [
+            {
+              url: `${WORD.UZ.BOT_LINK}`,
+              text: WORD.UZ.JOIN_BOT,
+            },
+          ],
+        ],
+      },
     });
   }
   if (ctx.message.chat.type === "private") {
