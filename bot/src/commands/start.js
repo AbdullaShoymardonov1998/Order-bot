@@ -33,11 +33,15 @@ exports.start = async (ctx) => {
       botOperational = false;
     });
 
-    cron.schedule("0 7-23 * * *", async () => {
-      if (botOperational) {
-        await sendWelcomeMessage(ctx);
-      }
-    });
+    cron.schedule(
+      "0 7-23 * * *",
+      async () => {
+        if (botOperational) {
+          await sendWelcomeMessage(ctx);
+        }
+      },
+      { timezone: "Asia/Tashkent" }
+    );
   }
   if (ctx.message.chat.type === "private") {
     const telegram_id = ctx.message.from.id;
