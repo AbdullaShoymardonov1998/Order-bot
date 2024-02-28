@@ -22,5 +22,5 @@ module.exports = async (ctx, language) => {
     }
 
     await ctx.editMessageText(WORD[language].SAVED);
-    await ctx.reply(WORD[language].MENU, menuKeyboard(language));
+    await ctx.reply(WORD[language].MENU, menuKeyboard(language, ctx));
 }

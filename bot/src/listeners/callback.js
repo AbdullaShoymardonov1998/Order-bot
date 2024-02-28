@@ -35,7 +35,6 @@ exports.callback = async (ctx) => {
     case STATE.SELECT_COLOR:
       await ctx.scene.enter(SCENES.CHOOSE_COLOR, { colorId: callbackData.c });
       break;
-
     case STATE.SHOW_QUANTITY:
       ctx.answerCbQuery(callbackData.d);
       break;
@@ -65,6 +64,9 @@ exports.callback = async (ctx) => {
       break;
     case STATE.CONFIRM_DELIVERY:
       await confirmedOrder(ctx);
+      break;
+    case STATE.SEND_VIDEO:
+      await ctx.scene.enter(SCENES.SEND_VIDEO);
       break;
     default:
       console.log("incorrect callback data", callbackData);

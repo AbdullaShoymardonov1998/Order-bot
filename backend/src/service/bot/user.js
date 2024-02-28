@@ -5,6 +5,9 @@ exports.userService = {
   create: async (user) => {
     return await userStorage.create(user);
   },
+  getAllTelegramUsers: async () => {
+    return await userStorage.getAllUsers();
+  },
   getByTelegramId: async (user) => {
     return await userStorage.getByTelegramId(user.telegram_id);
   },

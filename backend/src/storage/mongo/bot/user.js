@@ -25,6 +25,10 @@ exports.userStorage = {
       updated_at: time,
     });
   },
+  getAllUsers: async () => {
+    const allUsers = await User.find();
+    return allUsers;
+  },
   getByTelegramId: async (id) => {
     const existingUser = await User.findOne({ telegram_id: parseInt(id) });
     if (existingUser == null) {

@@ -64,10 +64,10 @@ exports.start = async (ctx) => {
 Buyurtmalar berish va tovarlar bilan yaqindan tanishib chiqish uchun, “➡️ Buyurtma berish” bo'limiga o'ting.\n`;
     switch (status) {
       case 409:
-        ctx.reply(message, menuKeyboard(STATIC.DEFAULT_LANGUAGE));
+        ctx.reply(message, menuKeyboard(STATIC.DEFAULT_LANGUAGE, ctx));
         break;
       case 200:
-        ctx.reply(message, menuKeyboard(data.data.language));
+        ctx.reply(message, menuKeyboard(data.data.language, ctx));
         break;
       default:
         throw {

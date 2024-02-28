@@ -77,7 +77,7 @@ module.exports = async (ctx, messageType) => {
     if (messageType == STATIC.SEND_MESSAGE) {
       await ctx.reply(
         WORD[language].YOU_HAVE_EMPTY_CART,
-        menuKeyboard(language)
+        menuKeyboard(language, ctx)
       );
     } else if (messageType == STATIC.EDIT_MESSAGE) {
       await ctx.editMessageText(WORD[language].YOU_HAVE_EMPTY_CART, {

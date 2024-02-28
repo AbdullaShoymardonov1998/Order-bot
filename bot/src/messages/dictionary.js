@@ -6,6 +6,7 @@ const WORD = {
       ORDER: "➡️ Buyurtma berish",
       BUSKET: "🛒 Savatcha",
       SETTINGS: "🇺🇿 - 🇷🇺",
+      SEND_VIDEO: "Video",
     },
     START_MESSAGE: `Assalomu alaykum. Telegram botdan foydalanish uchun Telegram guruhimizga a'zo bo'ling`,
     CHECK_JOINED: "A'zo bo'lishni tekshirish",
@@ -54,6 +55,10 @@ const WORD = {
     SELECT_COLOR: "Mahsulot rangini tanlang\n",
     SELECT_SIZE: "Mahsulot o'lchamini tanlang",
     SELECT_QUANTITY: "Buyurtma sonini kiriting( misol: 5 )",
+    SEND_VIDEO: "📹 Video junating",
+    VIDEO_CAPTION: "✍️ Video ma'lumotini kiriting",
+    APPROVE: "Tasdiqlash",
+    REJECT: "Bekor qilish",
   },
   RU: {
     LANGUAGE: "🇷🇺 Русский",
@@ -62,6 +67,7 @@ const WORD = {
       ORDER: "➡️ Заказать доставку",
       BUSKET: "🛒 Корзина",
       SETTINGS: "🇺🇿 - 🇷🇺",
+      SEND_VIDEO: "Bидео",
     },
     SELECT_CATEGORY: "👇 Выберите категорию",
     SELECT_PRODUCT: "👇 Выберите продукт",
@@ -145,9 +151,11 @@ const STATE = {
   CONFIRM_ORDER: "co",
   CONFIRM_DELIVERY: "cd",
   SELECT_COLOR: "w",
+  SEND_VIDEO: "sv",
 };
 const SCENES = {
   CHOOSE_COLOR: "CHOOSE COLOR",
+  SEND_VIDEO: "SEND VIDEO",
 };
 /*
 Callback data
