@@ -21,7 +21,6 @@ const WORD = {
     SELECT_PRODUCT: "👇 Mahsulotni tanlang",
     MONEY: "so'm",
     SAVED: "✅ Saqlandi",
-    KG: "kg",
     QUANTITY: "dona",
     BACK: "🔙 Ortga",
     SELECT_QUANTITY: "👇 Mahsulot miqdorini tanlang",
@@ -59,6 +58,8 @@ const WORD = {
     VIDEO_CAPTION: "✍️ Video ma'lumotini kiriting",
     APPROVE: "Tasdiqlash",
     REJECT: "Bekor qilish",
+    NEXT: "👉🏻 keyingi",
+    PREVIOUS: "👈🏻 oldingi",
   },
   RU: {
     LANGUAGE: "🇷🇺 Русский",
@@ -73,7 +74,6 @@ const WORD = {
     SELECT_PRODUCT: "👇 Выберите продукт",
     MONEY: "сум",
     SAVED: "✅ Сохранено",
-    KG: "кг",
     QUANTITY: "шт",
     BACK: "⏪ Назад",
     SELECT_QUANTITY: "👇 Пожалуйста выберите количества",
@@ -99,21 +99,22 @@ const WORD = {
       "Напишите как пример: \nАдрес, Контактный телефон\n\n<b>Пример</b>: город Джизак, Махалля Заргарлик, улица Йошлик, 1-квартира, +998 90 123 4567",
     CONFIRM_ORDER: "Список продуктов",
     CONFIRM_DELIVERY: "✅ Подтвердить доставку",
-    CANCEL_DELIVERY: "❌ Bekor qilish",
+    CANCEL_DELIVERY: "❌ Отменить",
     ORDER_CONFIRMED: "✅ Заказ подтвержден",
     ORDER_STATUS: "Статус заказа",
     PENDING_ORDER: "Заказ находится в обработке",
-    SELECT_COLOR: "Mahsulot rangini tanlang\n",
-    SELECT_SIZE: "Mahsulot o'lchamini tanlang\n",
-    SELECT_QUANTITY: "Buyurtma sonini kiriting\n",
+    SELECT_COLOR: "Выберите цвет продукта\n",
+    SELECT_SIZE: "Выберите размер продукта\n",
+    SELECT_QUANTITY: "Введите количество заказа\n",
+    SEND_VIDEO: "📹 Добавить видео",
+    NEXT: "👉🏻 следующая ",
+    PREVIOUS: "👈🏻 предыдущая",
   },
   GENERAL: {
     HOME: "🏠 Bosh sahifa",
     ERROR:
       "Botda xatolik yuz berdi.\n\n<b>Botni qayta ishga tushirish uchun 👉 /start buyrug'ini bosing</b>\n\nOшибкa в боте.\n\n <b>Нажмите 👉 /start, чтобы перезапустить бота.</b>",
     SELECT_LANGUAGE: "👇 Tilni tanlang - Выберите язык",
-    NEXT: "👉🏻 keyingi/следующая ",
-    PREVIOUS: "👈🏻 oldingi/предыдущая",
     WELCOME_TEXT:
       "🤖 Haoomas botdan foydalanib, mahsulotlarimizdan o'zingizga yoqqanini tanlang va buyurtma qiling 🛒\n\n🤖 С помощью бота Haoomas выбирайте понравившиеся товары и заказывайте 🛒",
   },

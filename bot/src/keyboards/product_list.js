@@ -73,7 +73,7 @@ async function productListKeyboard(response, page, parent, language) {
 
   if (page != 1) {
     navigationRow.push({
-      text: WORD.GENERAL.PREVIOUS,
+      text: WORD[language].PREVIOUS,
       callback_data: JSON.stringify({
         a: STATE.PRODUCT,
         p: parent,
@@ -84,7 +84,7 @@ async function productListKeyboard(response, page, parent, language) {
 
   if (page < response.total_pages) {
     navigationRow.push({
-      text: WORD.GENERAL.NEXT,
+      text: WORD[language].NEXT,
       callback_data: JSON.stringify({
         a: STATE.PRODUCT,
         p: parent,

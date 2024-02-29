@@ -17,7 +17,9 @@ chooseColor.on("callback_query", async (ctx) => {
   if (status !== 200) {
     throw { response: data, status };
   }
-  let info = `${WORD.UZ.SELECT_SIZE}`;
+  const language = data.data.user.language;
+  ctx.wizard.state.language = language;
+  let info = `${WORD[language].SELECT_SIZE}`;
   const product = data.data.product;
   ctx.wizard.state.productId = product.id;
   const pictureUrl = product.colors.filter(
@@ -26,7 +28,6 @@ chooseColor.on("callback_query", async (ctx) => {
   if (pictureUrl.length > 0) {
     info += ` <a href="${pictureUrl[0].picture.url}">&#8205;</a>`;
   }
-  const language = data.data.user.language;
   const sizesKeyboard = product.sizes.map((size) => [
     {
       text: size.name,
