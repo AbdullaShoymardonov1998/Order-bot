@@ -34,7 +34,10 @@ exports.message = async (ctx) => {
     msg === WORD.UZ.MENU_KEYBOARD.SEND_VIDEO ||
     msg === WORD.RU.MENU_KEYBOARD.SEND_VIDEO
   ) {
-    if (ctx.update.message.from.id === 540277582) {
+    if (
+      ctx.update.message.from.id === 540277582 ||
+      ctx.update.message.from.id === 6425476213
+    ) {
       return sendVideo(ctx);
     } else {
       ctx.reply("Sizda video junatishga ruxsat yo'q", {
