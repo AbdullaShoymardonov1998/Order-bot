@@ -116,7 +116,7 @@ const WORD = {
       "Botda xatolik yuz berdi.\n\n<b>Botni qayta ishga tushirish uchun 👉 /start buyrug'ini bosing</b>\n\nOшибкa в боте.\n\n <b>Нажмите 👉 /start, чтобы перезапустить бота.</b>",
     SELECT_LANGUAGE: "👇 Tilni tanlang - Выберите язык",
     WELCOME_TEXT:
-      "🤖 Haoomas botdan foydalanib, mahsulotlarimizdan o'zingizga yoqqanini tanlang va buyurtma qiling 🛒\n\n🤖 С помощью бота Haoomas выбирайте понравившиеся товары и заказывайте 🛒",
+      "🤖 Haoomas botdan foydalanib, mahsulotlarimizdan o'zingizga yoqqanini tanlang va buyurtma qiling 🛒\n\n🤖 Выбирайте понравившиеся вам товары с помощью бота Haoomas и заказывайте. 🛒",
   },
 };
 

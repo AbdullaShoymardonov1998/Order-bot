@@ -7,7 +7,10 @@ module.exports = (userLanguage, ctx) => {
     WORD[userLanguage].MENU_KEYBOARD.SETTINGS,
   ];
   let inline_keyboard;
-  if (ctx.update.message?.from?.id === 540277582) {
+  if (
+    ctx.update.message?.from?.id === 540277582 ||
+    ctx.update.message?.from?.id === 6425476213
+  ) {
     inline_keyboard = [
       commonButtons,
       [WORD[userLanguage].MENU_KEYBOARD.SEND_VIDEO],
