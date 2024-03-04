@@ -39,6 +39,7 @@ services:
       - BOT_TOKEN=${BOT_TOKEN}
       - API_URL=${API_URL}
       - GROUP_ID=${GROUP_ID}
+      - ADMIN_TG_ID=${ADMIN_TG_ID}
     ports:
       - "5001:3000"
 networks:
