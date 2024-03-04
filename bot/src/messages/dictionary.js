@@ -60,6 +60,10 @@ const WORD = {
     REJECT: "Bekor qilish",
     NEXT: "👉🏻 keyingi",
     PREVIOUS: "👈🏻 oldingi",
+    CONFIRMED_VIDEO:
+      "Yuborgan video faylingiz admin tomonidan tasdiqlandi va qolgan foydalanuvchilarga ham yuborildi 🤩. \n\n Yangiliklarni bo'lishishdan va kayfiyat ko'tarishdan hech ham charchamang ⭐️ ",
+    REJECTED_VIDEO:
+      "Siz yuborgan fayl qabul qilinmadi va o'chirildi. Qaytadan boshqa video yuklashga urunib ko'ring! \n",
   },
   RU: {
     LANGUAGE: "🇷🇺 Русский",
@@ -153,6 +157,8 @@ const STATE = {
   CONFIRM_DELIVERY: "cd",
   SELECT_COLOR: "w",
   SEND_VIDEO: "sv",
+  CONFIRMED_VIDEO: "cv",
+  REJECTED_VIDEO: "rv",
 };
 const SCENES = {
   CHOOSE_COLOR: "CHOOSE COLOR",

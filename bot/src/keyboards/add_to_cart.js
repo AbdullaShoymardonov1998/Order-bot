@@ -13,7 +13,6 @@ module.exports = async (ctx, productId, quantity) => {
       quantity,
     },
   });
-  console.log(productId);
   if (status != 200) {
     throw { response: data, status };
   }

@@ -2,15 +2,13 @@ const { Scenes } = require("telegraf");
 const { requestVideo } = require("./1_request_video");
 const { saveVideo } = require("./2_save_video");
 const { requestVideoText } = require("./3_request_video_caption");
-const { sendVideo } = require("./4_send_video_to_users");
 const { SCENES } = require("../../messages/dictionary");
 
 const addVideoScene = new Scenes.WizardScene(
   SCENES.SEND_VIDEO,
   requestVideo,
   saveVideo,
-  requestVideoText,
-  sendVideo
+  requestVideoText
 );
 
 module.exports = {

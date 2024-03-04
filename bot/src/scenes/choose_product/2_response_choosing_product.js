@@ -3,7 +3,6 @@ const { WORD, STATE } = require("../../messages/dictionary");
 const requestChoosingQuantity = new Composer();
 requestChoosingQuantity.on("callback_query", async (ctx) => {
   ctx.wizard.state.sizeId = ctx.callbackQuery.data;
-  console.log(WORD[ctx.wizard.state.language].PREVIOUS);
   if (ctx.callbackQuery.data === "null") {
     await ctx.editMessageText("Davom etish", {
       reply_markup: {

@@ -11,6 +11,8 @@ const selectLocation = require("../keyboards/select_location");
 const addLocation = require("../keyboards/add_location");
 const confirmOrder = require("../keyboards/confirm_order");
 const confirmedOrder = require("../keyboards/confirmed_order");
+const sendVideoToUsers = require("../keyboards/send_video_to_users");
+const rejectedVideo = require("../keyboards/send_video_rejection");
 const { start } = require("../commands/start");
 
 exports.callback = async (ctx) => {
@@ -67,6 +69,12 @@ exports.callback = async (ctx) => {
       break;
     case STATE.SEND_VIDEO:
       await ctx.scene.enter(SCENES.SEND_VIDEO);
+      break;
+    case STATE.CONFIRMED_VIDEO:
+      await sendVideoToUsers(ctx);
+      break;
+    case STATE.REJECTED_VIDEO:
+      await rejectedVideo(ctx);
       break;
     default:
       console.log("incorrect callback data", callbackData);
