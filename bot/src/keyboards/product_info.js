@@ -33,7 +33,7 @@ module.exports = async (ctx, productId) => {
   const getPriceString = (priceValue) =>
     `${priceValue.toLocaleString().replace(",", " ")} ${WORD[language].MONEY}`;
   info += `🛍 Mahsulot kodi: <b>${product.title[language]}</b>\n\n`;
-  info += `${WORD.UZ.UNIT_PRICE}<b><i> ${getPriceString(
+  info += `${WORD.UZ.UNIT_PRICE}: <b><i> ${getPriceString(
     unitPrice
   )} / 1 dona</i></b>`;
 

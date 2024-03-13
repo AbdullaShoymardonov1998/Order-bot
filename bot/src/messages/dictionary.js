@@ -72,7 +72,7 @@ const WORD = {
     SEND_RESUME: "Resume junatish",
     RESUMES: "Resumelarni ko'rish",
     BIG_CLIENTS: "🟢 Katta mijozlar uchun narx",
-    SMALL_CLIENTS: "🔵 Kichkina mijozlar uchun narx",
+    SMALL_CLIENTS: "🔵 Kichik mijozlar uchun narx",
     UNIT_PRICE: "🟣 Dona uchun narx",
   },
   RU: {
