@@ -9,7 +9,10 @@ exports.resumeService = {
     };
   },
   getResumeById: async (query) => {
-    return await resumeStorage.getResumeById(query.resume_id);
+    return await resumeStorage.getResumeById(query);
+  },
+  getResumeByCategory: async (query) => {
+    return await resumeStorage.getResumesByCategory(query);
   },
   getAllResumes: async () => {
     return await resumeStorage.getAllResumes();

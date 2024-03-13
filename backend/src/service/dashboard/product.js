@@ -11,7 +11,6 @@ exports.productService = {
         message: `Category id=${product.parent} is not subcategory`,
       };
     }
-
     return await productStorage.create(product);
   },
   get: async (id) => {
@@ -28,23 +27,18 @@ exports.productService = {
         message: `Category id=${body.parent} is not subcategory`,
       };
     }
-
     const oldProduct = await productStorage.get(id);
-
     let picture = oldProduct.picture.uuid;
     if (picture && file) {
       await fileUpload.delete(picture);
-
       picture = await fileUpload.upload(file);
     } else if (file) {
       picture = await fileUpload.upload(file);
     }
-
     return await productStorage.update(id, body, picture);
   },
   delete: async (id) => {
     const product = await productStorage.get(id);
-
     if (product.picture.uuid) {
       await fileUpload.delete(product.picture.uuid);
     }

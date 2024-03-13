@@ -7,7 +7,11 @@ module.exports = (userLanguage, ctx) => {
       WORD[userLanguage].MENU_KEYBOARD.BUSKET,
       WORD[userLanguage].MENU_KEYBOARD.SETTINGS,
     ],
-    [WORD[userLanguage].MENU_KEYBOARD.SEND_VIDEO],
+    [
+      WORD[userLanguage].MENU_KEYBOARD.SEND_VIDEO,
+      WORD[userLanguage].MENU_KEYBOARD.VACANCY,
+      // WORD[userLanguage].MENU_KEYBOARD.RESUME,
+    ],
   ];
 
   return {

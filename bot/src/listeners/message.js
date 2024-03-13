@@ -14,6 +14,8 @@ const cancelAddLocation = require("../keyboards/cancel_add_location");
 const saveLocation = require("../keyboards/save_location");
 const confirmOrder = require("../keyboards/confirm_order");
 const sendVideo = require("../keyboards/send_video");
+const vacancy = require("../keyboards/vacancy");
+const resume = require("../keyboards/resume");
 
 exports.message = async (ctx) => {
   if (
@@ -35,6 +37,16 @@ exports.message = async (ctx) => {
     msg === WORD.RU.MENU_KEYBOARD.SEND_VIDEO
   ) {
     return sendVideo(ctx);
+  } else if (
+    msg === WORD.UZ.MENU_KEYBOARD.VACANCY ||
+    msg === WORD.RU.MENU_KEYBOARD.VACANCY
+  ) {
+    return vacancy(ctx);
+  } else if (
+    msg == WORD.UZ.MENU_KEYBOARD.RESUME ||
+    msg == WORD.RU.MENU_KEYBOARD.RESUME
+  ) {
+    return resume(ctx);
   } else if (
     msg == WORD.UZ.MENU_KEYBOARD.BUSKET ||
     msg == WORD.RU.MENU_KEYBOARD.BUSKET

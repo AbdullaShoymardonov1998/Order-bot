@@ -13,7 +13,7 @@ router.post(
     try {
       const result = await videoApprovalService.create(req.body);
 
-      return res.json({
+      return res.status(201).json({
         status: STATUS_SUCCESS,
         message: "Video approval created successfully",
         data: result,

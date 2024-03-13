@@ -6,12 +6,14 @@ const { ProductRouter } = require("./product");
 const { OrderRouter } = require("./order");
 const { VacancyRouter } = require("./vacancy");
 const { VideoApprovalRouter } = require("./video");
+const { ResumeRouter } = require("./resume");
 
 router.use("/user", UserRouter);
 router.use("/category", CategoryRouter);
 router.use("/product", ProductRouter);
 router.use("/order", OrderRouter);
 router.use("/vacancy", VacancyRouter);
+router.use("/resume", ResumeRouter);
 router.use("/video", VideoApprovalRouter);
 
 module.exports = router;

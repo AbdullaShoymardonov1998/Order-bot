@@ -8,10 +8,18 @@ exports.vacancyService = {
       vacancy: await vacancyStorage.create(request),
     };
   },
-  getVacancyById: async (query) => {
-    return await vacancyStorage.getVacancyById(query.vacancy_id);
+  getVacancyById: async (id) => {
+    return await vacancyStorage.getVacancyById(id);
   },
+
+  getVacanciesByCategory: async (query) => {
+    return await vacancyStorage.getVacanciesByCategory(query);
+  },
+
   getAllVacancies: async () => {
     return await vacancyStorage.getAllVacancies();
+  },
+  find: async (query) => {
+    return await vacancyStorage.find(query);
   },
 };

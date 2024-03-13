@@ -13,9 +13,21 @@ const minioClient = new Minio.Client({
 const uploadFile = {
   upload: async (file) => {
     try {
-      let fileExtention = file.originalname.split(".");
-      fileExtention = fileExtention[fileExtention.length - 1];
-      const fileName = `images/${Date.now()}.${fileExtention}`;
+      let fileExtension = file.originalname.split(".").pop().toLowerCase();
+      let fileName;
+      let folderName;
+
+      if (
+        fileExtension === "pdf" ||
+        fileExtension === "doc" ||
+        fileExtension === "docx"
+      ) {
+        folderName = "resumes";
+      } else {
+        folderName = "images";
+      }
+
+      fileName = `${folderName}/${Date.now()}.${fileExtension}`;
 
       const metaData = {
         "Content-Type": file.mimetype,
@@ -29,11 +41,12 @@ const uploadFile = {
           fileLocation,
           metaData,
           function (err, etag) {
-            if (err) reject(new Error("Error occured on uploading file"));
+            if (err) reject(new Error("Error occurred on uploading file"));
+
             if (fs.existsSync(fileLocation)) {
               fs.unlink(fileLocation, (err) => {
                 if (err)
-                  reject(new Error("Error occured on deleting temp file"));
+                  reject(new Error("Error occurred on deleting temp file"));
               });
             }
 
@@ -46,6 +59,7 @@ const uploadFile = {
       throw new Error(error);
     }
   },
+
   delete: async (file) => {
     try {
       minioClient.statObject(config.minioBucket, file, function (err, stat) {

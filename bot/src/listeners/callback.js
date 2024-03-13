@@ -14,6 +14,10 @@ const confirmedOrder = require("../keyboards/confirmed_order");
 const sendVideoToUsers = require("../keyboards/send_video_to_users");
 const rejectedVideo = require("../keyboards/send_video_rejection");
 const { start } = require("../commands/start");
+const vacancy_category = require("../keyboards/vacancy_category");
+const vacancy_info = require("../keyboards/vacancy_info");
+const vacancy_list = require("../keyboards/vacancy_list");
+const vacancy = require("../keyboards/vacancy");
 
 exports.callback = async (ctx) => {
   const callbackData = JSON.parse(ctx.callbackQuery.data);
@@ -75,6 +79,24 @@ exports.callback = async (ctx) => {
       break;
     case STATE.REJECTED_VIDEO:
       await rejectedVideo(ctx);
+      break;
+    case STATE.VACANCY_MAIN:
+      await vacancy(ctx);
+      break;
+    case STATE.VACANCY:
+      await ctx.scene.enter(SCENES.VACANCY);
+      break;
+    case STATE.VACANCY_CATEGORY:
+      await vacancy_category(ctx);
+      break;
+    case STATE.VACANCY_LIST:
+      await vacancy_list(ctx, callbackData.v, callbackData.n);
+      break;
+    case STATE.VACANCY_INFO:
+      await vacancy_info(ctx, callbackData.v);
+      break;
+    case STATE.RESUME:
+      await ctx.scene.enter(SCENES.RESUME);
       break;
     default:
       console.log("incorrect callback data", callbackData);

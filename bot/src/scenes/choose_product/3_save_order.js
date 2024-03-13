@@ -6,26 +6,31 @@ const saveOrder = new Composer();
 saveOrder.on("text", async (ctx) => {
   const quantity = ctx.message.text;
   const isValidQuantity = !isNaN(quantity) && parseInt(quantity) > 0;
-
-  if (!isValidQuantity) {
-    return await ctx.reply("Iltimos, raqam kiriting. Qayta urinib ko'ring!", {
-      reply_markup: {
-        inline_keyboard: [
-          [
-            {
-              text: WORD.GENERAL.HOME,
-              callback_data: JSON.stringify({
-                a: STATE.CATEGORY,
-                n: 1,
-                p: null,
-              }),
-            },
+  if (quantity) {
+    if (quantity === "/start" || quantity === "➡️ Buyurtma berish") {
+      await ctx.reply("Bosh sahifaga qaytish!", {
+        reply_markup: {
+          inline_keyboard: [
+            [
+              {
+                text: WORD.GENERAL.HOME,
+                callback_data: JSON.stringify({
+                  a: STATE.CATEGORY,
+                  n: 1,
+                  p: null,
+                }),
+              },
+            ],
           ],
-        ],
-      },
-    });
-  }
+        },
+      });
+      return ctx.scene.leave();
+    }
 
+    if (!isValidQuantity) {
+      return await ctx.reply("Iltimos, raqam kiriting. Qayta urinib ko'ring!");
+    }
+  }
   const { data, status } = await axios({
     method: "POST",
     url: `${config.apiURL}/user/cart`,

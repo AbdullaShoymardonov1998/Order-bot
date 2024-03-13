@@ -6,7 +6,9 @@ const WORD = {
       ORDER: "➡️ Buyurtma berish",
       BUSKET: "🛒 Savatcha",
       SETTINGS: "🇺🇿 - 🇷🇺",
-      SEND_VIDEO: "Video",
+      SEND_VIDEO: "📹  Video",
+      VACANCY: "💼 Vakansiya",
+      RESUME: "📄 Resume",
     },
     START_MESSAGE: `Assalomu alaykum. Telegram botdan foydalanish uchun Telegram guruhimizga a'zo bo'ling`,
     CHECK_JOINED: "A'zo bo'lishni tekshirish",
@@ -19,6 +21,7 @@ const WORD = {
 
     SELECT_CATEGORY: "👇 Bo'limni tanlang",
     SELECT_PRODUCT: "👇 Mahsulotni tanlang",
+    SELECT_VACANCY: "👇 Vakansiyani tanlang",
     MONEY: "so'm",
     SAVED: "✅ Saqlandi",
     QUANTITY: "dona",
@@ -64,6 +67,13 @@ const WORD = {
       "Yuborgan video faylingiz admin tomonidan tasdiqlandi va qolgan foydalanuvchilarga ham yuborildi 🤩. \n\n Yangiliklarni bo'lishishdan va kayfiyat ko'tarishdan hech ham charchamang ⭐️ ",
     REJECTED_VIDEO:
       "Siz yuborgan fayl qabul qilinmadi va o'chirildi. Qaytadan boshqa video yuklashga urunib ko'ring! \n",
+    SEND_VACANCY: "Vakansiya junatish",
+    VACANCIES: "Vakansiyalarni ko'rish",
+    SEND_RESUME: "Resume junatish",
+    RESUMES: "Resumelarni ko'rish",
+    BIG_CLIENTS: "🟢 Katta mijozlar uchun narx",
+    SMALL_CLIENTS: "🔵 Kichkina mijozlar uchun narx",
+    UNIT_PRICE: "🟣 Dona uchun narx",
   },
   RU: {
     LANGUAGE: "🇷🇺 Русский",
@@ -72,7 +82,9 @@ const WORD = {
       ORDER: "➡️ Заказать доставку",
       BUSKET: "🛒 Корзина",
       SETTINGS: "🇺🇿 - 🇷🇺",
-      SEND_VIDEO: "Bидео",
+      SEND_VIDEO: "📹 Bидео",
+      VACANCY: "💼 Вакансия",
+      RESUME: "📄 Резюме",
     },
     SELECT_CATEGORY: "👇 Выберите категорию",
     SELECT_PRODUCT: "👇 Выберите продукт",
@@ -159,10 +171,19 @@ const STATE = {
   SEND_VIDEO: "sv",
   CONFIRMED_VIDEO: "cv",
   REJECTED_VIDEO: "rv",
+  VACANCY: "v",
+  VACANCY_CATEGORY: "vc",
+  VACANCY_INFO: "vi",
+  VACANCY_LIST: "vl",
+  VACANCY_MAIN: "vm",
+  RESUME: "rm",
+  RESUME_CATEGORY: "rc",
 };
 const SCENES = {
   CHOOSE_COLOR: "CHOOSE COLOR",
   SEND_VIDEO: "SEND VIDEO",
+  VACANCY: "VACANCY",
+  RESUME: "RESUME",
 };
 /*
 Callback data

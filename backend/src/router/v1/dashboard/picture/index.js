@@ -19,5 +19,23 @@ router.post("/", hasAccess, upload.single("image"), async (req, res, next) => {
     next(error);
   }
 });
+router.post(
+  "/upload-document",
+  hasAccess,
+  upload.single("document"),
+  async (req, res, next) => {
+    try {
+      const fileId = await pictureService.upload(req.file);
+
+      return res.json({
+        status: STATUS_SUCCESS,
+        message: "Document uploaded successfully",
+        data: { fileId },
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+);
 
 exports.PictureRouter = router;

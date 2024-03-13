@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-
 const ResumeSchema = new mongoose.Schema({
   user_id: {
     type: String,
@@ -10,7 +9,20 @@ const ResumeSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  description: {
+  about: {
+    type: String,
+    required: true,
+  },
+  // format: {
+  //   type: String,
+  //   enum: ["remote", "office", "hybrid"],
+  //   required: true,
+  // },
+  experience: {
+    type: String,
+    required: true,
+  },
+  skills: {
     type: String,
     required: true,
   },
@@ -22,16 +34,24 @@ const ResumeSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
+  // resume: {
+  //   type: Document,
+  //   required: true,
+  // },
   status: {
     type: String,
-    enum: ["open", "closed"],
-    default: "open",
+    enum: ["available", "hired"],
+    default: "available",
+  },
+  category_id: {
+    type: String,
+    ref: "VacancyCategory",
+    required: true,
   },
   canPublish: {
     type: Boolean,
     default: true,
   },
-
   created_at: {
     type: Date,
     default: Date.now(),

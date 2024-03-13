@@ -7,7 +7,14 @@ const { WORD, STATE } = require("./messages/dictionary");
 const bot = new Telegraf(process.env.BOT_TOKEN);
 const { chooseColorScene } = require("./scenes/choose_product");
 const { addVideoScene } = require("./scenes/send_video");
-const stage = new Scenes.Stage([chooseColorScene, addVideoScene]);
+const { vacancyScene } = require("./scenes/vacancy");
+const { resumeScene } = require("./scenes/resume");
+const stage = new Scenes.Stage([
+  chooseColorScene,
+  addVideoScene,
+  vacancyScene,
+  resumeScene,
+]);
 
 bot.use(async (ctx, next) => {
   let result = null;

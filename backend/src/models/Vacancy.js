@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-
 const VacancySchema = new mongoose.Schema({
   user_id: {
     type: String,
@@ -10,7 +9,15 @@ const VacancySchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  description: {
+  company: {
+    type: String,
+    required: true,
+  },
+  responsibility: {
+    type: String,
+    required: true,
+  },
+  requirement: {
     type: String,
     required: true,
   },
@@ -20,6 +27,11 @@ const VacancySchema = new mongoose.Schema({
   },
   contact: {
     type: String,
+    required: true,
+  },
+  category_id: {
+    type: String,
+    ref: "VacancyCategory",
     required: true,
   },
   status: {
