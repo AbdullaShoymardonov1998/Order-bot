@@ -46,7 +46,7 @@ module.exports = async (ctx, productId) => {
 
     info += `\n\n${
       WORD.UZ.SMALL_CLIENTS
-    }(5 tadan 11 tagacha zakaz): <b><i>${getPriceString(
+    }(5 - 11 ta zakaz): <b><i>${getPriceString(
       smallClientsPrice
     )} / 1 dona</i></b>\n`;
   } else if (sleepwearIds.includes(parentId)) {

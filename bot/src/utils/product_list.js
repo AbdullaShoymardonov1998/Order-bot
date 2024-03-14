@@ -52,11 +52,13 @@ module.exports = async (cart, language) => {
       product.product_id.title[language]
     }</b>\n\nMahsulot haqida: ${
       product.product_id.description[language]
-    }\n\nRangi: <b><i>${color}</i></b>\n\nMahsulot o'lchami : <b><i>${size}</i></b>\n\n⚡️\n\n Umumiy summa: <b><i>${quantity}</i> x <i>${productFinalPrice
+    }\n\nRangi: <b><i>${color}</i></b>\n\nMahsulot o'lchami : <b><i>${size}</i></b>\n\nSumma: <b><i>${quantity}</i> x <i>${productFinalPrice
       .toLocaleString()
       .replace(",", " ")} = ${subTotal
       .toLocaleString()
-      .replace(",", " ")}</i></b> \n\ <b>${WORD[language].MONEY}</b> \n`;
+      .replace(",", " ")}</i> ${
+      WORD[language].MONEY
+    }</b> \n\n🌱🌱🌱🌱🌱🌱🌱🌱🌱🌱🌱🌱🌱🌱🌱`;
   }
 
   return {

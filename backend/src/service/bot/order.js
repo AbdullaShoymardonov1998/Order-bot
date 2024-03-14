@@ -19,19 +19,35 @@ exports.orderService = {
     }
 
     let total = 0;
+    let color;
+    let size;
     let products = [];
     let productsInfo = "";
+    function findNameById(data, id) {
+      for (const item of data) {
+        const itemId = item._id.toString();
+        if (itemId === id) {
+          return item.name;
+        }
+      }
+      return null;
+    }
     user.cart.forEach((cart, index) => {
       total += cart.product_id.price * cart.quantity;
+      color = findNameById(cart.product_id.colors, cart.color_id);
+      size = findNameById(cart.product_id.sizes, cart.size_id);
+
       products.push({
+        title: cart.product_id.title.UZ,
         product_id: cart.product_id._id,
         price: cart.product_id.price,
         quantity: cart.quantity,
-        title: cart.title,
+        color,
+        size,
       });
-      productsInfo += `\n<b>${index + 1}.${
+      productsInfo += `\n<b>${index + 1}</b> - mahsulot\n\n<b><i>${
         cart.product_id.title.UZ
-      }</b>\n ✨ <i>${cart.product_id.description.UZ} ➖ ${cart.quantity} </i>`;
+      }(${color} , ${size})  -  <u>${cart.quantity} ta</u></i></b>\n\n`;
     });
 
     request.products = products;
@@ -41,7 +57,7 @@ exports.orderService = {
     const newOrder = await orderStorage.create(request);
     await userStorage.emptyCart(request.telegram_id);
     await telegram.sendNotification(
-      `🆕 Zakaz \n\nBuyurtmachi: <a href="tg://user?id=${request.telegram_id}"><b>${user.first_name}</b></a>\n\n📍 Manzil: ${request.location}\n\n🛍🛍🛍 \n ${productsInfo} \n \n\n<b>Umumiy: ${request.total} so'm</b>`
+      `🆕 Zakaz \n\nBuyurtmachi: <a href="tg://user?id=${request.telegram_id}"><b>${user.first_name}</b></a>\n\n📍 Manzil: ${request.location}\n\n🛍🛍🛍 \n ${productsInfo}\n\n<b><u><i>Umumiy: ${request.total} so'm</i></u></b>`
     );
     return { user, order: newOrder };
   },

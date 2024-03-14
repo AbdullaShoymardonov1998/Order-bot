@@ -30,9 +30,9 @@ module.exports = async (ctx, messageType) => {
   }
   const { productList, total } = await productListHelper(user.cart, language);
   info += productList;
-  info += `\n\n<b>${WORD[language].TOTAL_PRICE}: ${total
+  info += `\n\n<b><u><i>${WORD[language].TOTAL_PRICE}: ${total
     .toLocaleString()
-    .replace(",", " ")} ${WORD[language].MONEY}</b>`;
+    .replace(",", " ")} ${WORD[language].MONEY}</i></u></b>`;
   switch (messageType) {
     case STATIC.SEND_MESSAGE:
       await ctx.reply(info, await cartListKeyboard(language, hasProducts));
