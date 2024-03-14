@@ -28,6 +28,7 @@ module.exports = async (ctx) => {
   }
 
   if (video) {
+    await ctx.deleteMessage(ctx.update.callback_query.message.message_id);
     await deleteVideo(video);
     await ctx.telegram.sendMessage(userId, WORD.UZ.REJECTED_VIDEO);
     return await ctx.reply("Video o'chirildi ✅");

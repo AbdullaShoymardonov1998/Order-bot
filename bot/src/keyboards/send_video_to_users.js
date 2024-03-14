@@ -38,9 +38,9 @@ module.exports = async (ctx) => {
 
     video = mostRecentVideo.file_id;
   }
-  console.log(video);
   if (video) {
     await ctx.telegram.sendMessage(userId, WORD.UZ.CONFIRMED_VIDEO);
+    await ctx.deleteMessage(ctx.update.callback_query.message.message_id);
 
     for (let i = 0; i < data.data.length; i++) {
       try {
