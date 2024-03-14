@@ -46,7 +46,7 @@ const WORD = {
       "❗️ Savatchangizda mahsulot yo'q. Iltimos buyurtma qilish uchun savatchangizga mahsulot qo'shing",
     CANCEL_ADD_LOCATION: "🔙 Bekor qilish",
     LOCATION_EXAMPLE:
-      "Quyidagi tartibda yozing:\nManzil, Aloqa uchun telefon raqam\n\n<b>Misol</b>: Jizzax shahri, Zargarlik mahallasi, Yoshlik ko'chasi, 1-xonadon, +998 90 123 4567",
+      "Quyidagi tartibda yozing:\nManzil, Aloqa uchun telefon raqam\n\n<b>Misol</b>: Toshkent shahri, Oliyhimmat mahallasi, Shofirkon ko'chasi, 1-xonadon, +998 90 123 4567",
     CONFIRM_ORDER: "Mahsulotlar ro'yhati",
     CONFIRM_DELIVERY: "✅ Buyurtmani tasdiqlash",
     CANCEL_DELIVERY: "❌ Bekor qilish",

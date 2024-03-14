@@ -1,3 +1,9 @@
+const {
+  underwearIds,
+  sleepwearIds,
+  blanketIds,
+  socksId,
+} = require("../../../../bot/src/utils/consts");
 const { orderStorage } = require("../../storage/mongo/bot/order");
 const { userStorage } = require("../../storage/mongo/bot/user");
 const telegram = require("../../util/telegram");
@@ -19,8 +25,6 @@ exports.orderService = {
     }
 
     let total = 0;
-    let color;
-    let size;
     let products = [];
     let productsInfo = "";
     function findNameById(data, id) {
@@ -32,10 +36,41 @@ exports.orderService = {
       }
       return null;
     }
-    user.cart.forEach((cart, index) => {
-      total += cart.product_id.price * cart.quantity;
-      color = findNameById(cart.product_id.colors, cart.color_id);
-      size = findNameById(cart.product_id.sizes, cart.size_id);
+
+    for (let index = 0; index < user.cart.length; index++) {
+      const cart = user.cart[index];
+      const quantity = parseInt(cart.quantity);
+      const isUnderwear = underwearIds.includes(cart.product_id.parent);
+      const isSleepwear = sleepwearIds.includes(cart.product_id.parent);
+      const isBlanket = blanketIds.includes(cart.product_id.parent);
+      const isSocks = socksId.includes(cart.product_id.parent);
+
+      let unit = 1.5;
+      if (isUnderwear && quantity >= 12) {
+        unit = 1.0;
+      } else if (isUnderwear && quantity >= 6 && quantity < 12) {
+        unit = 1.1;
+      } else if (isSleepwear && quantity >= 6) {
+        unit = 1.0;
+      } else if (isSleepwear && quantity > 2 && quantity < 6) {
+        unit = 1.1;
+      } else if (isSocks && quantity >= 24) {
+        unit = 1.0;
+      } else if (isSocks && quantity >= 12 && quantity < 24) {
+        unit = 1.1;
+      } else if (isBlanket && quantity >= 5) {
+        unit = 1.0;
+      } else if (isBlanket && quantity > 2 && quantity < 5) {
+        unit = 1.1;
+      } else if (quantity >= 10) {
+        unit = 1.0;
+      } else if (quantity >= 5 && quantity <= 10) {
+        unit = 1.1;
+      }
+      const productFinalPrice = cart.product_id.price * unit;
+      total += productFinalPrice * cart.quantity;
+      const color = findNameById(cart.product_id.colors, cart.color_id);
+      const size = findNameById(cart.product_id.sizes, cart.size_id);
 
       products.push({
         title: cart.product_id.title.UZ,
@@ -45,10 +80,11 @@ exports.orderService = {
         color,
         size,
       });
+
       productsInfo += `\n<b>${index + 1}</b> - mahsulot\n\n<b><i>${
         cart.product_id.title.UZ
       }(${color} , ${size})  -  <u>${cart.quantity} ta</u></i></b>\n\n`;
-    });
+    }
 
     request.products = products;
     request.total = total;
