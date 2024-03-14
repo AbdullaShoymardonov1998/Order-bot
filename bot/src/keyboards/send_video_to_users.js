@@ -28,14 +28,14 @@ module.exports = async (ctx) => {
       userId,
     },
   });
-
+  console.log("Video data:  ", videoData.data.data);
   if (videoData.data.status === "SUCCESS" && videoData.data.data.length > 0) {
     const sortedVideos = videoData.data.data.sort(
       (a, b) => new Date(b.created_at) - new Date(a.created_at)
     );
 
     const mostRecentVideo = sortedVideos[0];
-
+    console.log("Most recent ", mostRecentVideo);
     video = mostRecentVideo.file_id;
   }
   console.log("Video ", video);
