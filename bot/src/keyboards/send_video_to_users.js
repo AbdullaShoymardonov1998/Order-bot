@@ -22,7 +22,7 @@ module.exports = async (ctx) => {
 
   const videoData = await axios({
     method: "GET",
-    url: `${config.apiURL}/video/user`,
+    url: `${config.apiURL}/video/user/`,
     validateStatus: false,
     params: {
       userId,
