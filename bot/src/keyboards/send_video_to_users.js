@@ -38,6 +38,7 @@ module.exports = async (ctx) => {
 
     video = mostRecentVideo.file_id;
   }
+  console.log(video);
   if (video) {
     await ctx.telegram.sendMessage(userId, WORD.UZ.CONFIRMED_VIDEO);
 
