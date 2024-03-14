@@ -1,11 +1,11 @@
+const { orderStorage } = require("../../storage/mongo/bot/order");
+const { userStorage } = require("../../storage/mongo/bot/user");
 const {
   underwearIds,
   sleepwearIds,
   blanketIds,
   socksId,
-} = require("../../../../bot/src/utils/consts");
-const { orderStorage } = require("../../storage/mongo/bot/order");
-const { userStorage } = require("../../storage/mongo/bot/user");
+} = require("../../util/const");
 const telegram = require("../../util/telegram");
 
 exports.orderService = {
