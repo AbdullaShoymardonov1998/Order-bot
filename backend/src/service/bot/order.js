@@ -93,7 +93,13 @@ exports.orderService = {
     const newOrder = await orderStorage.create(request);
     await userStorage.emptyCart(request.telegram_id);
     await telegram.sendNotification(
-      `🆕 Zakaz \n\nBuyurtmachi: <a href="tg://user?id=${request.telegram_id}"><b>${user.first_name}</b></a>\n\n📍 Manzil: ${request.location}\n\n🛍🛍🛍 \n ${productsInfo}\n\n<b><u><i>Umumiy: ${request.total} so'm</i></u></b>`
+      `🆕 Zakaz \n\nBuyurtmachi: <a href="tg://user?id=${
+        request.telegram_id
+      }"><b>${user.first_name}</b></a>\n\n📍 Manzil: ${
+        request.location
+      }\n\n🛍🛍🛍 \n ${productsInfo}\n\n<b><u><i>Umumiy: ${request.total
+        .toLocaleString()
+        .replace(",", " ")} so'm</i></u></b>`
     );
     return { user, order: newOrder };
   },
