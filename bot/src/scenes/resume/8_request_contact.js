@@ -7,7 +7,7 @@ resumeContact.on("callback_query", async (ctx) => {
   await ctx.deleteMessage(ctx.update.callback_query.message.message_id);
   ctx.wizard.state.categoryId = ctx.update.callback_query.data;
   // ctx.wizard.state.categoryId = ctx.update.message?.text;
-  ctx.reply("Send your contact information", {
+  ctx.reply("📰 Send your contact information", {
     reply_markup: {
       keyboard: [
         [

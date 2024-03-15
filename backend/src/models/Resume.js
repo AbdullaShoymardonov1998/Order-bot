@@ -9,6 +9,10 @@ const ResumeSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  profession: {
+    type: String,
+    required: true,
+  },
   about: {
     type: String,
     required: true,
@@ -34,14 +38,25 @@ const ResumeSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  // resume: {
-  //   type: Document,
-  //   required: true,
-  // },
+  resume: {
+    file_id: {
+      type: String,
+      required: true,
+    },
+    file_name: {
+      type: String,
+    },
+    mime_type: {
+      type: String,
+    },
+  },
   status: {
     type: String,
     enum: ["available", "hired"],
     default: "available",
+  },
+  message_id: {
+    type: Number,
   },
   category_id: {
     type: String,

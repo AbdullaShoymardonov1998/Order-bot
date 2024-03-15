@@ -20,6 +20,13 @@ module.exports.resumeStorage = {
       throw error;
     }
   },
+  getResumeByUserId: async (userId) => {
+    try {
+      return await Resume.find({ user_id: userId });
+    } catch (error) {
+      throw error;
+    }
+  },
   getResumesByCategory: async (category_id) => {
     try {
       return await Resume.find({
@@ -44,9 +51,9 @@ module.exports.resumeStorage = {
       skip: page * (req.limit ? req.limit : DEFAULT_LIMIT),
       limit: req.limit ? req.limit : DEFAULT_LIMIT,
     };
-    const findVacancy = () =>
+    const findResume = () =>
       new Promise((resolve, reject) => {
-        Vacancy.find(filter, null, options)
+        Resume.find(filter, null, options)
           .sort({ created_at: 1 })
           .exec((err, templates) => {
             if (err) {
@@ -55,9 +62,9 @@ module.exports.resumeStorage = {
             return resolve(templates || []);
           });
       });
-    const countVacancy = () =>
+    const countResume = () =>
       new Promise((resolve, reject) => {
-        Vacancy.countDocuments(filter, (err, count) => {
+        Resume.countDocuments(filter, (err, count) => {
           if (err) {
             reject(err);
           }
@@ -65,7 +72,7 @@ module.exports.resumeStorage = {
         });
       });
 
-    const [list, total] = await Promise.all([findVacancy(), countVacancy()]);
+    const [list, total] = await Promise.all([findResume(), countResume()]);
     const total_pages =
       total % options.limit == 0
         ? parseInt(total / options.limit)

@@ -14,7 +14,7 @@ resumeCategory.on("text", async (ctx) => {
   const keyboard = data.data.map((item) => [
     { text: `${item.title}`, callback_data: `${item._id}` },
   ]);
-  await ctx.reply("Choose category", {
+  await ctx.reply(WORD.UZ.SELECT_CATEGORY, {
     reply_markup: {
       inline_keyboard: keyboard,
       resize_keyboard: true,

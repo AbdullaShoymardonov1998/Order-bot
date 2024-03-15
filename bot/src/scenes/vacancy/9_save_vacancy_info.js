@@ -66,6 +66,16 @@ saveVacancyInfo.on("callback_query", async (ctx) => {
           },
         }
       );
+      let message = `<b>#Vakansiya</b>\n\n${ctx.wizard.state.vacancyTitle}\n<b>Kompaniya:</b> ${ctx.wizard.state.vacancyCompany}\n\n<b>🔖 Xodim majburiyatlari:</b> ${ctx.wizard.state.vacancyResponsibility}\n\n<b>🎯 Talablar:</b> ${ctx.wizard.state.vacancyRequirement}\n\n<b>💵 Oylik maosh:</b> ${ctx.wizard.state.vacancySalary}\n\n<b>☎️ Kontakt: </b> ${ctx.wizard.state.contact}\n\n<a href = "https://t.me/HaoomasBot">👉🏻 Telegram bot</a>
+                `;
+      await axios.post(
+        `https://api.telegram.org/bot${config.botToken}/sendMessage`,
+        {
+          chat_id: `${config.channelId}`,
+          text: message,
+          parse_mode: "HTML",
+        }
+      );
   }
 
   return ctx.scene.leave();

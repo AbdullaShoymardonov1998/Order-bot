@@ -64,4 +64,17 @@ router.get("/single", async (req, res, next) => {
   }
 });
 
+router.get("/user", async (req, res, next) => {
+  try {
+    const result = await resumeService.getResumeByUserId(req.query);
+    return res.json({
+      status: STATUS_SUCCESS,
+      message: "Vacancy by user ID fetched successfully",
+      data: result,
+    });
+  } catch (error) {
+    next(error);
+  }
+});
+
 exports.ResumeRouter = router;

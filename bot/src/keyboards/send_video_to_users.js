@@ -22,23 +22,20 @@ module.exports = async (ctx) => {
 
   const videoData = await axios({
     method: "GET",
-    url: `${config.apiURL}/video/user/`,
+    url: `${config.apiURL}/video/user`,
     validateStatus: false,
     params: {
       userId,
     },
   });
-  console.log("Video data:  ", videoData.data.data);
   if (videoData.data.status === "SUCCESS" && videoData.data.data.length > 0) {
     const sortedVideos = videoData.data.data.sort(
       (a, b) => new Date(b.created_at) - new Date(a.created_at)
     );
 
     const mostRecentVideo = sortedVideos[0];
-    console.log("Most recent ", mostRecentVideo);
     video = mostRecentVideo.file_id;
   }
-  console.log("Video ", video);
   if (video) {
     await ctx.telegram.sendMessage(userId, WORD.UZ.CONFIRMED_VIDEO);
     await ctx.deleteMessage(ctx.update.callback_query.message.message_id);

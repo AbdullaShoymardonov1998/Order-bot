@@ -5,7 +5,7 @@ const axios = require("axios");
 module.exports = async (ctx, category_id, page) => {
   const { data, status } = await axios({
     method: "POST",
-    url: `${config.apiURL}/vacancy/find`,
+    url: `${config.apiURL}/resume/find`,
     validateStatus: false,
     data: {
       category_id,
@@ -22,17 +22,17 @@ module.exports = async (ctx, category_id, page) => {
     };
   }
 
-  const vacancies = data.data;
+  const resumes = data.data;
 
   await ctx.editMessageText(`${WORD.UZ.SELECT_VACANCY}`, {
     reply_markup: {
-      inline_keyboard: await vacancyListKeyboard(vacancies, page, category_id),
+      inline_keyboard: await resumeListKeyboard(resumes, page, category_id),
     },
     parse_mode: "HTML",
   });
 };
 
-async function vacancyListKeyboard(response, page, category_id) {
+async function resumeListKeyboard(response, page, category_id) {
   const inline_keyboard = [];
 
   response.list.forEach((value, index) => {
@@ -50,9 +50,9 @@ async function vacancyListKeyboard(response, page, category_id) {
       const formattedDate = `${day}.${month}.${year}`;
       const button = [
         {
-          text: `${value.title}-💵 ${value.salary}(${formattedDate})`,
+          text: `${value.profession}-💵 ${value.salary}\n(${formattedDate})`,
           callback_data: JSON.stringify({
-            a: STATE.VACANCY_INFO,
+            a: STATE.RESUME_INFO,
             v: value._id,
             n: 1,
           }),
@@ -70,7 +70,7 @@ async function vacancyListKeyboard(response, page, category_id) {
     navigationRow.push({
       text: WORD.UZ.PREVIOUS,
       callback_data: JSON.stringify({
-        a: STATE.VACANCY_LIST,
+        a: STATE.RESUME_LIST,
         v: category_id,
         n: page - 1,
       }),
@@ -81,7 +81,7 @@ async function vacancyListKeyboard(response, page, category_id) {
     navigationRow.push({
       text: WORD.UZ.NEXT,
       callback_data: JSON.stringify({
-        a: STATE.VACANCY_LIST,
+        a: STATE.RESUME_LIST,
         v: category_id,
         n: page + 1,
       }),
@@ -94,7 +94,7 @@ async function vacancyListKeyboard(response, page, category_id) {
     {
       text: WORD.UZ.BACK,
       callback_data: JSON.stringify({
-        a: STATE.VACANCY_CATEGORY,
+        a: STATE.RESUME_CATEGORY,
         p: null,
         n: 1,
       }),

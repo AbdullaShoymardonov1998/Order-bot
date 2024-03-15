@@ -178,6 +178,9 @@ const STATE = {
   VACANCY_MAIN: "vm",
   RESUME: "rm",
   RESUME_CATEGORY: "rc",
+  RESUME_LIST: "rl",
+  RESUME_INFO: "ri",
+  RESUME_MAIN: "rn",
 };
 const SCENES = {
   CHOOSE_COLOR: "CHOOSE COLOR",

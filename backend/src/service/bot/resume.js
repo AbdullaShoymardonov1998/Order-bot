@@ -11,10 +11,16 @@ exports.resumeService = {
   getResumeById: async (query) => {
     return await resumeStorage.getResumeById(query);
   },
+  getResumeByUserId: async (query) => {
+    return await resumeStorage.getResumeByUserId(query.userId);
+  },
   getResumeByCategory: async (query) => {
     return await resumeStorage.getResumesByCategory(query);
   },
   getAllResumes: async () => {
     return await resumeStorage.getAllResumes();
+  },
+  find: async (query) => {
+    return await resumeStorage.find(query);
   },
 };

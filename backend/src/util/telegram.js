@@ -5,7 +5,7 @@ const { logger } = require("../config/logger");
 const telegram = {
   sendNotification: async (message) => {
     try {
-      const response = await axios.post(
+      await axios.post(
         `https://api.telegram.org/bot${config.telegramBotToken}/sendMessage`,
         {
           chat_id: `${config.telegramChannelId}`,

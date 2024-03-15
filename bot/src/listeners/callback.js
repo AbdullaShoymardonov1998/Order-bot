@@ -18,6 +18,10 @@ const vacancy_category = require("../keyboards/vacancy_category");
 const vacancy_info = require("../keyboards/vacancy_info");
 const vacancy_list = require("../keyboards/vacancy_list");
 const vacancy = require("../keyboards/vacancy");
+const resume = require("../keyboards/resume");
+const resume_category = require("../keyboards/resume_category");
+const resume_list = require("../keyboards/resume_list");
+const resume_info = require("../keyboards/resume_info");
 
 exports.callback = async (ctx) => {
   const callbackData = JSON.parse(ctx.callbackQuery.data);
@@ -97,6 +101,18 @@ exports.callback = async (ctx) => {
       break;
     case STATE.RESUME:
       await ctx.scene.enter(SCENES.RESUME);
+      break;
+    case STATE.RESUME_CATEGORY:
+      await resume_category(ctx);
+      break;
+    case STATE.RESUME_LIST:
+      await resume_list(ctx, callbackData.v, callbackData.n);
+      break;
+    case STATE.RESUME_INFO:
+      await resume_info(ctx, callbackData.v);
+      break;
+    case STATE.RESUME_MAIN:
+      await resume(ctx);
       break;
     default:
       console.log("incorrect callback data", callbackData);

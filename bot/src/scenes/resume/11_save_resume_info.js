@@ -13,9 +13,7 @@ saveResumeInfo.on("callback_query", async (ctx) => {
               {
                 text: WORD.GENERAL.HOME,
                 callback_data: JSON.stringify({
-                  a: STATE.RESUME_CATEGORY,
-                  n: 1,
-                  p: null,
+                  a: STATE.RESUME_MAIN,
                 }),
               },
             ],
@@ -26,6 +24,18 @@ saveResumeInfo.on("callback_query", async (ctx) => {
       break;
 
     case "confirm":
+      let message = `<b>#RESUME</b>\n<b>#${ctx.wizard.state.profession}</b>\n<b>#Xodim:</b> ${ctx.wizard.state.fullName}\n\n<b>Xodim haqida qisqacha:</b> ${ctx.wizard.state.about}\n\n<b>🔖 Xodim tajribasi:</b> ${ctx.wizard.state.experience}\n\n<b>🎯 Qobilyatlari:</b> ${ctx.wizard.state.skills}\n\n<b>💵 Oylik maosh:</b> ${ctx.wizard.state.expectedSalary}\n\n<b>☎️ Kontakt: </b> ${ctx.wizard.state.contact}\n\n<a href = "https://t.me/HaoomasBot">Telegram bot</a>
+      `;
+
+      const result = await ctx.telegram.sendDocument(
+        config.channelId,
+        ctx.wizard.state.fileId,
+        {
+          caption: message,
+          parse_mode: "HTML",
+        }
+      );
+
       const { data, status } = await axios({
         method: "POST",
         url: `${config.apiURL}/resume/create`,
@@ -33,11 +43,18 @@ saveResumeInfo.on("callback_query", async (ctx) => {
         data: {
           telegram_id: ctx.chat.id,
           fullName: ctx.wizard.state.fullName,
+          profession: ctx.wizard.state.profession,
           about: ctx.wizard.state.about,
           experience: ctx.wizard.state.experience,
           skills: ctx.wizard.state.skills,
           salary: ctx.wizard.state.expectedSalary,
           contact: ctx.wizard.state.contact,
+          resume: {
+            file_id: ctx.wizard.state.fileId,
+            file_name: ctx.wizard.state.fileName,
+            mime_type: ctx.wizard.state.fileMimeType,
+          },
+          message_id: result.message_id,
           category_id: ctx.wizard.state.categoryId,
         },
       });
