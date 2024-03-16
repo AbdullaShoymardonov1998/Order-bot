@@ -9,16 +9,25 @@ module.exports = async (ctx) => {
     validateStatus: false,
   });
 
-  const keyboard = data.data.map((item) => [
-    {
-      text: `${item.title}`,
-      callback_data: JSON.stringify({
-        a: STATE.RESUME_LIST,
-        v: item._id,
-        n: 1,
-      }),
-    },
-  ]);
+  const buttons = data.data.map((item) => ({
+    text: `${item.title}`,
+    callback_data: JSON.stringify({
+      a: STATE.RESUME_LIST,
+      v: item._id,
+      n: 1,
+    }),
+  }));
+
+  const inlineKeyboard = [];
+  for (let i = 0; i < buttons.length; i += 2) {
+    const row = [];
+    row.push(buttons[i]);
+    if (i + 1 < buttons.length) {
+      row.push(buttons[i + 1]);
+    }
+    inlineKeyboard.push(row);
+  }
+
   const backButton = [
     [
       {
@@ -30,7 +39,8 @@ module.exports = async (ctx) => {
     ],
   ];
 
-  let inlineKeyboard = [...keyboard, ...backButton];
+  inlineKeyboard.push(backButton[0]);
+
   await ctx.reply(WORD.UZ.SELECT_CATEGORY, {
     reply_markup: {
       inline_keyboard: inlineKeyboard,
