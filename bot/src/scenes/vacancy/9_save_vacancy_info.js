@@ -13,9 +13,7 @@ saveVacancyInfo.on("callback_query", async (ctx) => {
               {
                 text: WORD.GENERAL.HOME,
                 callback_data: JSON.stringify({
-                  a: STATE.VACANCY_CATEGORY,
-                  n: 1,
-                  p: null,
+                  a: STATE.CHECK_GROUP,
                 }),
               },
             ],
@@ -58,7 +56,7 @@ saveVacancyInfo.on("callback_query", async (ctx) => {
                 {
                   text: WORD.GENERAL.HOME,
                   callback_data: JSON.stringify({
-                    a: STATE.VACANCY_MAIN,
+                    a: STATE.CHECK_GROUP,
                   }),
                 },
               ],

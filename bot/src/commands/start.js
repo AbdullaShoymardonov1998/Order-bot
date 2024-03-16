@@ -24,6 +24,13 @@ async function sendWelcomeMessage(ctx) {
 
 exports.start = async (ctx) => {
   // logger.error(JSON.stringify(ctx.message, null, 2));
+  if (ctx.updateType === "callback_query") {
+    await ctx.deleteMessage(ctx.update.callback_query.message.message_id);
+    return ctx.reply(
+      WORD.GENERAL.WELCOME_TEXT,
+      menuKeyboard(STATIC.DEFAULT_LANGUAGE, ctx)
+    );
+  }
   if (ctx.message.chat.type === "supergroup") {
     await sendWelcomeMessage(ctx);
     let botOperational = true;

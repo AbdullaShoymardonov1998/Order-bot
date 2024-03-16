@@ -6,14 +6,14 @@ const saveResumeInfo = new Composer();
 saveResumeInfo.on("callback_query", async (ctx) => {
   switch (ctx.callbackQuery.data) {
     case "cancel":
-      await ctx.editMessageText(WORD.UZ.CONTINUE_SHOPPING, {
+      await ctx.editMessageText(WORD.GENERAL.HOME, {
         reply_markup: {
           inline_keyboard: [
             [
               {
                 text: WORD.GENERAL.HOME,
                 callback_data: JSON.stringify({
-                  a: STATE.RESUME_MAIN,
+                  a: STATE.CHECK_GROUP,
                 }),
               },
             ],
@@ -76,7 +76,7 @@ saveResumeInfo.on("callback_query", async (ctx) => {
                 {
                   text: WORD.GENERAL.HOME,
                   callback_data: JSON.stringify({
-                    a: STATE.CATEGORY,
+                    a: STATE.CHECK_GROUP,
                   }),
                 },
               ],
