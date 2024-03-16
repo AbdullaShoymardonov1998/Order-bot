@@ -40,6 +40,7 @@ services:
       - API_URL=${API_URL}
       - GROUP_ID=${GROUP_ID}
       - ADMIN_TG_ID=${ADMIN_TG_ID}
+      - JOBS_CHANNEL_ID=${JOBS_CHANNEL_ID}
     ports:
       - "5001:3000"
 networks:
