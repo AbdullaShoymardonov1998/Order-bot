@@ -48,8 +48,10 @@ saveVacancyInfo.on("callback_query", async (ctx) => {
       }
 
       await ctx.editMessageText(
-        WORD.UZ.SAVED + "\n Vakansiya berganingiz uchun minnatdormiz 😊",
+        WORD.UZ.SAVED +
+          `\n Vakansiya berganingiz uchun minnatdormiz 😊\n\nVakansiya ushbu kanalimizda ham e'lon qilindi\n\n <a href = "https://t.me/ishingiznitoping">👉🏻 👉🏻 Ishlarni oson topish kanali 👈🏻 👈🏻</a>`,
         {
+          parse_mode: "HTML",
           reply_markup: {
             inline_keyboard: [
               [
