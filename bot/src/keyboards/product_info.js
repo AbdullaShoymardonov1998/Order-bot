@@ -116,10 +116,27 @@ module.exports = async (ctx, productId) => {
       }),
     },
   ]);
-
   const keyboard = [
     ...colorsKeyboard,
+
     [
+      {
+        text: "Izoh qoldirish",
+        callback_data: JSON.stringify({
+          a: STATE.COMMENT,
+          id: productId,
+          type: "product",
+        }),
+      },
+      {
+        text: "Izohlarni ko'rish",
+        callback_data: JSON.stringify({
+          a: STATE.COMMENT_RESPONSE,
+          id: productId,
+          type: "product",
+        }),
+      },
+
       {
         text: WORD[language].BACK,
         callback_data: JSON.stringify({

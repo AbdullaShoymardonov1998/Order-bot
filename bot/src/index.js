@@ -9,11 +9,13 @@ const { chooseColorScene } = require("./scenes/choose_product");
 const { addVideoScene } = require("./scenes/send_video");
 const { vacancyScene } = require("./scenes/vacancy");
 const { resumeScene } = require("./scenes/resume");
+const { commentScene } = require("./scenes/comment");
 const stage = new Scenes.Stage([
   chooseColorScene,
   addVideoScene,
   vacancyScene,
   resumeScene,
+  commentScene,
 ]);
 
 bot.use(async (ctx, next) => {

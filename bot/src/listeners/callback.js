@@ -22,6 +22,8 @@ const resume = require("../keyboards/resume");
 const resume_category = require("../keyboards/resume_category");
 const resume_list = require("../keyboards/resume_list");
 const resume_info = require("../keyboards/resume_info");
+const comment = require("../keyboards/comment");
+const comment_response = require("../keyboards/comment_response");
 
 exports.callback = async (ctx) => {
   const callbackData = JSON.parse(ctx.callbackQuery.data);
@@ -80,6 +82,7 @@ exports.callback = async (ctx) => {
       break;
     case STATE.CONFIRMED_VIDEO:
       await sendVideoToUsers(ctx);
+      ctx.answerCbQuery();
       break;
     case STATE.REJECTED_VIDEO:
       await rejectedVideo(ctx);
@@ -113,6 +116,12 @@ exports.callback = async (ctx) => {
       break;
     case STATE.RESUME_MAIN:
       await resume(ctx);
+      break;
+    case STATE.COMMENT:
+      await ctx.scene.enter(SCENES.COMMENT);
+      break;
+    case STATE.COMMENT_RESPONSE:
+      await comment(ctx);
       break;
     default:
       console.log("incorrect callback data", callbackData);

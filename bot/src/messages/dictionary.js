@@ -181,12 +181,15 @@ const STATE = {
   RESUME_LIST: "rl",
   RESUME_INFO: "ri",
   RESUME_MAIN: "rn",
+  COMMENT: "cm",
+  COMMENT_RESPONSE: "cmr",
 };
 const SCENES = {
   CHOOSE_COLOR: "CHOOSE COLOR",
   SEND_VIDEO: "SEND VIDEO",
   VACANCY: "VACANCY",
   RESUME: "RESUME",
+  COMMENT: "COMMENT",
 };
 /*
 Callback data

@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const { LanguageRequired, LanguageDefault } = require("./Language");
 const { config } = require("../config");
+const { Comment } = require("./Comment");
 
 const ColorSchema = new mongoose.Schema(
   {
@@ -25,6 +26,7 @@ const SizeSchema = new mongoose.Schema({
     type: String,
   },
 });
+
 const ProductSchema = new mongoose.Schema(
   {
     title: LanguageRequired,

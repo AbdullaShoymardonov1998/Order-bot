@@ -4,7 +4,6 @@ const axios = require("axios");
 const { WORD, STATE } = require("../../messages/dictionary");
 const confirmResumeData = new Composer();
 confirmResumeData.on("document", async (ctx) => {
-  console.log(ctx.update.message?.document);
   ctx.wizard.state.fileId = ctx.update.message?.document?.file_id;
   ctx.wizard.state.fileName = ctx.update.message?.document?.file_name;
   ctx.wizard.state.fileMimeType = ctx.update.message?.document?.mime_type;

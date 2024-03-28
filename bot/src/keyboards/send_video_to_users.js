@@ -1,6 +1,6 @@
 const axios = require("axios");
 const { config } = require("../config");
-const { WORD } = require("../messages/dictionary");
+const { WORD, STATE } = require("../messages/dictionary");
 
 module.exports = async (ctx) => {
   const { data, status } = await axios({
@@ -13,6 +13,7 @@ module.exports = async (ctx) => {
   }
 
   let video;
+  let videoId;
   let counter = data.data.length;
   let blockedUsers = [];
   const caption = ctx.update.callback_query.message.caption;
@@ -32,18 +33,32 @@ module.exports = async (ctx) => {
     const sortedVideos = videoData.data.data.sort(
       (a, b) => new Date(b.created_at) - new Date(a.created_at)
     );
-
+    videoId = sortedVideos[0]._id;
     const mostRecentVideo = sortedVideos[0];
     video = mostRecentVideo.file_id;
   }
   if (video) {
     await ctx.telegram.sendMessage(userId, WORD.UZ.CONFIRMED_VIDEO);
     await ctx.deleteMessage(ctx.update.callback_query.message.message_id);
-
+    const replyMarkup = {
+      inline_keyboard: [
+        [
+          {
+            text: "Izoh qoldirish",
+            callback_data: JSON.stringify({
+              a: STATE.COMMENT,
+              id: videoId,
+              type: "video",
+            }),
+          },
+        ],
+      ],
+    };
     for (let i = 0; i < data.data.length; i++) {
       try {
         await ctx.telegram.sendVideo(data.data[i].telegram_id, video, {
           caption: videoCaption,
+          reply_markup: replyMarkup,
         });
       } catch (error) {
         counter -= 1;
