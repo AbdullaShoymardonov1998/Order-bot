@@ -28,6 +28,9 @@ confirmVacancyData.on("contact", async (ctx) => {
 });
 confirmVacancyData.on("text", async (ctx) => {
   ctx.wizard.state.contact = ctx.update.message?.text;
+  if (ctx.update.message?.text === "/start") {
+    return ctx.reply("Ma'lumotni qaytadan to'g'ri kiriting");
+  }
   let message = `\n<b>#Vakansiya</b>\n\n<b>${ctx.wizard.state.vacancyTitle}</b>\n\n<b>Kompaniya:</b> ${ctx.wizard.state.vacancyCompany}\n\n<b>🎯 Talablar:</b> ${ctx.wizard.state.vacancyRequirement}\n\n<b>🔖 Xodim majburiyatlari:</b> ${ctx.wizard.state.vacancyResponsibility}\n\n<b>💵 Oylik maosh:</b> ${ctx.wizard.state.vacancySalary}\n\n<b>☎️ Kontakt: </b> ${ctx.update.message.text}\n
                 `;
   await ctx.reply(WORD.UZ.APPROVE + `\n${message}`, {

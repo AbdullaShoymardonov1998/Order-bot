@@ -10,6 +10,9 @@ resumeFile.on("contact", async (ctx) => {
 });
 resumeFile.on("text", async (ctx) => {
   ctx.wizard.state.contact = ctx.update.message?.text;
+  if (ctx.update.message?.text === "/start") {
+    return ctx.reply("Ma'lumotni qaytadan to'g'ri kiriting");
+  }
   ctx.reply("📌 Send your resume");
   return ctx.wizard.next();
 });
