@@ -30,7 +30,7 @@ saveComment.on("text", async (ctx) => {
     });
     return ctx.scene.leave();
   }
-  await ctx.reply("Thanks for commenting");
+  await ctx.reply("Izoh qoldirganingiz uchun tashakkur 🤩");
 
   const requestData = {
     telegram_id: ctx.from.id,

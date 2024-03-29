@@ -5,7 +5,10 @@ const { WORD, STATE } = require("../../messages/dictionary");
 const vacancyContact = new Composer();
 vacancyContact.on("callback_query", async (ctx) => {
   await ctx.deleteMessage(ctx.update.callback_query.message.message_id);
-  ctx.wizard.state.categoryId = ctx.update.callback_query.data;
+  const responseData = JSON.parse(ctx.update.callback_query.data);
+  const categoryId = responseData.v;
+  ctx.wizard.state.categoryId = categoryId;
+
   // ctx.wizard.state.categoryId = ctx.update.message?.text;
   ctx.reply("Send your contact information", {
     reply_markup: {

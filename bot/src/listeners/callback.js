@@ -23,7 +23,6 @@ const resume_category = require("../keyboards/resume_category");
 const resume_list = require("../keyboards/resume_list");
 const resume_info = require("../keyboards/resume_info");
 const comment = require("../keyboards/comment");
-const comment_response = require("../keyboards/comment_response");
 
 exports.callback = async (ctx) => {
   const callbackData = JSON.parse(ctx.callbackQuery.data);

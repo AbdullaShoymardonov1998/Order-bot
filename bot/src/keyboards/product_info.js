@@ -121,7 +121,7 @@ module.exports = async (ctx, productId) => {
 
     [
       {
-        text: "Izoh qoldirish",
+        text: `${WORD[language].COMMENT}`,
         callback_data: JSON.stringify({
           a: STATE.COMMENT,
           id: productId,
@@ -129,7 +129,7 @@ module.exports = async (ctx, productId) => {
         }),
       },
       {
-        text: "Izohlarni ko'rish",
+        text: `${WORD[language].VIEW_COMMENT}`,
         callback_data: JSON.stringify({
           a: STATE.COMMENT_RESPONSE,
           id: productId,
