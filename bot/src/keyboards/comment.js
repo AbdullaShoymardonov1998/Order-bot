@@ -23,9 +23,31 @@ module.exports = async (ctx) => {
   } else if (type === "vacancy") {
     url = `${config.apiURL}/comment/vacancy`;
     paramsKey = "vacancy_id";
+    backButton = [
+      [
+        {
+          text: WORD.UZ.BACK,
+          callback_data: JSON.stringify({
+            a: STATE.VACANCY_INFO,
+            v: id,
+          }),
+        },
+      ],
+    ];
   } else if (type === "resume") {
     url = `${config.apiURL}/comment/resume`;
     paramsKey = "resume_id";
+    backButton = [
+      [
+        {
+          text: WORD.UZ.BACK,
+          callback_data: JSON.stringify({
+            a: STATE.RESUME_INFO,
+            v: id,
+          }),
+        },
+      ],
+    ];
   } else if (type === "video") {
     url = `${config.apiURL}/comment/video`;
     paramsKey = "video_id";

@@ -30,7 +30,22 @@ saveComment.on("text", async (ctx) => {
     });
     return ctx.scene.leave();
   }
-  await ctx.reply("Izoh qoldirganingiz uchun tashakkur 🤩");
+  await ctx.reply("Izoh qoldirganingiz uchun tashakkur 🤩", {
+    reply_markup: {
+      inline_keyboard: [
+        [
+          {
+            text: WORD.GENERAL.HOME,
+            callback_data: JSON.stringify({
+              a: STATE.CATEGORY,
+              n: 1,
+              p: null,
+            }),
+          },
+        ],
+      ],
+    },
+  });
 
   const requestData = {
     telegram_id: ctx.from.id,

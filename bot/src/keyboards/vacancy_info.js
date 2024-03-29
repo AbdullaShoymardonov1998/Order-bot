@@ -15,9 +15,7 @@ module.exports = async (ctx, vacancyId) => {
     throw { response: data, status };
   }
   let vacancy = data.data;
-
   let info = "<b>#Vakansiya</b> \n\n";
-
   info += `<b>${vacancy.title}</b>\n\n`;
   info += `<b><i>Kompaniya:</i> </b>${vacancy.company}\n\n`;
   info += `<b>🔖 <i>Xodim majburiyatlari:</i></b>\n${vacancy.responsibility}\n\n`;
@@ -28,6 +26,22 @@ module.exports = async (ctx, vacancyId) => {
 
   const keyboard = [
     [
+      {
+        text: `${WORD.UZ.COMMENT}`,
+        callback_data: JSON.stringify({
+          a: STATE.COMMENT,
+          id: vacancyId,
+          type: "vacancy",
+        }),
+      },
+      {
+        text: `${WORD.UZ.VIEW_COMMENT}`,
+        callback_data: JSON.stringify({
+          a: STATE.COMMENT_RESPONSE,
+          id: vacancyId,
+          type: "vacancy",
+        }),
+      },
       {
         text: WORD.UZ.BACK,
         callback_data: JSON.stringify({

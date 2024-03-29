@@ -41,6 +41,24 @@ module.exports = async (ctx, resumeId) => {
   const keyboard = [
     [
       {
+        text: `${WORD.UZ.COMMENT}`,
+        callback_data: JSON.stringify({
+          a: STATE.COMMENT,
+          id: resumeId,
+          type: "resume",
+        }),
+      },
+      {
+        text: `${WORD.UZ.VIEW_COMMENT}`,
+        callback_data: JSON.stringify({
+          a: STATE.COMMENT_RESPONSE,
+          id: resumeId,
+          type: "resume",
+        }),
+      },
+    ],
+    [
+      {
         text: "📥 Resumeni yuklab olish",
         url: fileUrl,
       },

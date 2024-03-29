@@ -5,7 +5,7 @@ comment.on("callback_query", async (ctx) => {
 
   ctx.session.id = id;
   ctx.session.type = type;
-  await ctx.reply("✍️ Izohingizni kiriting...");
+  await ctx.editMessageText("✍️ Izohingizni kiriting...");
   return ctx.wizard.next();
 });
 
