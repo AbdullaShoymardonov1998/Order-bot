@@ -21,13 +21,12 @@ module.exports = async (ctx) => {
   if (status != 200) {
     throw { response: data, status };
   }
-  console.log(data.data);
   const userName = ctx.update.callback_query.from.first_name;
   const inlineKeyboard = {
     inline_keyboard: [
       ...data.data.map((video) => [
         {
-          text: `${userName}ning videosi - ${video.message_id}`,
+          text: `${userName}ning jo'natgan videosi - 🎬 #${video.message_id}`,
           callback_data: JSON.stringify({
             a: STATE.COMMENT_RESPONSE,
             id: video._id,
