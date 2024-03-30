@@ -33,6 +33,11 @@ exports.commentService = {
       comment: await commentStorage.getCommentsByVideoId(query.video_id),
     };
   },
+  getCommentsByVideoIds: async () => {
+    return {
+      comment: await commentStorage.getCommentsByVideoIds(),
+    };
+  },
   getCommentByResumeId: async (query) => {
     return {
       user: await userStorage.getByTelegramId(query.telegram_id),

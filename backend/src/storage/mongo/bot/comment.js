@@ -44,6 +44,22 @@ module.exports.commentStorage = {
       throw error;
     }
   },
+  getCommentsByVideoIds: async () => {
+    try {
+      const commentsByVideoIds = await Comment.aggregate([
+        {
+          $group: {
+            _id: "$video_id",
+            comments: { $push: "$comment" },
+          },
+        },
+      ]);
+
+      return commentsByVideoIds;
+    } catch (error) {
+      throw error;
+    }
+  },
   getCommentsByResumeId: async (resumeId) => {
     try {
       return await Comment.find({ resume_id: resumeId });

@@ -82,6 +82,18 @@ router.get("/video", async (req, res, next) => {
     next(error);
   }
 });
+router.get("/videos-comments", async (req, res, next) => {
+  try {
+    const result = await commentService.getCommentsByVideoIds();
+    return res.json({
+      status: STATUS_SUCCESS,
+      message: "Video comments fetched successfully",
+      data: result,
+    });
+  } catch (error) {
+    next(error);
+  }
+});
 router.get("/resume", async (req, res, next) => {
   try {
     const result = await commentService.getCommentByResumeId(req.query);
