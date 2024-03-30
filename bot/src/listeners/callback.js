@@ -23,6 +23,8 @@ const resume_category = require("../keyboards/resume_category");
 const resume_list = require("../keyboards/resume_list");
 const resume_info = require("../keyboards/resume_info");
 const comment = require("../keyboards/comment");
+const send_video = require("../keyboards/send_video");
+const video_list = require("../keyboards/video_list");
 
 exports.callback = async (ctx) => {
   const callbackData = JSON.parse(ctx.callbackQuery.data);
@@ -121,6 +123,12 @@ exports.callback = async (ctx) => {
       break;
     case STATE.COMMENT_RESPONSE:
       await comment(ctx);
+      break;
+    case STATE.VIDEO_LIST:
+      await video_list(ctx, callbackData.v, callbackData.n);
+      break;
+    case STATE.SEND_VIDEO_COMMENTS:
+      await send_video(ctx);
       break;
     default:
       console.log("incorrect callback data", callbackData);

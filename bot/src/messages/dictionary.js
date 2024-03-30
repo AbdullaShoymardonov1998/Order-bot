@@ -76,6 +76,7 @@ const WORD = {
     UNIT_PRICE: "🟣 Dona uchun narx",
     COMMENT: "✍️ Izoh qoldirish",
     VIEW_COMMENT: "🤩 Izohlarni ko'rish",
+    VIDEO_COMMENT: "📒 Kommentlar",
   },
   RU: {
     LANGUAGE: "🇷🇺 Русский",
@@ -198,6 +199,8 @@ const STATE = {
   RESUME_MAIN: "rn",
   COMMENT: "cm",
   COMMENT_RESPONSE: "cmr",
+  VIDEO_LIST: "vdc",
+  SEND_VIDEO_COMMENTS: "svl",
 };
 const SCENES = {
   CHOOSE_COLOR: "CHOOSE COLOR",

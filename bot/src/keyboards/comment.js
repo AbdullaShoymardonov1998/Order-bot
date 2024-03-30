@@ -51,6 +51,17 @@ module.exports = async (ctx) => {
   } else if (type === "video") {
     url = `${config.apiURL}/comment/video`;
     paramsKey = "video_id";
+    backButton = [
+      [
+        {
+          text: WORD.UZ.BACK,
+          callback_data: JSON.stringify({
+            a: STATE.VIDEO_LIST,
+            v: id,
+          }),
+        },
+      ],
+    ];
   } else {
     console.error("Unsupported type:", type);
     return;
